@@ -1,0 +1,35 @@
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+{% load staticfiles %}
+<div>
+	{% if user.is_authenticated %}
+		<p align="right">Welcome {{user.username}} you have Logged in &nbsp;&nbsp; &nbsp;  View <a href="/doreenselly/cart/">Cart</a>&nbsp;&nbsp; &nbsp;<a href="/doreenselly/logout">Logout</a></p>
+	{% endif %}
+</div>
+
+<div>
+	{% if items %}
+		{% for product in items %}
+			<td>
+				<p><a href="/doreenselly/item/{{product.id}}/"><img src="{{product.docfile.url}}" class="img-circle" width="150" height="150" align="middle"></img></a></p>
+				<br>* Description is : {{product.description}}
+				<br>* Price is : {{product.price}}/piece
+				<br>* Quantity is : {{product.quantity}}
+				<br>* Sold is : {{product.sold}}
+				<br>* Total Paypent is : {{product.total_payments}}
+				<br>* Item Remaining is : {{product.item_remaining}}
+				<p>{{product.id}}</p>
+				<br>
+				<br>
+			</td>
+		{% endfor %}
+	{% else %}
+		<p>No <strong>item</strong> is available</p>
+	{% endif %}
+</div>

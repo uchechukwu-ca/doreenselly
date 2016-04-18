@@ -1,0 +1,33 @@
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+{% load staticfiles %}
+<div>
+	{% if user.is_authenticated %}
+		<p align="right">Welcome {{user.username}} you have Logged in &nbsp;&nbsp; &nbsp; View <a href="/doreenselly/cart/">Cart</a>&nbsp;&nbsp; &nbsp;<a href="/doreenselly/logout">Logout</a></p>
+	{% endif %}
+</div>
+
+<form method="POST" action="/doreenselly/cart/" enctype="multipart/form-data">
+	{% csrf_token %}
+	<p><img src="{{each_item.docfile.url}}" class="img-circle" width="150" height="150" align="middle"></img></p>
+	<p><input type="hidden" name="docfile" value="{{each_item.docfile.url}}"></p>
+	<h1 name="description">Description is : {{each_item.description}}</h1>
+	<p><input type="hidden" name="description" value="{{each_item.description}}"></p>
+
+	<span name="price">Price is : $ {{each_item.price}}/piece</span>
+	<p><input type="hidden" name="price" value ="{{each_item.price}}"></p>
+
+	<p>Sold is : {{each_item.sold}}</p>
+	<!-- <p>Item Remaining is : {{each_item.item_remaining}}</p> -->
+
+	<p>Quantity is : <input type="number" default="0" name="quantity" required> piece ( {{each_item.item_remaining}} pieces available )</p>
+	<br>
+	<input type="submit" class="btn btn-primary" value="Add to Cart">
+
+</form>

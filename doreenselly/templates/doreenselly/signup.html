@@ -1,0 +1,25 @@
+{% load staticfiles %}
+	
+	{% block body_block %}
+	<div class="signer-creation_form">
+
+		<form method ="POST" action="/doreenselly/signup/">
+				{% csrf_token %}
+
+				<h3> Please Signup </h3>
+
+					{% for field in form %}
+					<div class="span1" style="text-align:left">
+						 <h4>{{ field.errors }}
+							 {{ field.help_text }}: &nbsp; {{ field.as_p }} &nbsp; {{ field }}</h4></div>
+					 {% endfor %}
+
+					<p><strong>Country:&nbsp;</strong> &nbsp;{{ signup.country }}
+						{{ signup.country.errors }}
+					</p>
+				
+			<input type="submit" class="btn btn-primary" value="submit">
+		</form>
+	</div>	
+
+	{% endblock %}

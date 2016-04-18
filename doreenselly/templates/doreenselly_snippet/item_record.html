@@ -1,0 +1,32 @@
+<tr>                                                    
+    <td>{{ order_item.signer }}</td>
+    <td>{{ order_item.medium }}</td>
+    <td>{{ order_item.quantity }}</td>
+    <td>{{ order_item.item_value }}</td>
+    <td>{{ order_item.certification_type }}</td>
+    <td>{{ order_item.label_position}}</td>
+    <td>{{ order_item.auth_fee }}</td>
+    <!-- <td>{{ order_item.id }}</td> -->
+    
+
+    {% if show_delete_btn = True %}
+    <td>
+
+        <div class="hlinks">
+            <a href="#{{order_item.pk}}" class="add_cert_no" item_id="{{order_item.pk}}">
+                <i class="fa fa-pencil-square-o"></i>
+            </a>
+            <!-- <a href="#" data-toggle="modal" data-target="#myModal" class="add_cert_no" >
+                <i class="fa fa-pencil-square-o"></i> -->
+            </a>
+            <a href="{% url 'client:delete_item' order_item.id %}" onclick="return confirm('Are you sure you want to delete this item?')";>
+                <i class="fa fa-trash-o"></i>
+            </a>
+        </div>
+        <!-- <p>{{order_item.id}}</p> -->
+
+        <!-- Modal -->
+        
+    </td>
+    {% endif %}
+</tr>

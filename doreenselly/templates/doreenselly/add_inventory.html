@@ -1,0 +1,207 @@
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+{% load staticfiles %}
+	<div>
+		{% if user.is_authenticated %}
+			<p align="right">Welcome {{user.username}} you have Logged in &nbsp;&nbsp; &nbsp; <a href="/doreenselly/logout">Logout</a></p>
+		{% endif %}
+	</div>
+	{% block body_block %}
+	<div class="signer-creation_form">
+
+		<form method ="POST" action="/doreenselly/add_inventory/" enctype="multipart/form-data">
+				{% csrf_token %}
+
+				<h3> Add Items </h3>
+
+					<p>Upload image: &nbsp; {{ add_inventory_form.docfile }} &nbsp; {{ add_inventory_form.docfile.errors }}
+					</p>
+
+					<p>Description: &nbsp; {{ add_inventory_form.description }} &nbsp; {{ add_inventory_form.description.errors }}
+					</p>
+
+					<p>Price: &nbsp; ${{ add_inventory_form.price }} &nbsp; {{ add_inventory_form.price.errors }}
+					</p>
+
+					<p>Shipping Weight: &nbsp; {{ add_inventory_form.shipping_weight }} &nbsp; {{ add_inventory_form.shipping_weight.errors }}
+					</p>
+
+					<p>Quantity: &nbsp; {{ add_inventory_form.quantity }} &nbsp; {{ add_inventory_form.quantity.errors }}
+					</p>
+
+					<p>Details: &nbsp; {{ add_inventory_form.details }} &nbsp; {{ add_inventory_form.details.errors }}
+					</p>
+
+					<br>
+					<br>
+			<input type="submit" class="btn btn-primary" value="Add to Cart">
+		</form>
+	</div>	
+	<br><br>
+		<table width="80%" border="1" id="preview_items" align="center">
+			<tr >
+				<th>Location</th>
+				<th>Description</th>
+				<th>Price ($)</th>
+				<th>Quantity</th>
+				<th>Sold</th>
+				<th>Total Payments ($)</th>
+				<th>Items Remaining</th>
+				<th>Shipment Status</th>
+				<th>PK</th>
+			</tr> 
+			{% if items %}
+				{% for product in items %}
+				<tr>
+					<td>{{product.docfile}}</td>
+					<td>{{product.description}}</td>
+					<td>{{product.price}}</td>
+					<td>{{product.quantity}}</td>
+					<td>{{product.sold}}</td>
+					<td>{{product.total_payments}}</td>
+					<td>{{product.item_remaining}}</td>
+					<td>{{product.shipment_status}}</td>
+					<td>{{product.pk}}</td>
+					<td>
+						<a href="#{{product.pk}}" class="manipulate btn btn-info btn-md" item_id="{{product.pk}}">Update</a>
+						  |  
+						<a href='/delete_item/{{product.id}}' class="btn btn-info btn-md" onclick="return confirm('Are you sure you want to delete?')">
+							Delete
+						</a>
+					</td>
+				</tr>
+				<input type="hidden" id="ds" value="{{product.description}}">
+				{% endfor %}
+			{% else %}
+				<p>You have <strong>no items</strong> currently in your cart! <strong>Add items now!</strong>
+				</p>
+			{% endif %}
+		</table>
+		<br><br><br>
+		<p><a href="/doreenselly/homepage/">Homepage</a></p>
+
+	<!-- Modal -->
+	<div class="modal fade" id="edititemModal{{product.pk}}" role="dialog" style="height: auto;">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content" align="left" >
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Edit or Update Item </h4>
+						<!-- <p>{{product.id}}</p> -->
+				</div>
+				<div class="modal-body">
+					<div class="alert hidden" id="alert1" role="alert">
+					</div>
+					<p id="item_make"></p>
+					<form action="/doreenselly/edit_item/" method="post" class="special" enctype="multipart/form-data" item_id="{{product.pk}}" >
+						{% csrf_token %}
+							<div class="form-group">
+								<input type="number" id="id_item" maxlength="32" name = "item_id" value="{{product.id}}" class="form-control" required/>
+							</div>
+
+							<div class="form-group">
+								<label>Description</label>
+								<input type="text" id="id_description" maxlength="32" name = "description" value="{{product.description}}" class="form-control" required/>
+							</div>
+
+							<div class="form-group">
+								<label>Price</label>
+								<input type="number" id="id_price" maxlength="32" name="price" value="{{product.price}}" class="form-control" required/>
+							</div>
+
+							<div class="form-group">
+								<label>Quantity</label>
+								<input type="number" id="id_quantity" maxlength="10" name="quantity" value="{{product.quantity}}" class="form-control" required/> 
+							</div>
+
+							<div class="modal-footer">
+								<input type="submit" name="edit" id="edit_item" class='btn pull-right' value="Update"/>
+							</div>
+							
+					</form><br>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script>
+	$(document).ready(function(){
+		$(".manipulate").click(function(){
+			$('#id_description').val();
+			var item_keys = ['#id_description', '#id_price', '#id_quantity']
+			for(var i=1; i<5; i++){
+				var item_val = $(this).parent().parent().find('td:nth-child('+i+')')[0].innerText;
+				console.log("InnerText is :"+ item_val);
+				// alert(item_val);
+				$(item_keys[i-1]).val(item_val);
+				// alert($(item_keys[i-1]).val(item_val));
+				// var ans = $(item_keys[i-1]).val(item_val);
+				// alert(ans);
+				// console.log(ans);
+			}
+			$('#id_item').val($(this).attr('item_id'));		
+			$('#edititemModal').modal('show');
+		});
+	});
+</script>
+
+<script>
+// 	$(document).ready(function(){
+// 		$(".manipulate").click(function(){
+// 			$('#id_description').val();
+// 			var item_keys = ['#id_description', '#id_price', '#id_quantity']
+// 			for(var i=2; i<5; i++){
+// 				var item_val = $(this).parent().parent().find('td:nth-child('+i+')')[0].innerText;
+// 				console.log("InnerText is :"+ item_val);
+// 				$(item_keys[i-1]).val(item_val);
+// 			}
+// 			$('#id_item').val($(this).attr('item_id'));
+// 			$('#edititemModal').modal('show');
+// 		});
+// 	});
+</script>
+
+<script>
+// 	$(document).ready(function(){
+// 		$(".manipulate").click(function(){
+// 			var id = $(this).attr('id');
+// 			$.ajax({ url: 'http://jsonplaceholder.typicode.com/users/' + id,
+// 						method: 'GET'
+// 			}).success(function(response){
+// 				// Populate the form fields with the data returned from server
+// 				$('#item_id')
+// 					.find('[name="id"]').val(response.id).end()
+// 					.find('[nane="description"]').val(response.description).end()
+// 					.find('[name="price"]').val(response.price).end()
+// 					.find('[name="quantity"]').val(response.quantity).end();
+// 				// Show the dialog
+// 				bootbox
+// 					.dialog({
+// 						title: 'Edit your item',
+// 						message: $('#item_id'),
+// 						show: false //We will show it manually later
+// 					})
+// 					.on('shown.bs.modal', function(){
+// 						$('#item_id')
+// 							.show() //Show the form
+// 							.formValidation('resetForm');  //Reset the form
+// 					})
+// 					.on('hide.bs.modal', function(e) {
+// 						// Bootbox will remove the modal (including the body which contains the login form)
+// 						// after hiding the modal
+// 						// Therefor, we need to backup the form
+// 						$('#userForm').hide().appendTo('body');
+// 					})
+// 					.modal('show');
+// 			});
+// 		});
+// 	});
+ </script>
+
+	{% endblock %}

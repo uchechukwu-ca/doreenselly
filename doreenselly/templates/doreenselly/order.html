@@ -1,0 +1,38 @@
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+{% load staticfiles %}
+	<div>
+		{% if user.is_authenticated %}
+			<p align="right">Welcome {{user.username}} you have Logged in &nbsp;&nbsp; &nbsp; View <a href="/doreenselly/cart/">Cart</a>&nbsp;&nbsp; &nbsp;<a href="/doreenselly/logout">Logout</a></p>
+		{% endif %}
+	</div>
+
+{% if my_order %}
+	<table width="80%" border="0" id="preview_items" align="center">
+		<tr >
+			<th>Customer</th>
+			<th>Order Number</th>
+			<th>Location</th>
+			<th>Payment Status</th>
+			<th>Shipment Status</th>
+		</tr> 
+		{% for product in my_order %}
+			<tr>
+				<td>{{product.client}}</td>
+				<td>{{product.order_number}} </td>
+				<td>{{product.location}}</td>
+				<td>{{product.payment_status}}</td>
+				<td>{{product.shipment_status}}</td>
+			</tr>
+		{% endfor %}
+
+	{% else %}
+		<p>You have <strong>no Order</strong> currently
+		</p>
+	</table>
+{% endif %}
