@@ -1,19 +1,10 @@
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+{% load staticfiles %}
+	
+	{% block body_block %}
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<div class="pull-left">
+			<a class="btn btn-info btn-large" href="/doreenselly/signup/" role="button" data-toggle="modal">Register</a>
+			<a class="btn btn-info btn-large" href="/doreenselly/signin/" role="button" data-toggle="modal">Login</a>
+		</div>
 
-<!-- Latest compiled JavaScript -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-		<form>
-			
-				<div class="pull-left">
-					<a href="/doreenselly/signin/" class="btn btn-primary">Sign in</a>
-				</div>
-				
-				<div class="pull-left">
-					<a href="/doreenselly/signup/" class="btn btn-default">Registration</a> 
-				</div>
-		</form>
-
+	{% endblock %}
