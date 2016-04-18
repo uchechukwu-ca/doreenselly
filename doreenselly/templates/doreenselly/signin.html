@@ -1,21 +1,51 @@
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-{% load staticfiles %}
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
-	{% block body_block %}
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 	<div align="center">
 		<form action="/doreenselly/signin/" method="POST">
 			{% csrf_token %}
-				<div class="span1">Username:</div> 
-				<input type="text" name="username" placevalue="" required="required" size="20" />
+
+			<div class="container">
+				<div class="row">
+					<form role="form">
+						<div class="col-lg-6">
+							<div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
+							<div class="form-group">
+								<label for="InputEmail">Enter Username</label>
+								<div class="input-group">
+									<input type="text" class="form-control" name="InputUsername" placeholder="Enter Username" required>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="InputEmail">Enter Password</label>
+								<div class="input-group">
+									<input type="password" class="form-control" name="InputPassword" placeholder="Password" required>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+								</div>
+							</div>
+							
+							<input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
+						</div>
+					</form>
+				</div>
+			</div>
+
+
+			
+				<!-- <p>Username: <input type="text" class="form-control" name="username" placevalue="" required="required" size="20" /></p>
 				<br /><br />
-				<div class="span1">Password:</div> 
-				<input type="password" name="password" value="" required="required" size="20" />
+				Password: <input type="password" class="form-control" name="password" value="" required="required" size="20" />
 				<br /><br /><br />
 				<div class="pull-right">
 					<input type="submit" class="btn btn-primary" value="login">
 					<button type="button"><a class="btn btn-info" href="/doreenselly/signup/" role="button" data-toggle="modal">Signup</a> </button>
-				</div>
+				</div> -->
 		</form>
 	</div>
 
-	{% endblock %}

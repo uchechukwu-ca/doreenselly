@@ -32,8 +32,12 @@ def signup(request):
 
 		if user_form.is_valid() and signup_form.is_valid():
 			user = user_form.save(commit=False)
-			user.set_password(user.password)
-			user.save()
+			# user.set_password(user.password)
+			user.firstname = request.POST['firstname']
+			user.username = request.POST['username']
+			user.email = request.POST['email']
+			user.password = request.POST['password']
+			user_form.save()
 
 			signup = signup_form.save(commit=False)
 			signup.user = user
