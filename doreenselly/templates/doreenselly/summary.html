@@ -12,32 +12,28 @@
 		{% endif %}
 	</div>
 
-<h2>Your Order Number is : <strong>{{order_nember}}</strong></h2>
+<h2>Your Order Number is : <strong>{{order_number}}</strong></h2>
+<br><br><br>
+<p>Click to view your <a href="/doreenselly/order/">Order</a> detail</p>
 
-	<table width="80%" border="0" id="preview_items" align="center">
+	<table width="80%" border="0" id="preview_items" align="center" class="table table-striped">
 		<tr >
 			<th>Image</th>
 			<th>Description</th>
 			<th>Price ($)</th>
 			<th>Quantity</th>
 			<th>Total ($)</th>
-			<th>PK</th>
+			<th>Order Number</th>
 		</tr> 
-		{% for product in my_order %}
+		{% for product in tied_order %}
 			<tr>
 				<td><img src="{{product.docfile.url}}" class="img-circle" width="75" height="75" align="middle"></img></td>
 				<td>{{product.description}}<input type="hidden" name="description" value="{{product.description}}"></td>
 				<td>{{product.price}}<input type="hidden" name="description" value="{{product.price}}"></td>
 				<td>{{product.quantity}}<input type="hidden" name="description" value="{{product.quantity}}"></td>
 				<td>{{product.total}}<input type="hidden" name="description" value="{{product.total}}"></td>
-				<td>{{product.pk}}</td>
-				<td>
-					<!-- <a href="#{{product.pk}}" class="manipulate btn btn-info btn-md" item_id="{{product.pk}}">Update</a>
-					  |   -->
-					<a href='/delete_item/{{product.id}}' class="btn btn-info btn-md" onclick="return confirm('Are you sure you want to delete?')">
-						Delete
-					</a>
-				</td>
+				<td>{{product.order}}</td>
 			</tr>
-			{% endfor %}
+		{% endfor %}
 	</table>
+

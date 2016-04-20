@@ -12,17 +12,19 @@
 		{% endif %}
 	</div>
 
-{% if my_order %}
-	<table width="80%" border="0" id="preview_items" align="center">
+{% if order %}
+	<table width="80%" border="0" id="preview_items" align="center" class="table table-striped">
 		<tr >
+			<th>S/No</th>
 			<th>Customer</th>
 			<th>Order Number</th>
 			<th>Location</th>
 			<th>Payment Status</th>
 			<th>Shipment Status</th>
 		</tr> 
-		{% for product in my_order %}
+		{% for product in order %}
 			<tr>
+				<td>{{forloop.counter}}</td>
 				<td>{{product.client}}</td>
 				<td>{{product.order_number}} </td>
 				<td>{{product.location}}</td>

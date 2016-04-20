@@ -58,6 +58,9 @@ def signin(request):
 
 		user = authenticate(username=username, password=password)
 		if user:
+			if user.is_staff:
+				login(request, user)
+				return HttpResponseRedirect('/doreenselly/dashboard/')
 			if user.is_active:
 				login(request, user)
 				return HttpResponseRedirect('/doreenselly/homepage/')
@@ -78,27 +81,27 @@ def logout(request):
 
 
 @login_required()
-def home(request):
+def dashboard(request):     #Admin View
 	context = {}
-	return render(request, "doreenselly/home.html", {})
+	return render(request, "doreenselly/dashboard.html", {})
 
 
 @login_required()
-def homepage(request):
+def homepage(request):    # Client View
 	context = {}
 	items = AddInventory.objects.all()  # Get all items in the database 
 	return render(request, "doreenselly/homepage.html", {'items': items})
 
 
 @login_required()
-def item(request, item_id):
+def item(request, item_id):    # Client View
 	context = {}
 	each_item = get_object_or_404(AddInventory, pk=item_id)  # Get item whose item_id matches the primary key in the database
 	return render(request, "doreenselly/item.html", {'each_item':each_item})
 
 
 @login_required()
-def cart(request):
+def cart(request):    # Client View
 	request_user = request.user
 
 	items = Cart.objects.filter(client=request_user).filter(ordered=False)
@@ -130,14 +133,14 @@ def delete_item(request, item_id):
 	return HttpResponseRedirect('/doreenselly/cart/')
 
 
-def LenOf(value):
+def LenOf(value):     # Client View
 	if len(value) == 2:
 		return str(value)
 	else:
 		return '0' + str(value)
 
 
-def create_id():
+def create_id():    # Client View
 	ids = ""
 	ids += str(datetime.datetime.today().year)[2:]
 	ids += LenOf(str(datetime.datetime.today().month))
@@ -147,36 +150,8 @@ def create_id():
 	return "D" + ids
 
 
-# @login_required
-# def summary(request):
-# 	# context = {}
-# 	order_number = create_id()
-# 	print "ORDER NUMBER", order_number
-# 	request_user = request.user
-# 	all_items = Cart.objects.filter(client=request_user, ordered=False)
-# 	print "ALL ITEM", all_items
-# 	if request.method == "POST":
-# 		# print "rp ", request.POST
-# 		# order_number = create_id()
-# 		# print "ORDER NUMBER", order_number
-		
-# 		client = request.user
-# 		# print "Client is ", client
-# 		# location=request.user.signup.country
-# 		# print "LOCATION ", location
-
-# 		item, created = Order.objects.get_or_create(order_number=order_number, client=client, location=location)
-# 		item.save()
-
-# 		order = Order.objects.filter(order_number = order_number)
-# 		print "ORDER", order
-# 		all_items.update(ordered = True, order = order[0])
-# 	my_order = Order.objects.filter(client=request_user).filter(order_number=order_number) #Populate client's Order to template
-# 	return render(request, "doreenselly/summary.html", {'my_order': my_order, 'order': order})
-
-
 @login_required
-def order(request):
+def summary(request):    # Client View
 	# context = {}
 	# order_number = create_id()
 	# print "ORDER NUMBER", order_number
@@ -191,7 +166,7 @@ def order(request):
 		client = request.user
 		# print "Client is ", client
 		location=request.user.signup.country
-		# print "LOCATION ", location
+		print "LOCATION ", location
 
 		item, created = Order.objects.get_or_create(order_number=order_number, client=client, location=location)
 		item.save()
@@ -200,10 +175,40 @@ def order(request):
 		print "ORDER", order
 		all_items.update(ordered = True, order = order[0])
 		my_order = Order.objects.filter(client=request_user).filter(order_number=order_number) #Populate client's Order to template
-	return render(request, "doreenselly/order.html", {'my_order': my_order, 'order': order})
+	tied_order = Cart.objects.filter(client=request_user, ordered=True, order=order)
+	print "TIED ORDER", tied_order
+	return render(request, "doreenselly/summary.html", {'my_order': my_order, 'order': order, 'tied_order': tied_order, 'order_number': order_number})
 
 
-def add_inventory(request):
+@login_required
+def order(request):    # Client View
+	context = {}
+	# order_number = create_id()
+	# print "ORDER NUMBER", order_number
+	request_user = request.user
+	### all_items = Cart.objects.filter(client=request_user, ordered=False)
+	### print "ALL ITEM", all_items
+	### if request.method == "POST":
+	### 	# print "rp ", request.POST
+	### 	order_number = create_id()
+	### 	print "ORDER NUMBER", order_number
+		
+	### 	client = request.user
+	### 	# print "Client is ", client
+	### 	location=request.user.signup.country
+	# 	# print "LOCATION ", location
+
+	### 	item, created = Order.objects.get_or_create(order_number=order_number, client=client, location=location)
+	### 	item.save()
+
+	order = Order.objects.filter(client=request_user)
+	print "ORDER", order
+	### 	all_items.update(ordered = True, order = order[0])
+	### 	my_order = Order.objects.filter(client=request_user).filter(order_number=order_number) #Populate client's Order to template
+	return render(request, "doreenselly/order.html", {'order': order})
+
+
+def add_inventory(request):     #Admin View
 	context = {}
 
 	if request.POST:
@@ -243,7 +248,7 @@ def add_inventory(request):
 
 
 
-def edit_item(request):	
+def edit_item(request):	      #Admin View
 	rp = request.POST
 	print "rp",rp
 	context = {}

@@ -11,7 +11,7 @@
 			<p align="right">Welcome {{user.username}} you have Logged in &nbsp;&nbsp; &nbsp; View <a href="/doreenselly/cart/">Cart</a>&nbsp;&nbsp; &nbsp;<a href="/doreenselly/logout">Logout</a></p>
 		{% endif %}
 	</div>
-<table width="80%" border="0" id="preview_items" align="center">
+<table width="80%" border="0" id="preview_items" align="center" class="table table-striped">
 	{% if items %}
 		<tr >
 			<th>Image</th>
@@ -21,7 +21,7 @@
 			<th>Total ($)</th>
 			<th>PK</th>
 		</tr> 
-		<form method="POST" action="/doreenselly/order/" enctype="multipart/form-data">
+		<form method="POST" action="/doreenselly/summary/" enctype="multipart/form-data">
 		{% for product in items %}
 			{% csrf_token %}
 			<tr>

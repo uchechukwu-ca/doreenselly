@@ -43,7 +43,7 @@
 		</form>
 	</div>	
 	<br><br>
-		<table width="80%" border="1" id="preview_items" align="center">
+		<table width="80%" border="1" id="preview_items" align="center" class="table table-striped">
 			<tr >
 				<th>Location</th>
 				<th>Description</th>
@@ -83,7 +83,7 @@
 			{% endif %}
 		</table>
 		<br><br><br>
-		<p><a href="/doreenselly/homepage/">Homepage</a></p>
+		<!-- <p><a href="/doreenselly/homepage/">Homepage</a></p> -->
 
 	<!-- Modal -->
 	<div class="modal fade" id="edititemModal{{product.pk}}" role="dialog" style="height: auto;">
@@ -93,7 +93,6 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">Edit or Update Item </h4>
-						<!-- <p>{{product.id}}</p> -->
 				</div>
 				<div class="modal-body">
 					<div class="alert hidden" id="alert1" role="alert">
@@ -102,22 +101,22 @@
 					<form action="/doreenselly/edit_item/" method="post" class="special" enctype="multipart/form-data" item_id="{{product.pk}}" >
 						{% csrf_token %}
 							<div class="form-group">
-								<input type="number" id="id_item" maxlength="32" name = "item_id" value="{{product.id}}" class="form-control" required/>
+								<input type="number" id="id_item" maxlength="32" name = "item_id" value="{{id}}" class="form-control" required/>
 							</div>
 
 							<div class="form-group">
 								<label>Description</label>
-								<input type="text" id="id_description" maxlength="32" name = "description" value="{{product.description}}" class="form-control" required/>
+								<input type="text" id="id_description" maxlength="32" name = "description" value="{{item_val}}" class="form-control" required/>
 							</div>
 
 							<div class="form-group">
 								<label>Price</label>
-								<input type="number" id="id_price" maxlength="32" name="price" value="{{product.price}}" class="form-control" required/>
+								<input type="number" id="id_price" maxlength="32" name="price" value="{{price}}" class="form-control" required/>
 							</div>
 
 							<div class="form-group">
 								<label>Quantity</label>
-								<input type="number" id="id_quantity" maxlength="10" name="quantity" value="{{product.quantity}}" class="form-control" required/> 
+								<input type="number" id="id_quantity" maxlength="10" name="quantity" value="{{quantity}}" class="form-control" required/> 
 							</div>
 
 							<div class="modal-footer">
@@ -135,7 +134,7 @@
 		$(".manipulate").click(function(){
 			$('#id_description').val();
 			var item_keys = ['#id_description', '#id_price', '#id_quantity']
-			for(var i=1; i<5; i++){
+			for(var i=2; i<5; i++){
 				var item_val = $(this).parent().parent().find('td:nth-child('+i+')')[0].innerText;
 				console.log("InnerText is :"+ item_val);
 				// alert(item_val);
@@ -145,7 +144,7 @@
 				// alert(ans);
 				// console.log(ans);
 			}
-			$('#id_item').val($(this).attr('item_id'));		
+			$('#id_item').val($(this).attr('item_id'));
 			$('#edititemModal').modal('show');
 		});
 	});
