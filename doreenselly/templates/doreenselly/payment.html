@@ -1,0 +1,241 @@
+<head>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+
+<div>
+	{% if user.is_authenticated %}
+		<p align="right">Welcome {{user.username}} you have Logged in &nbsp;&nbsp; &nbsp; View <a href="/doreenselly/cart/">Cart</a>&nbsp;&nbsp; &nbsp;<a href="/doreenselly/logout">Logout</a></p>
+	{% endif %}
+</div>
+
+<form action="/doreenselly/summary/" method="post" class="special" name="myForm" enctype="multipart/form-data">
+	{% csrf_token %}
+
+	<div class="col-md-12">
+		<h1>Your Address</h1>
+	</div>
+
+ <!--prepopulated--> 
+	<div class="form-group ">
+		<div class="input-group">
+			<input type="text" class='form-control' name='street' value = "{{ user.signup.street }}" readonly/>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<input type="text" class='form-control' name = 'city' value = "{{ user.signup.city }}" readonly/>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<input type="text" class='form-control' name='state' value = "{{ user.signup.state }}" readonly/>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<input type="text" class='form-control' name = 'zipcode' value = "{{ user.signup.zipcode }}" readonly/>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<input type="text" class='form-control' name='country' value=" {{ user.signup.country }}" readonly>
+		</div>
+	</div>
+
+	<!-- Pay Info -->
+
+	<div class="col-md-12">
+		<h1>Payment Method</h1>
+	</div>
+
+	<!-- Pay Info / CC -->
+	<div  id="credit_card">
+
+		<div class='col-sm-10'>
+			<div class="col-sm-4">
+				<input type="text" placeholder="Credit Card Holder Name" class='form-control' name="card_holder_name" id="cardName" style="margin-top:20px;" required />
+			</div>
+		</div><br>
+		<div class='col-sm-10'>
+			<div class="col-sm-4">
+				<input type="text" placeholder="Credit Card Number" class='form-control' name="card_holder_number" id="cardNumber" style="margin-top:20px;" required/><br>
+			</div>
+		</div><br>
+		<div class='col-sm-10'>
+			<div class="col-sm-4">
+				<select id="cardExpiryMonth" class='form-control' name="card_expiry_month" style="margin-top:0px;" required>
+						<option value="hide">Month</option>
+						<option value="1">January</option>
+						<option value="2">February</option>
+						<option value="3">March</option>
+						<option value="4">April</option>
+						<option value="5">May</option>
+						<option value="6">June</option>
+						<option value="7">July</option>
+						<option value="8">August</option>
+						<option value="9">September</option>
+						<option value="10">October</option>
+						<option value="11">November</option>
+						<option value="12">December</option>
+					</select>
+			</div>
+		</div><br>
+		<div class='col-sm-10'>
+			<div class="col-sm-4">
+				<select id="cardExpiryYear" class='form-control' name="card_expiry_year" style="margin-top:20px;" required>
+						<option value="-1">Year</option>
+						<script>
+								for(var year = 2000; year <= new Date().getFullYear(); year++){
+										document.write("<option value=" + year +  ">" + year + "</option>");
+								}
+						</script>
+				</select><br>
+			</div>
+		</div><br>
+		<div class='col-sm-10'>
+			<div class="col-sm-4">
+				<input type="text" placeholder="CVV Code" class='form-control' name="card_cvv_code" id="cardCVVCode" style="margin-top:0px;" required/>
+			</div>
+		</div>
+	</div>
+	<!-- Pay Info -->
+
+	<!-- Pay Info / Bank -->
+	<div class="row-fluid payinfo two hidden" id="bank_transfer">
+			<div class="col-md-12">
+					<div class="select_outer two scrolled" style="z-index:2;">
+							<select id="bankName" name="account_bank_name">
+									<option value="-1">Bank</option>
+									<option value="Bank of Africa">Bank of Africa</option>
+									<option value="Bank of Baroda">Bank of Baroda</option>
+									<option value="Bank of India">Bank of India</option>
+									<option value="Barclays Bank of Kenya">Barclays Bank of Kenya</option>
+									<option value="CfC Stanbic Holdings">CfC Stanbic Holdings</option>                                                            
+							</select>
+					</div>
+			</div>
+			<div class="col-md-12">
+					<input type="text" placeholder="Name of the Bank Account Holder" name="account_holder_name" id="accName"/>
+			</div>
+			<div class="col-md-12">
+					<input type="text" placeholder="Bank Account Number" name="account_number" id="accNumber"/>
+			</div>
+	</div>
+	<!-- Pay Info -->
+
+	<div class="col-md-12 terms">
+			<p>
+				<input type="checkbox" id="id_terms_and_conditions" name="terms_and_conditions" style="margin-top:20px;"required/>Accept our <a href="#">Terms of Conditions</a></p>
+	</div>
+
+	<div class="col-md-12 terms">
+		<p>
+			<input type="hidden" name="payable" value="{{payable}}" required/></p>
+	</div>
+	
+	<div class="col-md-12">
+			<input type="submit" class='btn' value="Submit"/>
+	</div>
+
+</form>
+
+
+
+
+<script>
+		 $(document).ready(function(){
+
+				// $("#paypal").click(function(){
+				// 		$("#pay_type").val("PayPal");
+				// });
+				$("#credit_card").click(function(){
+						$("#pay_type").val("Card Payment").show();
+				});
+				$("#bank_transfer").click(function(){
+						$("#pay_type").val("Bank Deposit").show();
+				});
+		});
+
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+
+		function validateForm(){
+			 var pay_method = document.getElementById("pay_type").value;
+			 var cardName = document.getElementById("b_cardName").value;
+			 var cardNumber = document.getElementById("b_cardNumber").value;
+			 var cardExpiryMonth = document.getElementById("b_cardExpiryMonth").value;
+			 var cardExpiryYear = document.getElementById("b_cardExpiryYear").value;
+			 var cardCVVCode = document.getElementById("b_cardCVVCode").value;
+			 var bankName = document.getElementById("b_bankName").value;
+			 var accName = document.getElementById("b_accName").value;
+			 var accNumber = document.getElementById("b_accNumber").value;
+
+			 if(document.myForm.b_shipping_method.value == "-1"){
+				alert("Please Select an appropriate Shipping Method");
+				return false;
+			 } 
+
+			 if (pay_method == null || pay_method == ""){
+				alert("Please Select an appropriate Payment Method");
+				return false;
+			 }
+
+			 else if ((pay_method == "Credit Card") && (cardName == null || cardName == "")){
+				alert("Please Enter the name of the credit card holder ");
+				return false;
+			 } 
+
+			 else if ((pay_method == "Credit Card") && (cardNumber == null || cardNumber == "")){
+				alert("Please Enter the card Number");
+				return false;
+			 }
+
+			 else if ((pay_method == "Credit Card") && (cardExpiryMonth == "-1")){
+				alert("Please select the appropriate expiry month of your card");
+				return false;
+			 } 
+
+			 else if ((pay_method == "Credit Card") && (cardExpiryYear == "-1")){
+				alert("Please select the appropriate expiry year of your card");
+				return false;
+			 } 
+
+				else if ((pay_method == "Credit Card") && (cardCVVCode == null || cardCVVCode == "" || cardCVVCode.length > 3 || isNaN(cardCVVCode))){
+				alert("Please Enter your 3 digit CVV Code");
+				return false;
+			 } 
+
+			 else if ((pay_method == "Bank Transfer") && (bankName == "-1")){
+				alert("Please Enter the Name of the bank");
+				return false;
+			 } 
+
+			 else if ((pay_method == "Bank Transfer") && (accName == null || accName == "")){
+				alert("Please Enter the Name of the bank account holder");
+				return false;
+			 }
+
+				else if ((pay_method == "Bank Transfer") && (accNumber == null || accNumber == "")){
+				alert("Please Enter your Account Number");
+				return false;
+			 }
+
+			 return (true);
+
+		};
+
+</script>

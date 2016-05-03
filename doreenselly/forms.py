@@ -5,18 +5,24 @@ from doreenselly.models import CATEGORIES, Signup, AddInventory
 
 
 class UserForm(forms.ModelForm):
-	firstname = forms.CharField(max_length=32, required=True, help_text="Firstname")
-	username = forms.CharField(max_length=32, required=True, help_text="Username")
-	email = forms.EmailField(max_length=32, required=True, help_text="Email")
-	password = forms.CharField(required=True, widget=forms.PasswordInput(), help_text="Password")
+	firstname = forms.CharField(help_text="First Name", required = True,widget=forms.TextInput(attrs={'class':'form-control', 'class':'form-control', 'placeholder':'First Name', 'required':'required'}))
+	lastname = forms.CharField(help_text="Last Name", required = True, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name', 'required':'required'}))
+	username = forms.CharField(help_text="Username", required = True, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Usernme', 'required':'required'}))
+	email = forms.EmailField(help_text="E-Mail", required = True, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'E-Mail', 'required':'required'}))
+	password = forms.CharField(help_text="Password", required = True, max_length=15, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Password','required':'required'}))
 
 	class Meta:
 		model = User
-		fields = ('firstname', 'username', 'email', 'password')
+		fields = ('firstname', 'lastname', 'username', 'email', 'password')
 
 
 class SignupForm(forms.ModelForm):
-	country = forms.ChoiceField(choices=CATEGORIES, widget=forms.Select(choices= CATEGORIES), required = True)
+	phone_number = forms.IntegerField(help_text = "Phone Number",widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Phone Number', 'required':'required', 'id':'phone_number'}))
+	zipcode = forms.IntegerField(help_text = "Zipcode",widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Zipcode', 'required':'required','id':'zip_code'}))
+	street = forms.CharField(help_text = "Street", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Street Name/Number', 'required':'required'}))
+	city = forms.CharField(help_text = "City", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'City', 'required':'required'}))
+	state = forms.CharField(help_text = "State", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'State', 'required':'required'}))
+	country = forms.ChoiceField(choices=CATEGORIES, widget=forms.Select(attrs={'class':'form-control', 'required':'required'}), required = True)
 
 	class Meta:
 		model = Signup

@@ -13,21 +13,46 @@
 	{% endif %}
 </div>
 
-<form method="POST" action="/doreenselly/cart/" enctype="multipart/form-data">
-	{% csrf_token %}
-	<p><img src="{{each_item.docfile.url}}" class="img-circle" width="150" height="150" align="middle"></img></p>
-	<p><input type="hidden" name="docfile" value="{{each_item.docfile.url}}"></p>
-	<h1 name="description">Description is : {{each_item.description}}</h1>
-	<p><input type="hidden" name="description" value="{{each_item.description}}"></p>
+{% if request.user.signup.country == "USA" %}
+	<form method="POST" action="/doreenselly/cart/" enctype="multipart/form-data">
+		{% csrf_token %}
+		<p><img src="{{each_item.docfile.url}}" class="img-circle" width="150" height="150" align="middle"></img></p>
+		<p><input type="hidden" name="docfile" value="{{each_item.docfile.url}}"></p>
+		<h1 name="description">Description is : {{each_item.description}}</h1>
+		<p><input type="hidden" name="description" value="{{each_item.description}}"></p>
 
-	<span name="price">Price is : $ {{each_item.price}}/piece</span>
-	<p><input type="hidden" name="price" value ="{{each_item.price}}"></p>
+		<span name="price">Price is : $ {{each_item.price}}/piece</span>
+		<p><input type="hidden" name="price" value ="{{each_item.price}}"></p>
 
-	<p>Sold is : {{each_item.sold}}</p>
-	<!-- <p>Item Remaining is : {{each_item.item_remaining}}</p> -->
+		<p>Sold is : {{each_item.sold}}</p>
+		<!-- <p>Item Remaining is : {{each_item.item_remaining}}</p> -->
 
-	<p>Quantity is : <input type="number" default="0" name="quantity" required> piece ( {{each_item.item_remaining}} pieces available )</p>
-	<br>
-	<input type="submit" class="btn btn-primary" value="Add to Cart">
+		<p>Quantity is : <input type="number" default="0" name="quantity" required> piece ( {{each_item.item_remaining}} pieces available )</p>
+		<br>
+		<input type="submit" class="btn btn-primary" value="Add to Cart">
 
-</form>
+	</form>
+
+{% elif request.user.signup.country == "KENYA" %}
+	<form method="POST" action="/doreenselly/cart/" enctype="multipart/form-data">
+		{% csrf_token %}
+		<p><img src="{{each_item.docfile.url}}" class="img-circle" width="150" height="150" align="middle"></img></p>
+		<p><input type="hidden" name="docfile" value="{{each_item.docfile.url}}"></p>
+		<h1 name="description">Description is : {{each_item.description}}</h1>
+		<p><input type="hidden" name="description" value="{{each_item.description}}"></p>
+
+		<span name="price">Price is : K {{each_item.price}}/piece</span>
+		<p><input type="hidden" name="price" value ="{{each_item.price}}"></p>
+
+		<p>Sold is : {{each_item.sold}}</p>
+		<!-- <p>Item Remaining is : {{each_item.item_remaining}}</p> -->
+
+		<p>Quantity is : <input type="number" default="0" name="quantity" required> piece ( {{each_item.item_remaining}} pieces available )</p>
+		<br>
+		<input type="submit" class="btn btn-primary" value="Add to Cart">
+
+	</form>
+
+{% else %}
+	<p>No <strong>item</strong> is available</p>
+{% endif %}

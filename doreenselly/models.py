@@ -8,6 +8,7 @@ from decimal import Decimal
 
 
 CATEGORIES = (
+	('SELECT', 'SELECT'),
 	('USA', 'USA'),
 	('KENYA', 'KENYA'),
 	)
@@ -25,10 +26,16 @@ PAYMENT_STATUS = (
 
 class Signup(models.Model):
 	user = models.OneToOneField(User)
-	country = models.CharField(max_length = 32, choices = CATEGORIES)
+	phone_number = models.PositiveIntegerField( null=True)
+	zipcode = models.PositiveIntegerField(null=True)
+	street = models.CharField(max_length = 75, null=True)
+	city = models.CharField(max_length = 75, null=True)
+	state = models.CharField(max_length = 75, null= True)
+	country = models.CharField(max_length = 32, null=True, choices = CATEGORIES)
 
 	def __str__(self):
-		return self.user.username
+		return self.country
+		# return "%s - %s" %(self.user.username, self.country)
 
 
 class AddInventory(models.Model):
@@ -40,9 +47,10 @@ class AddInventory(models.Model):
 	quantity = models.PositiveIntegerField()
 	sold = models.PositiveIntegerField(default=0)
 	details = models.CharField(max_length = 100)
+	country = models.ForeignKey(Signup, null = True)
 
 	def __str__(self):
-		return self.description
+		return self.country
 
 	def item_remaining(self):
 		return self.quantity - self.sold
@@ -71,9 +79,14 @@ class Cart(models.Model):
 class Order(models.Model):
 	client = models.ForeignKey(User, null=True)
 	order_number = models.CharField(max_length = 12)
+	payable = models.DecimalField(max_digits=15, decimal_places=2, null=True)
 	location = models.CharField(max_length=12)
 	payment_status = models.CharField(max_length=20, choices = PAYMENT_STATUS, default='Pending')
 	shipment_status = models.CharField(max_length=20, choices = SHIPMENT_STATUS, default='Pending')
+	card_holder_name = models.CharField(max_length = 100)
+	card_holder_number = models.PositiveIntegerField()
+	card_expiry_month = models.CharField(max_length = 12)
+	card_expiry_year = models.PositiveIntegerField()
 	created_on = models.DateTimeField(auto_now_add = True)
 
 	def __str__(self):

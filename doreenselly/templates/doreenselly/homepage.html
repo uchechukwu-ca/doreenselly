@@ -14,17 +14,30 @@
 </div>
 
 <div>
-	{% if items %}
+	{% if request.user.signup.country == "USA" %}
 		{% for product in items %}
 			<td>
 				<p><a href="/doreenselly/item/{{product.id}}/"><img src="{{product.docfile.url}}" class="img-circle" width="150" height="150" align="middle"></img></a></p>
 				<br>* Description is : {{product.description}}
-				<br>* Price is : {{product.price}}/piece
+				<br>* Price is : ${{product.price}}/piece
 				<br>* Quantity is : {{product.quantity}}
 				<br>* Sold is : {{product.sold}}
 				<br>* Total Paypent is : {{product.total_payments}}
 				<br>* Item Remaining is : {{product.item_remaining}}
-				<p>{{product.id}}</p>
+				<br>
+				<br>
+			</td>
+		{% endfor %}
+	{% elif request.user.signup.country == "KENYA" %}
+		{% for product in item %}
+			<td>
+				<p><a href="/doreenselly/item/{{product.id}}/"><img src="{{product.docfile.url}}" class="img-circle" width="150" height="150" align="middle"></img></a></p>
+				<br>* Description is : {{product.description}}
+				<br>* Price is : K{{product.price}}/piece
+				<br>* Quantity is : {{product.quantity}}
+				<br>* Sold is : {{product.sold}}
+				<br>* Total Paypent is : {{product.total_payments}}
+				<br>* Item Remaining is : {{product.item_remaining}}
 				<br>
 				<br>
 			</td>

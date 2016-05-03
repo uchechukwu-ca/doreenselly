@@ -18,15 +18,18 @@
 			<th>S/No</th>
 			<th>Customer</th>
 			<th>Order Number</th>
+			<th>Amount to Pay</th>
 			<th>Location</th>
 			<th>Payment Status</th>
 			<th>Shipment Status</th>
+
 		</tr> 
 		{% for product in order %}
 			<tr>
 				<td>{{forloop.counter}}</td>
 				<td>{{product.client}}</td>
 				<td>{{product.order_number}} </td>
+				<td>{{product.payable}}</td>
 				<td>{{product.location}}</td>
 				<td>{{product.payment_status}}</td>
 				<td>{{product.shipment_status}}</td>
@@ -38,3 +41,5 @@
 		</p>
 	</table>
 {% endif %}
+
+<p>Wish to add item(s) to your Cart click <a href="/doreenselly/homepage/">Home</a></p>

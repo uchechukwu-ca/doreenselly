@@ -53,6 +53,7 @@
 				<th>Total Payments ($)</th>
 				<th>Items Remaining</th>
 				<th>Shipment Status</th>
+				<th>Country</th>
 				<th>PK</th>
 			</tr> 
 			{% if items %}
@@ -66,11 +67,12 @@
 					<td>{{product.total_payments}}</td>
 					<td>{{product.item_remaining}}</td>
 					<td>{{product.shipment_status}}</td>
+					<td>{{product.country}}</td>
 					<td>{{product.pk}}</td>
 					<td>
 						<a href="#{{product.pk}}" class="manipulate btn btn-info btn-md" item_id="{{product.pk}}">Update</a>
 						  |  
-						<a href='/delete_item/{{product.id}}' class="btn btn-info btn-md" onclick="return confirm('Are you sure you want to delete?')">
+						<a href='/delete_item/{{product.id}}' class="btn btn-info btn-md" item_id="{{product.pk}}" onclick="return confirm('Are you sure you want to delete?')">
 							Delete
 						</a>
 					</td>

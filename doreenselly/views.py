@@ -13,7 +13,7 @@ from .forms import AddInventoryForm
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q, Sum
+from django.db.models import Q
 import random, datetime
 #Imaginary function to handle an upload file
 
@@ -21,6 +21,10 @@ import random, datetime
 
 def index(request):
 	return render(request, "doreenselly/index.html",{})
+
+
+# def country_signup(request):
+# 	return render(request, 'doreenselly/country_signup.html', {})
 
 
 def signup(request):
@@ -37,6 +41,11 @@ def signup(request):
 
 			signup = signup_form.save(commit=False)
 			signup.user = user
+			signup.phone_number = request.POST['phone_number']
+			signup.zipcode = request.POST['zipcode']
+			signup.street = request.POST['street']
+			signup.city = request.POST['city']
+			signup.state = request.POST['state']
 			signup.country = request.POST['country']
 			signup.save()
 		return HttpResponseRedirect('/doreenselly/success/')
@@ -74,7 +83,6 @@ def signin(request):
 		return render(request, 'doreenselly/signin.html', {})
 
 
-
 def logout(request):
 	auth.logout(request)
 	return HttpResponseRedirect('/doreenselly/')
@@ -89,8 +97,14 @@ def dashboard(request):     #Admin View
 @login_required()
 def homepage(request):    # Client View
 	context = {}
-	items = AddInventory.objects.all()  # Get all items in the database 
-	return render(request, "doreenselly/homepage.html", {'items': items})
+	# items = AddInventory.objects.all()  # Get all items in the database
+	print "YOUR COUNTRY SESSION IS : ", request.user.signup
+	print "YOUR  NAME IS : ", request.user
+	# if request.user.signup is "KENYA":
+	item = AddInventory.objects.filter(country__country="KENYA")
+	# else:
+	items = AddInventory.objects.filter(country__country="USA")
+	return render(request, "doreenselly/homepage.html", {'items': items, 'item': item})
 
 
 @login_required()
@@ -105,6 +119,9 @@ def cart(request):    # Client View
 	request_user = request.user
 
 	items = Cart.objects.filter(client=request_user).filter(ordered=False)
+	print "Items ", items
+
+
 
 	if request.method == "POST":
 		print "rp ", request.POST
@@ -122,14 +139,21 @@ def cart(request):    # Client View
 		item, created = Cart.objects.get_or_create(client=client, description=description, price=price, quantity=quantity, docfile=docfile)
 		item.save()
 
-	return render(request, 'doreenselly/cart.html', {'items': items})
+	# To get the total amount the client is to pay for the item bought
+	payable=0
+	item=Cart.objects.filter(client=request_user, ordered=False)
+	for i in item:
+		payable += i.total()
+	print "ANS", payable
+
+	return render(request, 'doreenselly/cart.html', {'items': items, 'payable': payable})
 
 
 @login_required()
 def delete_item(request, item_id):
 	get_item = Cart.objects.get(pk=item_id)
+	print"Id", get_item
 	get_item.delete()
-	# return HttpResponse("Deleted")
 	return HttpResponseRedirect('/doreenselly/cart/')
 
 
@@ -151,60 +175,75 @@ def create_id():    # Client View
 
 
 @login_required
+def payment(request):
+	context = {}
+	request_user = request.user
+	item=Cart.objects.filter(client=request_user, ordered=False)
+	payable = sum([i.total() for i in item])
+	print "PAYABLE ", payable
+	return render(request, "doreenselly/payment.html", {'item': item, 'payable': payable})
+
+
+@login_required
 def summary(request):    # Client View
-	# context = {}
-	# order_number = create_id()
-	# print "ORDER NUMBER", order_number
+	context = {}
+	order_number = create_id()
+	print "ORDER NUMBER", order_number
 	request_user = request.user
 	all_items = Cart.objects.filter(client=request_user, ordered=False)
 	print "ALL ITEM", all_items
+
+	card_holder_name = request.POST['card_holder_name']
+	print "card_holder_name ", card_holder_name
+	card_holder_number = request.POST['card_holder_number']
+	print "card_holder_number " , card_holder_number
+	card_expiry_month = request.POST['card_expiry_month']
+	print "card_expiry_month ", card_expiry_month
+	card_expiry_year = request.POST['card_expiry_year']
+	print "card_expiry_year ", card_expiry_year
+	payable = request.POST['payable']
+	print "payable ", payable
+
+	client = request.user
+	# print "Client is ", client
+	location=request.user.signup.country
+	print "LOCATION ", location
+
 	if request.method == "POST":
 		# print "rp ", request.POST
-		order_number = create_id()
-		print "ORDER NUMBER", order_number
+
 		
-		client = request.user
-		# print "Client is ", client
-		location=request.user.signup.country
-		print "LOCATION ", location
+		# order_number = create_id()
+		# print "ORDER NUMBER", order_number
+		
+		
 
-		item, created = Order.objects.get_or_create(order_number=order_number, client=client, location=location)
+
+	
+		item, created = Order.objects.get_or_create(order_number=order_number, client=client, location=location, card_holder_name=card_holder_name, card_holder_number=card_holder_number, card_expiry_month=card_expiry_month, card_expiry_year=card_expiry_year, payable=payable)
 		item.save()
-
+	
 		order = Order.objects.filter(order_number = order_number)
 		print "ORDER", order
 		all_items.update(ordered = True, order = order[0])
 		my_order = Order.objects.filter(client=request_user).filter(order_number=order_number) #Populate client's Order to template
-	tied_order = Cart.objects.filter(client=request_user, ordered=True, order=order)
-	print "TIED ORDER", tied_order
+
+		tied_order = Cart.objects.filter(client=request_user, ordered=True, order=order)
+		print "TIED ORDER", tied_order
+	# else:
+		
 	return render(request, "doreenselly/summary.html", {'my_order': my_order, 'order': order, 'tied_order': tied_order, 'order_number': order_number})
 
 
 @login_required
 def order(request):    # Client View
 	context = {}
-	# order_number = create_id()
-	# print "ORDER NUMBER", order_number
-	request_user = request.user
-	### all_items = Cart.objects.filter(client=request_user, ordered=False)
-	### print "ALL ITEM", all_items
-	### if request.method == "POST":
-	### 	# print "rp ", request.POST
-	### 	order_number = create_id()
-	### 	print "ORDER NUMBER", order_number
-		
-	### 	client = request.user
-	### 	# print "Client is ", client
-	### 	location=request.user.signup.country
-	# 	# print "LOCATION ", location
 
-	### 	item, created = Order.objects.get_or_create(order_number=order_number, client=client, location=location)
-	### 	item.save()
+	request_user = request.user
 
 	order = Order.objects.filter(client=request_user)
 	print "ORDER", order
-	### 	all_items.update(ordered = True, order = order[0])
-	### 	my_order = Order.objects.filter(client=request_user).filter(order_number=order_number) #Populate client's Order to template
+
 	return render(request, "doreenselly/order.html", {'order': order})
 
 
@@ -224,11 +263,14 @@ def add_inventory(request):     #Admin View
 			add_inventory.quantity = request.POST['quantity']
 			add_inventory.details = request.POST['details']
 			add_inventory.client = request.user
+			add_inventory.country = request.user.signup
+			ans = add_inventory.country
+			print"COUNTRY", ans
 
 			add_inventory.save()
 
-			items = AddInventory.objects.all()
-			print "ITEMS", items
+			# items = AddInventory.objects.all()
+			# print "ITEMS", items
 
 			# return HttpResponse('Success')
 			return HttpResponseRedirect(reverse('doreenselly.views.add_inventory'))
@@ -241,7 +283,13 @@ def add_inventory(request):     #Admin View
 
 	# Load items for the add_inventory page
 	items = AddInventory.objects.all()
-	print "items",items
+	# if request.user.signup == "USA":
+	# 	items = AddInventory.objects.filter(country="USA")
+	# 	print "USA", items
+	# else:
+	# 	items = AddInventory.objects.filter(country="KENYA")
+	# 	print "KENYA", items
+	# print "items",items
 
 	return render(request,'doreenselly/add_inventory.html', {'items': items, 'add_inventory_form': add_inventory_form})
 

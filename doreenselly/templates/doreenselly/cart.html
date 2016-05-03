@@ -11,6 +11,8 @@
 			<p align="right">Welcome {{user.username}} you have Logged in &nbsp;&nbsp; &nbsp; View <a href="/doreenselly/cart/">Cart</a>&nbsp;&nbsp; &nbsp;<a href="/doreenselly/logout">Logout</a></p>
 		{% endif %}
 	</div>
+
+{% if request.user.signup.country == "USA" %}
 <table width="80%" border="0" id="preview_items" align="center" class="table table-striped">
 	{% if items %}
 		<tr >
@@ -19,9 +21,8 @@
 			<th>Price ($)</th>
 			<th>Quantity</th>
 			<th>Total ($)</th>
-			<th>PK</th>
 		</tr> 
-		<form method="POST" action="/doreenselly/summary/" enctype="multipart/form-data">
+		<form method="POST" action="/doreenselly/payment/" enctype="multipart/form-data">
 		{% for product in items %}
 			{% csrf_token %}
 			<tr>
@@ -30,7 +31,6 @@
 				<td>{{product.price}}<input type="hidden" name="description" value="{{product.price}}"></td>
 				<td>{{product.quantity}}<input type="hidden" name="description" value="{{product.quantity}}"></td>
 				<td>{{product.total}}<input type="hidden" name="description" value="{{product.total}}"></td>
-				<td>{{product.pk}}</td>
 				<td>
 					<!-- <a href="#{{product.pk}}" class="manipulate btn btn-info btn-md" item_id="{{product.pk}}">Update</a>
 					  |   -->
@@ -40,6 +40,13 @@
 				</td>
 			</tr>
 			{% endfor %}
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>Amount to Pay</td>
+				<td><strong>{{payable}}</strong></td>
+			</tr>
 			<tr>
 				<td></td>
 				<td></td>
@@ -54,3 +61,57 @@
 		</p>
 	{% endif %}
 </table>
+{% elif request.user.signup.country == "KENYA" %}
+<table width="80%" border="0" id="preview_items" align="center" class="table table-striped">
+	{% if items %}
+		<tr >
+			<th>Image</th>
+			<th>Description</th>
+			<th>Price (K)</th>
+			<th>Quantity</th>
+			<th>Total (K)</th>
+		</tr> 
+		<form method="POST" action="/doreenselly/payment/" enctype="multipart/form-data">
+		{% for product in items %}
+			{% csrf_token %}
+			<tr>
+				<td><img src="{{product.docfile.url}}" class="img-circle" width="75" height="75" align="middle"></img></td>
+				<td>{{product.description}}<input type="hidden" name="description" value="{{product.description}}"></td>
+				<td>{{product.price}}<input type="hidden" name="description" value="{{product.price}}"></td>
+				<td>{{product.quantity}}<input type="hidden" name="description" value="{{product.quantity}}"></td>
+				<td>{{product.total}}<input type="hidden" name="description" value="{{product.total}}"></td>
+				<td>
+					<!-- <a href="#{{product.pk}}" class="manipulate btn btn-info btn-md" item_id="{{product.pk}}">Update</a>
+					  |   -->
+					<a href='/delete_item/{{product.id}}' class="btn btn-info btn-md" onclick="return confirm('Are you sure you want to delete?')">
+						Delete
+					</a>
+				</td>
+			</tr>
+			{% endfor %}
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>Amount to Pay</td>
+				<td><strong>{{payable}}</strong></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><br><br><input type="submit" class="btn btn-primary" value="Checkout" align="right"></td>
+			</tr>
+		</form>
+	{% else %}
+		<p>You have <strong>no items</strong> currently in your cart! <strong>Add items now!</strong>
+		</p>
+	{% endif %}
+</table>
+{% else %}
+	<p>No <strong>item</strong> is available</p>
+{% endif %}
+
+<p>Wish to add more items to your Cart click <a href="/doreenselly/homepage/">Home</a></p>

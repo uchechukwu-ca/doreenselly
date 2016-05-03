@@ -1,25 +1,86 @@
-{% load staticfiles %}
-	
-	{% block body_block %}
-	<div class="signer-creation_form">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-		<form method ="POST" action="/doreenselly/signup/">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<div align="center">
+
+		<form method ="POST" action="/doreenselly/signup/" class="form-horizontal">
 				{% csrf_token %}
 
-				<h3> Please Signup </h3>
+				<div class="container">
+						<div align="center">
+							<h3> Please Signup </h3>
+							<br>
+							<br>
 
-					{% for field in form %}
-					<div class="span1" style="text-align:left">
-						 <h4>{{ field.errors }}
-							 {{ field.help_text }}: &nbsp; {{ field.as_p }} &nbsp; {{ field }}</h4></div>
-					 {% endfor %}
+								{% for field in form %}
+								<div class="form-group">
+									 {{ field.errors }}
+										<label class="col-sm-5 control-label"> {{ field.help_text }}:</label>
+										&nbsp;
+										<div class="col-sm-3">
+											{{ field }}
+										</div>
+								</div>
+								 {% endfor %}
 
-					<p><strong>Country:&nbsp;</strong> &nbsp;{{ signup.country }}
-						{{ signup.country.errors }}
-					</p>
+								 <div class="form-group">
+								 	<label class="col-sm-5 control-label">Phone Number:</label>
+								 		 &nbsp;
+								 		 <div  class="col-sm-3">
+								 		 	{{ signup.phone_number }}
+								 		</div>
+									{{ signup.phone_number.errors }}
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label">Zipcode:</label>
+										 &nbsp;
+										 <div  class="col-sm-3">
+										 	{{ signup.zipcode }}
+										 </div>
+									{{ signup.zipcode.errors }}
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label">Street:</label>
+										 &nbsp;
+										 <div  class="col-sm-3">
+										 	{{ signup.street }}
+										 </div>
+									{{ signup.street.errors }}
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label">City:</label>
+										 &nbsp;
+										 <div  class="col-sm-3">
+										 	{{ signup.city }}
+										 </div>
+									{{ signup.city.errors }}
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label">State:</label>
+										 &nbsp;
+										 <div  class="col-sm-3">
+										 	{{ signup.state }}
+										 </div>
+									{{ signup.state.errors }}
+								</div>
+								<!-- <input type="hidden"  id ="country" name="country" value="USA"/> -->
+								<div class="form-group">
+									<label class="col-sm-5 control-label">Country:</label>
+										 &nbsp;
+										 <div  class="col-sm-3">
+										 	{{ signup.country }}
+										 </div>
+									{{ signup.country.errors }}
+								</div>
+						</div>
+				</div>
 				
 			<input type="submit" class="btn btn-primary" value="submit">
 		</form>
 	</div>	
 
-	{% endblock %}
