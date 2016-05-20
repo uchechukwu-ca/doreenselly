@@ -1,86 +1,102 @@
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://getbootstrap.com/examples/dashboard/ -->
+<html lang="en">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="http://getbootstrap.com/favicon.ico">
 
-<!-- Latest compiled JavaScript -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<title>Doreenselly.com - Register Page</title>
+		{% load staticfiles %}
 
-	<div align="center">
+		<!-- Bootstrap core CSS -->
+		<link href="{% static 'doreenselly/css/bootstrap.min.css' %}" rel="stylesheet">
 
-		<form method ="POST" action="/doreenselly/signup/" class="form-horizontal">
-				{% csrf_token %}
+		<!-- Custom styles for this template -->
+		<link href="{% static 'doreenselly/css/homepage.css' %}" rel="stylesheet">
 
-				<div class="container">
-						<div align="center">
-							<h3> Please Signup </h3>
-							<br>
-							<br>
+		<!-- Font -->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
 
-								{% for field in form %}
-								<div class="form-group">
-									 {{ field.errors }}
-										<label class="col-sm-5 control-label"> {{ field.help_text }}:</label>
-										&nbsp;
-										<div class="col-sm-3">
-											{{ field }}
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+</head>
+
+<body class="index two" id="login">
+
+		<!-- Login Section -->
+		<div class="container-fluid login">
+				<div class="row">
+						<div class="floater_top"></div>
+						<div class="center">
+								<div class="container">
+										<div class="row-fluid">
+												<div class="floater_left"></div>
+												<div class="center_inner">
+														<div class="img">
+																<img src="{% static 'doreenselly/img/logo3.png' %}" />
+														</div>
+
+														<div class="col-md-12 content">
+															<form method ="POST" action="/doreenselly/signup/" class="form-horizontal">
+															{% csrf_token %}
+
+																{% for field in form %}
+																<div class="col-md-12 notgood">
+																		<!-- <input type="text" placeholder="Username" /> -->
+																		{{field}}
+																</div>
+																{% endfor %}
+																<div class="col-md-12 good">
+																		{{ signup.phone_number }}
+																</div>
+																<div class="col-md-12">
+																		{{ signup.zipcode }}
+																</div>
+																<div class="col-md-12">
+																		{{ signup.street }}
+																</div>
+																<div class="col-md-12">
+																		{{ signup.country }}
+																</div>
+																<!-- <a href="#" class="btn red">Register</a> -->
+																<input type="submit" class="btn red" value="submit">
+															</form>
+																<p class="hr">Already a registered user?</p>
+																<a href="/doreenselly/signin/" class="btn dark" style="margin-top:15px;">Log In</a>
+														</div>
+												</div>
 										</div>
 								</div>
-								 {% endfor %}
-
-								 <div class="form-group">
-								 	<label class="col-sm-5 control-label">Phone Number:</label>
-								 		 &nbsp;
-								 		 <div  class="col-sm-3">
-								 		 	{{ signup.phone_number }}
-								 		</div>
-									{{ signup.phone_number.errors }}
-								</div>
-								<div class="form-group">
-									<label class="col-sm-5 control-label">Zipcode:</label>
-										 &nbsp;
-										 <div  class="col-sm-3">
-										 	{{ signup.zipcode }}
-										 </div>
-									{{ signup.zipcode.errors }}
-								</div>
-								<div class="form-group">
-									<label class="col-sm-5 control-label">Street:</label>
-										 &nbsp;
-										 <div  class="col-sm-3">
-										 	{{ signup.street }}
-										 </div>
-									{{ signup.street.errors }}
-								</div>
-								<div class="form-group">
-									<label class="col-sm-5 control-label">City:</label>
-										 &nbsp;
-										 <div  class="col-sm-3">
-										 	{{ signup.city }}
-										 </div>
-									{{ signup.city.errors }}
-								</div>
-								<div class="form-group">
-									<label class="col-sm-5 control-label">State:</label>
-										 &nbsp;
-										 <div  class="col-sm-3">
-										 	{{ signup.state }}
-										 </div>
-									{{ signup.state.errors }}
-								</div>
-								<!-- <input type="hidden"  id ="country" name="country" value="USA"/> -->
-								<div class="form-group">
-									<label class="col-sm-5 control-label">Country:</label>
-										 &nbsp;
-										 <div  class="col-sm-3">
-										 	{{ signup.country }}
-										 </div>
-									{{ signup.country.errors }}
-								</div>
 						</div>
+						<div class="floater_bottom"></div>
 				</div>
-				
-			<input type="submit" class="btn btn-primary" value="submit">
-		</form>
-	</div>	
+		</div>
+		<!-- Login Section -->
 
+		<!-- jQuery -->
+		<script src="{% static 'doreenselly/js/jquery.js' %}"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="{% static 'doreenselly/js/bootstrap.min.js' %}"></script>
+
+		<!-- Scrolling Nav JavaScript -->
+		<script src="{% static 'doreenselly/js/jquery.easing.min.js' %}"></script>
+		<script src="{% static 'doreenselly/js/scrolling-nav.js' %}"></script>
+
+		<!-- Custom Script for Page  -->
+		<script src="{% static 'doreenselly/js/script.js' %}"></script>
+
+
+</body>
+
+</html>

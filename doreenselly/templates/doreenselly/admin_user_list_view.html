@@ -1,0 +1,75 @@
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+{% load staticfiles %}
+	<div>
+		{% if user.is_authenticated %}
+			<p align="right">Welcome {{user.username}} you have Logged in &nbsp;&nbsp; &nbsp; View <a href="/doreenselly/cart/">Cart</a>&nbsp;&nbsp; &nbsp;<a href="/doreenselly/logout">Logout</a></p>
+		{% endif %}
+	</div>
+
+{% if request.user.signup.country == "USA" %}
+	<table width="80%" border="0" id="preview_items" align="center" class="table table-striped">
+		<tr >
+			<th>S/No</th>
+			<th>User Name</th>
+			<th>E-Mail Address</th>
+			<th>Phone Number</th>
+			<th>Zip Code</th>
+			<th>Street</th>
+			<th>City</th>
+			<th>State</th>
+			<th>Country</th>
+
+		</tr> 
+		{% for product in items %}
+			<tr>
+				<td>{{forloop.counter}}</td>
+				<td>{{product.username}}</td>
+				<td>{{product.email}}</td>
+				<td>{{product.signup.phone_number}}</td>
+				<td>{{product.signup.zipcode}}</td>
+				<td>{{product.signup.street}}</td>
+				<td>{{product.signup.city}}</td>
+				<td>{{product.signup.state}}</td>
+				<td>{{product.signup.country}}</td>
+			</tr>
+		{% endfor %}
+{% elif request.user.signup.country == "KENYA" %}
+	<table width="80%" border="0" id="preview_items" align="center" class="table table-striped">
+		<tr >
+			<th>S/No</th>
+			<th>User Name</th>
+			<th>E-Mail Address</th>
+			<th>Phone Number</th>
+			<th>Zip Code</th>
+			<th>Street</th>
+			<th>City</th>
+			<th>State</th>
+			<th>Country</th>
+
+		</tr> 
+		{% for product in item %}
+			<tr>
+				<td>{{forloop.counter}}</td>
+				<td>{{product.username}}</td>
+				<td>{{product.email}}</td>
+				<td>{{product.signup.phone_number}}</td>
+				<td>{{product.signup.zipcode}}</td>
+				<td>{{product.signup.street}}</td>
+				<td>{{product.signup.city}}</td>
+				<td>{{product.signup.state}}</td>
+				<td>{{product.signup.country}}</td>
+			</tr>
+		{% endfor %}
+{% else %}
+	<p>You have <strong>no Order</strong> currently
+	</p>
+</table>
+{% endif %}
+
+<p>Wish to add item(s) to your Cart click <a href="/doreenselly/dashboard/">Home</a></p>

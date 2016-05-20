@@ -1,58 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+
 	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- ico -->
+	<link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+	<title>Doreenselly.com - Product Page</title>
+	{% load staticfiles %}
+
+	<!-- Bootstrap Core CSS -->
+	<link href="{% static 'doreenselly/css/bootstrap.min.css' %}" rel="stylesheet">
+
+	<!-- Slider Script -->
+	<link href="{% static 'doreenselly/css/jquery.bxslider.css' %}" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link href="{% static 'doreenselly/css/homepage.css' %}" rel="stylesheet">
+
+	<!-- Special Font for Icons -->
+	<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.css' %}">
+
+	<!-- Font -->
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+<style>
+	.button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+	}
+</style>
 </head>
 
-{% load staticfiles %}
-<div>
-	{% if user.is_authenticated %}
-		<p align="right">Welcome {{user.username}} you have Logged in &nbsp;&nbsp; &nbsp; View <a href="/doreenselly/cart/">Cart</a>&nbsp;&nbsp; &nbsp;<a href="/doreenselly/logout">Logout</a></p>
-	{% endif %}
-</div>
+<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
 
-{% if request.user.signup.country == "USA" %}
-	<form method="POST" action="/doreenselly/cart/" enctype="multipart/form-data">
-		{% csrf_token %}
-		<p><img src="{{each_item.docfile.url}}" class="img-circle" width="150" height="150" align="middle"></img></p>
-		<p><input type="hidden" name="docfile" value="{{each_item.docfile.url}}"></p>
-		<h1 name="description">Description is : {{each_item.description}}</h1>
-		<p><input type="hidden" name="description" value="{{each_item.description}}"></p>
+<body id="page-top">
 
-		<span name="price">Price is : $ {{each_item.price}}/piece</span>
-		<p><input type="hidden" name="price" value ="{{each_item.price}}"></p>
+	<!-- Pusher -->
+	<div class="st-container">
 
-		<p>Sold is : {{each_item.sold}}</p>
-		<!-- <p>Item Remaining is : {{each_item.item_remaining}}</p> -->
+		<!-- Page Content  -->
+		<div class="st-content" data-spy="scroll" data-target=".navbar-fixed-top">
 
-		<p>Quantity is : <input type="number" default="0" name="quantity" required> piece ( {{each_item.item_remaining}} pieces available )</p>
-		<br>
-		<input type="submit" class="btn btn-primary" value="Add to Cart">
+			<!-- Nav Links -->
+			<div class="navlinks">
+				<!-- Navigation -->
+				<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+					<div class="container">
+						<div class="navbar-header page-scroll">
+							<a class="navbar-brand page-scroll" href="index.html">
+							</a>
+						</div>
 
-	</form>
+						<a href="login.html" class="btn green" style="display:none;">Register/Login</a>
 
-{% elif request.user.signup.country == "KENYA" %}
-	<form method="POST" action="/doreenselly/cart/" enctype="multipart/form-data">
-		{% csrf_token %}
-		<p><img src="{{each_item.docfile.url}}" class="img-circle" width="150" height="150" align="middle"></img></p>
-		<p><input type="hidden" name="docfile" value="{{each_item.docfile.url}}"></p>
-		<h1 name="description">Description is : {{each_item.description}}</h1>
-		<p><input type="hidden" name="description" value="{{each_item.description}}"></p>
+						<a href="login.html" class="btn red">Checkout</a>
 
-		<span name="price">Price is : K {{each_item.price}}/piece</span>
-		<p><input type="hidden" name="price" value ="{{each_item.price}}"></p>
+						<ul>
+							<li>
+								<a href="#">Products</a>
+							</li>
+							<li>
+								<a href="#">About</a>
+							</li>
+							<li>
+								<a href="#">Blog</a>
+							</li>
+							<li>
+								<a href="#">Contact</a>
+							</li>
+						</ul>
 
-		<p>Sold is : {{each_item.sold}}</p>
-		<!-- <p>Item Remaining is : {{each_item.item_remaining}}</p> -->
+						<!-- /.navbar-collapse -->
+					</div>
+					<!-- /.container -->
+				</nav>
+			</div>
+			<!-- Nav Links -->
 
-		<p>Quantity is : <input type="number" default="0" name="quantity" required> piece ( {{each_item.item_remaining}} pieces available )</p>
-		<br>
-		<input type="submit" class="btn btn-primary" value="Add to Cart">
+			<section class="product">
 
-	</form>
+				<!-- Slider -->
+				<div class="slider">
+					<ul class="bxslider">
+						<li><img src="{% static 'doreenselly/img/product.png' %}" /></li>
+						<li><img src="{% static 'doreenselly/img/product1.png' %}" /></li>
+					</ul>
+				</div>
+				<!-- Slider -->
 
-{% else %}
-	<p>No <strong>item</strong> is available</p>
-{% endif %}
+				{% if request.user.signup.country == "USA" %}
+					<form method="POST" action="/doreenselly/cart/" enctype="multipart/form-data">
+						{% csrf_token %}
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="panel">
+											<div class="img">
+												<!-- <img src="{% static 'doreenselly/img/product1.jpg' %}" /> -->
+												<img src="{{each_item.docfile.url}}">
+												<p><input type="hidden" name="docfile" value="{{each_item.docfile.url}}"></p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<h1> {{each_item.description}}</h1>
+										<p><input type="hidden" name="description" value="{{each_item.description}}"></p>
+										<h2 class="mobile_show">${{each_item.price}}/piece</h2>
+										<p>Detail: {{each_item.details}}</p>
+										<p><input type="hidden" name="price" value ="{{each_item.price}}"></p>
+										<p>Quantity is : <input type="number" default="0" name="quantity" required> piece ( {{each_item.item_remaining}} pieces available )</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<button class="button">Add To Cart</button>
+										<!-- <a href="#" class="btn red">Checkout</a> -->
+									</div>
+								</div>
+							</div>
+					</form>
+				{% elif request.user.signup.country == "KENYA" %}
+					<form method="POST" action="/doreenselly/cart/" enctype="multipart/form-data">
+						{% csrf_token %}
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12 brd">
+										<div class="img">
+											<!-- <img src="{% static 'doreenselly/img/product1.jpg' %}" /> -->
+											<img src="{{each_item.docfile.url}}">
+											<p><input type="hidden" name="docfile" value="{{each_item.docfile.url}}"></p>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<h1>Description <br/> {{each_item.description}}</h1>
+										<p><input type="hidden" name="description" value="{{each_item.description}}"></p>
+										<h2 class="mobile_show">${{each_item.price}}/piece</h2>
+										<p>{{each_item.details}}</p>
+										<p><input type="hidden" name="price" value ="{{each_item.price}}"></p>
+										<p>Quantity is : <input type="number" default="0" name="quantity" required> piece ( {{each_item.item_remaining}} pieces available )</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<button class="button">Add To Cart</button>
+										<a href="#" class="btn red">Checkout</a>
+									</div>
+								</div>
+							</div>
+					</form>
+				{% else %}
+					<p>No <strong>item</strong> is available</p>
+				{% endif %}
+			</section>
+
+
+			<section id="newsletter">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="inner col-md-12">
+								<div class="col-md-6">
+									<h1>Subscribe to our newsletter</h1>
+									<p> Curabitur hendrerit at nisl ac imperdiet. Aliquam erat volutpat. Nam arcu eros, rhoncus ut justo vitae, venenatis pretium. </p>
+								</div>
+								<div class="col-md-6">
+									<input type="text" placeholder="Email Address" />
+									<button class="btn red">Subscribe</button>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Footer -->
+			<footer>
+				<div class="container info">
+					<div class="col-md-3 links">
+						<h1>Products</h1>
+						<a href="#">Product Category 1</a>
+						<a href="#">Product Category 2</a>
+						<a href="#">Product Category 3</a>
+						<a href="#">Product Category 4</a>
+						<a href="#">Product Category 5</a>
+					</div>
+					<div class="col-md-3 links">
+						<h1>Services</h1>
+						<a href="#">Quick Estimate</a>
+						<a href="#">FAQ</a>
+						<a href="#">Blog</a>
+						<a href="#">Support</a>
+					</div>
+					<div class="col-md-6">
+						<h1>Our Office</h1>
+						<p>13 Hughes Avenue Alagomeji, Yaba, Lagos, Nigeria</p>
+						<p>Phone: <strong>+2348099208888</strong></p>
+						<p>Email: <a href="#">info@zaposta.com</a></p>
+					</div>
+				</div>
+				<!-- Footer Bottom -->
+				<div class="footer-bottom">
+					<div class="container">
+						<p>© Circuit Atlantic 2016. All rights Reserved</p>
+						<div class="social">
+							<a href="#">
+								<i class="fa fa-facebook-square"></i>
+							</a>
+							<a href="#">
+								<i class="fa fa-twitter-square"></i>
+							</a>
+							<a href="#">
+								<i class="fa fa-google-plus-square"></i>
+							</a>
+							<a href="#">
+								<i class="fa fa-linkedin-square"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!-- Footer Bottom -->
+			</footer>
+			<!-- Footer -->
+
+		</div>
+		<!-- Page Content  -->
+
+	</div>
+	<!-- Pusher -->
+
+	<!-- jQuery -->
+	<script src="{% static 'doreenselly/js/jquery.js' %}"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="{% static 'doreenselly/js/bootstrap.min.js' %}"></script>
+
+	<!-- Scrolling Nav JavaScript -->
+	<script src="{% static 'doreenselly/js/jquery.easing.min.js' %}"></script>
+	<script src="{% static 'doreenselly/js/scrolling-nav.js' %}"></script>
+
+	<!-- Slider Script -->
+	<script src="{% static 'doreenselly/js/jquery.bxslider.min.js' %}"></script>
+
+	<!-- Custom Script for Page  -->
+	<script src="{% static 'doreenselly/js/script.js' %}"></script>
+
+	<!-- Slider Script -->
+	<script>
+		$(document).ready(function () {
+			$('.bxslider').bxSlider({
+				mode: 'fade',
+				auto: true,
+				infiniteLoop: true,
+				touchEnabled: true
+			});
+		});
+	</script>
+
+
+</body>
+
+</html>

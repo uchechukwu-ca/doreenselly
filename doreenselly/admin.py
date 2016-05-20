@@ -4,7 +4,7 @@ from doreenselly.models import Signup, AddInventory, Cart, Order
 # Register your models here.
 
 class SignupAdmin(admin.ModelAdmin):
-	list_display = ['phone_number', 'zipcode', 'street', 'city', 'state', 'country']
+	list_display = ['phone_number', 'zipcode', 'street', 'country']
 
 admin.site.register(Signup, SignupAdmin)
 
@@ -19,6 +19,6 @@ class CartAdmin(admin.ModelAdmin):
 admin.site.register(Cart, CartAdmin)
 
 class OrderAdmin(admin.ModelAdmin):
-	list_display = ('client', 'order_number', 'payable', 'location', 'payment_status', 'shipment_status', 'order_number', 'card_holder_name', 'card_holder_number', 'card_expiry_month', 'card_expiry_year', 'created_on')
+	list_display = ('client', 'order_number', 'payable', 'location', 'payment_status', 'shipment_status', 'account_bank_name', 'amount_paid', 'deposit_slip_number', 'created_on')
 
 admin.site.register(Order, OrderAdmin)

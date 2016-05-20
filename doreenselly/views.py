@@ -44,8 +44,8 @@ def signup(request):
 			signup.phone_number = request.POST['phone_number']
 			signup.zipcode = request.POST['zipcode']
 			signup.street = request.POST['street']
-			signup.city = request.POST['city']
-			signup.state = request.POST['state']
+			# signup.city = request.POST['city']
+			# signup.state = request.POST['state']
 			signup.country = request.POST['country']
 			signup.save()
 		return HttpResponseRedirect('/doreenselly/success/')
@@ -69,7 +69,7 @@ def signin(request):
 		if user:
 			if user.is_staff:
 				login(request, user)
-				return HttpResponseRedirect('/doreenselly/dashboard/')
+				return HttpResponseRedirect('/doreenselly/add_inventory/')
 			if user.is_active:
 				login(request, user)
 				return HttpResponseRedirect('/doreenselly/homepage/')
@@ -101,10 +101,10 @@ def homepage(request):    # Client View
 	print "YOUR COUNTRY SESSION IS : ", request.user.signup
 	print "YOUR  NAME IS : ", request.user
 	# if request.user.signup is "KENYA":
-	item = AddInventory.objects.filter(country__country="KENYA")
+	items_from_kenya = AddInventory.objects.filter(country__country="KENYA")
 	# else:
-	items = AddInventory.objects.filter(country__country="USA")
-	return render(request, "doreenselly/homepage.html", {'items': items, 'item': item})
+	items_from_usa = AddInventory.objects.filter(country__country="USA")
+	return render(request, "doreenselly/homepage.html", {'items_from_kenya': items_from_kenya, 'items_from_usa': items_from_usa})
 
 
 @login_required()
@@ -152,9 +152,16 @@ def cart(request):    # Client View
 @login_required()
 def delete_item(request, item_id):
 	get_item = Cart.objects.get(pk=item_id)
-	print"Id", get_item
+	# print"Id", get_item
 	get_item.delete()
 	return HttpResponseRedirect('/doreenselly/cart/')
+
+
+def admin_delete_item(request, item_id):
+	get_item = AddInventory.objects.get(pk=item_id)
+	# print"Id", get_item
+	get_item.delete()
+	return HttpResponseRedirect('/doreenselly/add_inventory/')
 
 
 def LenOf(value):     # Client View
@@ -180,29 +187,23 @@ def payment(request):
 	request_user = request.user
 	item=Cart.objects.filter(client=request_user, ordered=False)
 	payable = sum([i.total() for i in item])
-	print "PAYABLE ", payable
+	# print "PAYABLE ", payable
 	return render(request, "doreenselly/payment.html", {'item': item, 'payable': payable})
+
+
+# def beachbody(request):
+	
 
 
 @login_required
 def summary(request):    # Client View
+	print "SSSSs"
 	context = {}
 	order_number = create_id()
 	print "ORDER NUMBER", order_number
 	request_user = request.user
 	all_items = Cart.objects.filter(client=request_user, ordered=False)
 	print "ALL ITEM", all_items
-
-	card_holder_name = request.POST['card_holder_name']
-	print "card_holder_name ", card_holder_name
-	card_holder_number = request.POST['card_holder_number']
-	print "card_holder_number " , card_holder_number
-	card_expiry_month = request.POST['card_expiry_month']
-	print "card_expiry_month ", card_expiry_month
-	card_expiry_year = request.POST['card_expiry_year']
-	print "card_expiry_year ", card_expiry_year
-	payable = request.POST['payable']
-	print "payable ", payable
 
 	client = request.user
 	# print "Client is ", client
@@ -211,27 +212,26 @@ def summary(request):    # Client View
 
 	if request.method == "POST":
 		# print "rp ", request.POST
+		account_bank_name = request.POST['account_bank_name']
+		print "account_bank_name ", account_bank_name
+		amount_paid = request.POST['amount_paid']
+		print "amount_paid " , amount_paid
+		deposit_slip_number = request.POST['deposit_slip_number']
+		print "deposit_slip_number ", deposit_slip_number
+		payable = request.POST['payable']
+		print "payable ", payable
 
-		
-		# order_number = create_id()
-		# print "ORDER NUMBER", order_number
-		
-		
-
-
-	
-		item, created = Order.objects.get_or_create(order_number=order_number, client=client, location=location, card_holder_name=card_holder_name, card_holder_number=card_holder_number, card_expiry_month=card_expiry_month, card_expiry_year=card_expiry_year, payable=payable)
+		item, created = Order.objects.get_or_create(order_number=order_number, client=client, location=location, account_bank_name=account_bank_name, amount_paid=amount_paid, deposit_slip_number=deposit_slip_number, payable=payable)
 		item.save()
 	
-		order = Order.objects.filter(order_number = order_number)
-		print "ORDER", order
-		all_items.update(ordered = True, order = order[0])
-		my_order = Order.objects.filter(client=request_user).filter(order_number=order_number) #Populate client's Order to template
+	order = Order.objects.filter(order_number = order_number)
+	print "ORDER", order
+	all_items.update(ordered = True, order = order[0])
+	my_order = Order.objects.filter(client=request_user).filter(order_number=order_number) #Populate client's Order to template
 
-		tied_order = Cart.objects.filter(client=request_user, ordered=True, order=order)
-		print "TIED ORDER", tied_order
-	# else:
-		
+	tied_order = Cart.objects.filter(client=request_user, ordered=True, order=order)
+	print "TIED ORDER", tied_order
+
 	return render(request, "doreenselly/summary.html", {'my_order': my_order, 'order': order, 'tied_order': tied_order, 'order_number': order_number})
 
 
@@ -282,18 +282,26 @@ def add_inventory(request):     #Admin View
 		add_inventory_form = AddInventoryForm()
 
 	# Load items for the add_inventory page
-	items = AddInventory.objects.all()
-	# if request.user.signup == "USA":
-	# 	items = AddInventory.objects.filter(country="USA")
-	# 	print "USA", items
-	# else:
-	# 	items = AddInventory.objects.filter(country="KENYA")
-	# 	print "KENYA", items
-	# print "items",items
+	all_items = AddInventory.objects.all()
 
-	return render(request,'doreenselly/add_inventory.html', {'items': items, 'add_inventory_form': add_inventory_form})
+	items_from_usa = AddInventory.objects.filter(country__country="USA")
+	# print "USA", items_from_usa
+
+	items_from_kenya = AddInventory.objects.filter(country__country="KENYA")
+	# print "KENYA", items_from_kenya
+	# print "all_items", all_items
+
+	return render(request,'doreenselly/add_inventory.html', {'add_inventory_form': add_inventory_form, 'all_items': all_items, 'items_from_usa': items_from_usa, 'items_from_kenya': items_from_kenya})
 
 
+# def itemslist(request):
+
+# 	context={}
+# 	# items = AddInventory.objects.all()
+# 	item = AddInventory.objects.filter(country__country="KENYA")
+# 	# else:
+# 	items = AddInventory.objects.filter(country__country="USA")
+# 	return render(request, "doreenselly/itemslist.html",{'items': items, 'item': item})
 
 
 def edit_item(request):	      #Admin View
@@ -311,12 +319,35 @@ def edit_item(request):	      #Admin View
 		print "Quantity is : ", quantity
 
 		itemToEdit = get_object_or_404(AddInventory, pk=product_id)
-		print"PK", itemToEdit
+		# print"PK", itemToEdit
 		itemToEdit.description = description
 		itemToEdit.price = price
 		itemToEdit.quantity = quantity
 
 		itemToEdit.save()
 
-		return HttpResponseRedirect('/doreenselly/add_inventory/')
+		return HttpResponseRedirect('/doreenselly/itemslist/')
 		# return render_to_response('doreenselly/add_inventory.html', {'rp': rp}, context_instance=RequestContext(request))
+
+
+def admin_order_view(request):
+	context={}
+	
+	kenya_order = Order.objects.filter(location="KENYA")
+	# else:
+	usa_order = Order.objects.filter(location="USA")
+	return render(request, "doreenselly/admin_order_view.html",{'kenya_order': kenya_order, 'usa_order': usa_order})
+
+
+def admin_profile(request):
+	return render(request, "doreenselly/admin_profile.html",{})
+
+
+def admin_user_list_view(request):
+	context={}
+	item = User.objects.filter(signup__country="KENYA")
+	print "KENYA", item
+	# else:
+	items = User.objects.filter(signup__country="USA")
+	print "USA", items
+	return render(request, "doreenselly/admin_user_list_view.html",{'items': items, 'item': item})

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- ico -->
+		<link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+		<title>Doreenselly.com - Order Manager Page</title>
+		{% load staticfiles %}
+
+		<!-- Bootstrap Core CSS -->
+		<link href="{% static 'doreenselly/css/bootstrap.min.css' %}" rel="stylesheet">
+
+		<!-- Slider Script -->
+		<link href="{% static 'doreenselly/css/jquery.bxslider.css' %}" rel="stylesheet">
+
+		<!-- Custom CSS -->
+		<link href="{% static 'doreenselly/css/homepage.css' %}" rel="stylesheet">
+
+		<!-- Special Font for Icons -->
+		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.css' %}">
+
+		<!-- Font -->
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+				<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+				<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+</head>
+
+<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+
+<body id="page-top" class="orders_page">
+
+		<!-- Pusher -->
+		<div class="st-container">
+
+				<!-- Page Content  -->
+				<div class="st-content" data-spy="scroll" data-target=".navbar-fixed-top">
+
+						<!-- Checkout Section -->
+						<section class="checkout two">
+								<!-- Page Inner  -->
+								<div class="container pagein">
+										<!-- Nav Links -->
+										<div class="navlinks">
+												<!-- Navigation -->
+												<nav class="navbar navbar-default" role="navigation">
+														<div class="container">
+																<div class="navbar-header page-scroll">
+																		<a class="navbar-brand page-scroll" href="index.html">
+																		</a>
+																</div>
+
+																<a href="login.html" class="btn green" style="display:none;">Register/Login</a>
+
+																<a href="/doreenselly/logout" class="btn red">Logout</a>
+
+																<ul>
+																		<li class="active">
+																				<a href="/doreenselly/add_inventory">Inventory Manager</a>
+																		</li>
+																		<li>
+																				<a href="/doreenselly/admin_order_view">Order Manager</a>
+																		</li>
+																		<li>
+																				<a href="/doreenselly/admin_profile">My Profile</a>
+																		</li>
+																</ul>
+
+																<!-- /.navbar-collapse -->
+														</div>
+														<!-- /.container -->
+												</nav>
+										</div>
+										<!-- Nav Links -->
+										<div class="pagein_content">
+												<div class="container">
+														<div class="col-md-12">
+																<h1>Order <br/> Manager</h1>
+														</div>
+														<div class="col-md-8">
+																<p> Cras efficitur diam consectetur tincidunt mollis. Mauris vitae lorem elit. Etiam elementum augue vitae odio imperdiet, non accumsan tellus suscipit. Fusce pellentesque imperdiet diam, et rhoncus urna. Cras a turpis felis.</p>
+														</div>
+														<div class="col-md-4">
+																<a href="/doreenselly/add_inventory" class="btn green" style="float:right; margin:0;">Add Inventory Item</a>
+														</div>
+														<div class="col-md-12" style="padding-top:20px;">
+															{% if request.user.signup.country == "USA" %}
+																<table width="100%" border="0" class="fixed">
+																		<tr>
+																			<th>S/No</th>
+																			<th>Customer</th>
+																			<th>Order Number</th>
+																			<th>Amount to Pay</th>
+																			<th>Location</th>
+																			<th>Payment Status</th>
+																			<th>Shipment Status</th>
+																			<th></th>
+																		</tr>
+																		{% for product in usa_order %}
+																		<tr>
+																			<td>{{forloop.counter}}</td>
+																			<td>{{product.client}}</td>
+																			<td>{{product.order_number}} </td>
+																			<td>{{product.payable}}</td>
+																			<td>{{product.location}}</td>
+																			<td>{{product.payment_status}}</td>
+																			<td>{{product.shipment_status}}</td>
+																			<td>
+																				<a href="#{{product.pk}}" class="manipulate btn btn-info btn-md" item_id="{{product.pk}}">Update</a>
+																			</td>
+																		</tr>
+																		{% endfor %}
+																</table>
+															{% elif request.user.signup.country == "KENYA" %}
+																<table width="100%" border="0" class="fixed">
+																		<tr>
+																			<th>S/No</th>
+																			<th>Customer</th>
+																			<th>Order Number</th>
+																			<th>Amount to Pay</th>
+																			<th>Location</th>
+																			<th>Payment Status</th>
+																			<th>Shipment Status</th>
+																			<th></th>
+																		</tr>
+																		{% for product in kenya_order %}
+																		<tr>
+																			<td>{{forloop.counter}}</td>
+																			<td>{{product.client}}</td>
+																			<td>{{product.order_number}} </td>
+																			<td>{{product.payable}}</td>
+																			<td>{{product.location}}</td>
+																			<td>{{product.payment_status}}</td>
+																			<td>{{product.shipment_status}}</td>
+																			<td>
+																				<a href="#{{product.pk}}" class="manipulate btn btn-info btn-md" item_id="{{product.pk}}">Update</a>
+																			</td>
+																		</tr>
+																		{% endfor %}
+																</table>
+															{% else %}
+																<p>No <strong>item</strong> is available</p>
+															{% endif %}
+														</div>
+												</div>
+										</div>
+										{% include 'permission_snippet/add_inv_modal.html' %}
+										<!-- Footer -->
+										<footer>
+												<!-- Footer Bottom -->
+												<div class="footer-bottom">
+														<div class="container">
+																<div class="social">
+																		<a href="#">
+																				<i class="fa fa-facebook-square"></i>
+																		</a>
+																		<a href="#">
+																				<i class="fa fa-twitter-square"></i>
+																		</a>
+																		<a href="#">
+																				<i class="fa fa-google-plus-square"></i>
+																		</a>
+																		<a href="#">
+																				<i class="fa fa-linkedin-square"></i>
+																		</a>
+																</div>
+														</div>
+												</div>
+												<!-- Footer Bottom -->
+
+										</footer>
+										<!-- Footer -->
+								</div>
+								<!-- Page Inner  -->
+						</section>
+						<!-- Checkout Section -->
+
+				</div>
+				<!-- Page Content  -->
+
+		</div>
+		<!-- Pusher -->
+
+		<!-- jQuery -->
+		<script src="{% static 'doreenselly/js/jquery.js' %}"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="{% static 'doreenselly/js/bootstrap.min.js' %}"></script>
+
+		<!-- Scrolling Nav JavaScript -->
+		<script src="{% static 'doreenselly/js/jquery.easing.min.js' %}"></script>
+		<script src="{% static 'doreenselly/js/scrolling-nav.js' %}"></script>
+
+		<!-- Slider Script -->
+		<script src="{% static 'doreenselly/js/jquery.bxslider.min.js' %}"></script>
+
+		<!-- Custom Script for Page  -->
+		<script src="{% static 'doreenselly/js/script.js' %}"></script>
+
+		<!-- Slider Script -->
+		<script>
+				$(document).ready(function () {
+						$('.bxslider').bxSlider({
+								mode: 'fade',
+								auto: true,
+								infiniteLoop: true,
+								touchEnabled: true
+						});
+				});
+		</script>
+
+
+</body>
+
+</html>

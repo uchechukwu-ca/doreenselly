@@ -8,7 +8,7 @@ from decimal import Decimal
 
 
 CATEGORIES = (
-	('SELECT', 'SELECT'),
+	('hide', 'COUNTRY'),
 	('USA', 'USA'),
 	('KENYA', 'KENYA'),
 	)
@@ -29,8 +29,8 @@ class Signup(models.Model):
 	phone_number = models.PositiveIntegerField( null=True)
 	zipcode = models.PositiveIntegerField(null=True)
 	street = models.CharField(max_length = 75, null=True)
-	city = models.CharField(max_length = 75, null=True)
-	state = models.CharField(max_length = 75, null= True)
+	# city = models.CharField(max_length = 75, null=True)
+	# state = models.CharField(max_length = 75, null= True)
 	country = models.CharField(max_length = 32, null=True, choices = CATEGORIES)
 
 	def __str__(self):
@@ -83,10 +83,9 @@ class Order(models.Model):
 	location = models.CharField(max_length=12)
 	payment_status = models.CharField(max_length=20, choices = PAYMENT_STATUS, default='Pending')
 	shipment_status = models.CharField(max_length=20, choices = SHIPMENT_STATUS, default='Pending')
-	card_holder_name = models.CharField(max_length = 100)
-	card_holder_number = models.PositiveIntegerField()
-	card_expiry_month = models.CharField(max_length = 12)
-	card_expiry_year = models.PositiveIntegerField()
+	account_bank_name = models.CharField(max_length = 100, blank=True, null=True)
+	amount_paid = models.PositiveIntegerField(blank=True, null=True)
+	deposit_slip_number = models.PositiveIntegerField(blank=True, null=True)
 	created_on = models.DateTimeField(auto_now_add = True)
 
 	def __str__(self):

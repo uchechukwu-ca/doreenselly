@@ -5,12 +5,29 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
-	<ul class="nav">
-		<div>
-			{% if user.is_authenticated %}
-				<p align="right">Welcome {{user.username}} you have Logged in &nbsp;&nbsp; &nbsp; View <a href="/doreenselly/cart/">Cart</a>&nbsp;&nbsp; &nbsp; <a href="/doreenselly/logout">Logout</a></p>
-			{% endif %}
-
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/doreenselly/dashboard/">Home</a>
 		</div>
-	</ul>
-	<p>Click to <a href="/doreenselly/add_inventory/">add Inventory</a></p>
+		<ul class="nav navbar-nav">
+			<li class="active"><a href="/doreenselly/dashboard/">Home</a></li>
+			<li><a href="/doreenselly/itemslist">Items List</a></li>
+			<li><a href="/doreenselly/admin_order_view">Orders</a></li>
+			<li><a href="/doreenselly/admin_user_list_view">User</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="#"> Welcome {{user.username}} you have Logged in </a></li>
+			<li ><a href="/doreenselly/logout">Logout</a></li>
+		</ul>
+	</div>
+</nav>
+<ul class="nav">
+	<div>
+		{% if user.is_authenticated %}
+			<p align="right">Welcome {{user.username}} you have Logged in &nbsp;&nbsp; &nbsp; View <a href="/doreenselly/cart/">Cart</a>&nbsp;&nbsp; &nbsp; <a href="/doreenselly/logout">Logout</a></p>
+		{% endif %}
+
+	</div>
+</ul>
+<p>Click to <a href="/doreenselly/add_inventory/">add Inventory</a></p>

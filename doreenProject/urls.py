@@ -24,6 +24,7 @@ urlpatterns = [
 	url(r'^$', 'doreenselly.views.index', name="index"),
 	url(r'^doreenselly/', include('doreenselly.urls')),
 	url(r'^delete_item/(?P<item_id>[-\w]+)/$', views.delete_item, name='delete_item'),
+	url(r'^admin_delete_item/(?P<item_id>[-\w]+)/$', views.admin_delete_item, name='admin_delete_item'),
 ]
 
 if settings.DEBUG:

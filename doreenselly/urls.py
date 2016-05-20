@@ -14,12 +14,17 @@ urlpatterns = [
 	url(r'^homepage/$', views.homepage, name='homepage'),
 	url(r'^item/(?P<item_id>[-\w]+)/$', views.item, name='item'),
 	url(r'^delete_item/(?P<item_id>[-\w]+)/$', views.delete_item, name='delete_item'),
+	# url(r'^admin_delete_item/(?P<item_id>[-\w]+)/$', views.admin_delete_item, name='admin_delete_item'),
 	url(r'^cart/$', views.cart, name='cart'),
 	url(r'^payment/$', views.payment, name='payment'),
 	url(r'^summary/$', views.summary, name='summary'),
 	url(r'^order/$', views.order, name='order'),
 	url(r'^add_inventory/$', views.add_inventory, name='add_inventory'),
+	# url(r'^itemslist/$', views.itemslist, name='itemslist'),
 	url(r'^edit_item/$', views.edit_item, name='edit_item'),
+	url(r'^admin_order_view/$', views.admin_order_view, name='admin_order_view'),
+	url(r'^admin_profile/$', views.admin_profile, name='admin_profile'),
+	url(r'^admin_user_list_view/$', views.admin_user_list_view, name='admin_user_list_view'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

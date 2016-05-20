@@ -13,7 +13,7 @@
 	{% endif %}
 </div>
 
-<form action="/doreenselly/summary/" method="post" class="special" name="myForm" enctype="multipart/form-data">
+<form action="/doreenselly/summary/" method="POST" enctype="multipart/form-data">
 	{% csrf_token %}
 
 	<div class="col-md-12">
@@ -53,93 +53,48 @@
 		<h1>Payment Method</h1>
 	</div>
 
-	<!-- Pay Info / CC -->
-	<div  id="credit_card">
-
-		<div class='col-sm-10'>
-			<div class="col-sm-4">
-				<input type="text" placeholder="Credit Card Holder Name" class='form-control' name="card_holder_name" id="cardName" style="margin-top:20px;" required />
+	<div class="row-fluid payinfo" id="bank_deposit">
+		<div class="col-md-10">
+			<div class="col-sm-3">
+				<select id="bankName" name="account_bank_name" class='form-control' style="margin-top:20px;">
+					<option value="hidden">Bank</option>
+					<option value="Bank of Africa">Bank of Africa</option>
+					<option value="Bank of Baroda">Bank of Baroda</option>
+					<option value="Bank of India">Bank of India</option>
+					<option value="Barclays Bank of Kenya">Barclays Bank of Kenya</option>
+					<option value="CfC Stanbic Holdings">CfC Stanbic Holdings</option>
+				</select>
 			</div>
-		</div><br>
-		<div class='col-sm-10'>
-			<div class="col-sm-4">
-				<input type="text" placeholder="Credit Card Number" class='form-control' name="card_holder_number" id="cardNumber" style="margin-top:20px;" required/><br>
+		</div>
+		<div class="col-md-10">
+			<div class="col-sm-3">
+				<input type="number" placeholder="Amount Paid" name="amount_paid" id="amtPaid" class='form-control' style="margin-top:20px;" required/>
 			</div>
-		</div><br>
-		<div class='col-sm-10'>
-			<div class="col-sm-4">
-				<select id="cardExpiryMonth" class='form-control' name="card_expiry_month" style="margin-top:0px;" required>
-						<option value="hide">Month</option>
-						<option value="1">January</option>
-						<option value="2">February</option>
-						<option value="3">March</option>
-						<option value="4">April</option>
-						<option value="5">May</option>
-						<option value="6">June</option>
-						<option value="7">July</option>
-						<option value="8">August</option>
-						<option value="9">September</option>
-						<option value="10">October</option>
-						<option value="11">November</option>
-						<option value="12">December</option>
-					</select>
-			</div>
-		</div><br>
-		<div class='col-sm-10'>
-			<div class="col-sm-4">
-				<select id="cardExpiryYear" class='form-control' name="card_expiry_year" style="margin-top:20px;" required>
-						<option value="-1">Year</option>
-						<script>
-								for(var year = 2000; year <= new Date().getFullYear(); year++){
-										document.write("<option value=" + year +  ">" + year + "</option>");
-								}
-						</script>
-				</select><br>
-			</div>
-		</div><br>
-		<div class='col-sm-10'>
-			<div class="col-sm-4">
-				<input type="text" placeholder="CVV Code" class='form-control' name="card_cvv_code" id="cardCVVCode" style="margin-top:0px;" required/>
+		</div>
+		<div class="col-md-10">
+			<div class="col-sm-3">
+				<input type="number" placeholder="Deposit Slip Number" name="deposit_slip_number" id="slipNumber" class='form-control' style="margin-top:20px;" required/>
 			</div>
 		</div>
 	</div>
-	<!-- Pay Info -->
+	<!-- Pay Info / CC -->
 
-	<!-- Pay Info / Bank -->
-	<div class="row-fluid payinfo two hidden" id="bank_transfer">
-			<div class="col-md-12">
-					<div class="select_outer two scrolled" style="z-index:2;">
-							<select id="bankName" name="account_bank_name">
-									<option value="-1">Bank</option>
-									<option value="Bank of Africa">Bank of Africa</option>
-									<option value="Bank of Baroda">Bank of Baroda</option>
-									<option value="Bank of India">Bank of India</option>
-									<option value="Barclays Bank of Kenya">Barclays Bank of Kenya</option>
-									<option value="CfC Stanbic Holdings">CfC Stanbic Holdings</option>                                                            
-							</select>
-					</div>
-			</div>
-			<div class="col-md-12">
-					<input type="text" placeholder="Name of the Bank Account Holder" name="account_holder_name" id="accName"/>
-			</div>
-			<div class="col-md-12">
-					<input type="text" placeholder="Bank Account Number" name="account_number" id="accNumber"/>
-			</div>
-	</div>
 	<!-- Pay Info -->
 
 	<div class="col-md-12 terms">
-			<p>
-				<input type="checkbox" id="id_terms_and_conditions" name="terms_and_conditions" style="margin-top:20px;"required/>Accept our <a href="#">Terms of Conditions</a></p>
+		<p>
+			<input type="checkbox" id="id_terms_and_conditions" name="terms_and_conditions" style="margin-top:20px;"required/>Accept our <a href="#">Terms of Conditions</a>
+		</p>
 	</div>
 
 	<div class="col-md-12 terms">
 		<p>
-			<input type="hidden" name="payable" value="{{payable}}" required/></p>
+			<input type="hidden" name="payable" value="{{payable}}" required/>
+		</p>
 	</div>
 	
 	<div class="col-md-12">
-			<input type="submit" class='btn' value="Submit"/>
+		<input type="submit" class='btn btn-primary' value="Submit"/>
 	</div>
 
 </form>
