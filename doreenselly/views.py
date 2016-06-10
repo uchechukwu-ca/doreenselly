@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 import random, datetime
+from django.utils import timezone
 #Imaginary function to handle an upload file
 
 # Create your views here.
@@ -191,16 +192,14 @@ def payment(request):
 	return render(request, "doreenselly/payment.html", {'item': item, 'payable': payable})
 
 
-# def beachbody(request):
-	
+def beachbody(request):
+	return render(request, "www.beachbody.com", {})
 
 
 @login_required
-def summary(request):    # Client View
-	print "SSSSs"
+def summary1(request, **kwargs):    # Client View
 	context = {}
-	order_number = create_id()
-	print "ORDER NUMBER", order_number
+	
 	request_user = request.user
 	all_items = Cart.objects.filter(client=request_user, ordered=False)
 	print "ALL ITEM", all_items
@@ -211,6 +210,8 @@ def summary(request):    # Client View
 	print "LOCATION ", location
 
 	if request.method == "POST":
+		order_number = create_id()
+		print "ORDER NUMBER", order_number
 		# print "rp ", request.POST
 		account_bank_name = request.POST['account_bank_name']
 		print "account_bank_name ", account_bank_name
@@ -223,7 +224,9 @@ def summary(request):    # Client View
 
 		item, created = Order.objects.get_or_create(order_number=order_number, client=client, location=location, account_bank_name=account_bank_name, amount_paid=amount_paid, deposit_slip_number=deposit_slip_number, payable=payable)
 		item.save()
+		# return redirect('summary')
 	
+
 	order = Order.objects.filter(order_number = order_number)
 	print "ORDER", order
 	all_items.update(ordered = True, order = order[0])
@@ -231,8 +234,27 @@ def summary(request):    # Client View
 
 	tied_order = Cart.objects.filter(client=request_user, ordered=True, order=order)
 	print "TIED ORDER", tied_order
+	return HttpResponseRedirect(reverse('doreenselly.views.summary'))
+	# return render(request, "doreenselly/summary.html", {'my_order': my_order, 'order': order, 'tied_order': tied_order, 'order_number': order_number})
 
-	return render(request, "doreenselly/summary.html", {'my_order': my_order, 'order': order, 'tied_order': tied_order, 'order_number': order_number})
+
+@login_required
+def summary(request):
+	context = {}
+	request_user = request.user
+	print "user", request_user
+
+	# new_order_num = Order.objects.filter(client=request_user)
+	# counting = new_order_num.count()
+	# recent_order = new_order_num[counting - 1]
+	recent_order = Order.objects.order_by("order_number").last()
+
+	print "recent_order", recent_order
+
+	recent_cart_item = Cart.objects.filter(order=recent_order)
+	print "recent_cart_item ",recent_cart_item
+
+	return render(request, "doreenselly/summary.html", {'recent_order': recent_order, "recent_cart_item": recent_cart_item})
 
 
 @login_required
@@ -294,17 +316,7 @@ def add_inventory(request):     #Admin View
 	return render(request,'doreenselly/add_inventory.html', {'add_inventory_form': add_inventory_form, 'all_items': all_items, 'items_from_usa': items_from_usa, 'items_from_kenya': items_from_kenya})
 
 
-# def itemslist(request):
-
-# 	context={}
-# 	# items = AddInventory.objects.all()
-# 	item = AddInventory.objects.filter(country__country="KENYA")
-# 	# else:
-# 	items = AddInventory.objects.filter(country__country="USA")
-# 	return render(request, "doreenselly/itemslist.html",{'items': items, 'item': item})
-
-
-def edit_item(request):	      #Admin View
+def admin_edit_item(request):	      #Admin View
 	rp = request.POST
 	print "rp",rp
 	context = {}
@@ -326,8 +338,40 @@ def edit_item(request):	      #Admin View
 
 		itemToEdit.save()
 
-		return HttpResponseRedirect('/doreenselly/itemslist/')
-		# return render_to_response('doreenselly/add_inventory.html', {'rp': rp}, context_instance=RequestContext(request))
+
+	return HttpResponseRedirect(reverse('doreenselly.views.add_inventory'))
+
+
+def admin_order_edit(request):	      #Admin View
+	rp = request.POST
+	print "rp",rp
+	context = {}
+	if request.method == "POST":
+		product_id = rp.get('item_id')
+		print "product_id", product_id
+		client = rp.get('client')
+		print "client is : ", client
+		order_number = rp.get('order_number')
+		print "order_number is : ", order_number
+		payable = rp.get('payable')
+		print "payable is : ", payable
+		payment_status = rp.get('pay_status')
+		print "pay_status is : ", payment_status
+		shipment_status = rp.get('ship_status')
+		print "ship_status is : ", shipment_status
+
+		itemToEdit = get_object_or_404(Order, pk=product_id)
+		# print"PK", itemToEdit
+		# itemToEdit.client = client
+		# itemToEdit.order_number = order_number
+		# itemToEdit.payable = payable
+		itemToEdit.payment_status = payment_status
+		itemToEdit.shipment_status = shipment_status
+
+		itemToEdit.save()
+
+
+	return HttpResponseRedirect(reverse('doreenselly.views.admin_order_view'))
 
 
 def admin_order_view(request):

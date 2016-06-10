@@ -1,4 +1,4 @@
-{% load staticfiles %}
+
 <!-- Modal -->
 <div class="modal fade" id="edititemModal{{product.pk}}" role="dialog" style="height: auto;">
 	<div class="modal-dialog">
@@ -12,29 +12,47 @@
 				<div class="alert hidden" id="alert1" role="alert">
 				</div>
 				<p id="item_make"></p>
-				<form action="/doreenselly/edit_item/" method="post" class="special" enctype="multipart/form-data" item_id="{{product.pk}}" >
+				<form action="/doreenselly/admin_order_edit/" method="post" class="special" enctype="multipart/form-data" item_id="{{product.pk}}" >
 					{% csrf_token %}
-						<div class="form-group">
-							<input type="number" id="id_item" maxlength="32" name = "item_id" value="{{id}}" class="form-control" required/>
+						<div class="form-group hidden">
+							<input type="number" id="id_item" maxlength="32" name = "item_id" value="{{id}}" class="form-control" readonly/>
 						</div>
 
 						<div class="form-group">
 							<label>Customer</label>
-							<input type="text" id="id_client" maxlength="32" name = "client" value="{{item_val}}" class="form-control" required/>
+							<input type="text" id="id_client" maxlength="32" name = "client" class="form-control" readonly/>
 						</div>
 
 						<div class="form-group">
-							<label>Price</label>
-							<input type="number" id="id_price" maxlength="32" name="price" value="{{price}}" class="form-control" required/>
+							<label>Order Number</label>
+							<input type="text" id="id_order_number" maxlength="32" name="order_number" class="form-control" readonly/>
 						</div>
 
 						<div class="form-group">
-							<label>Quantity</label>
-							<input type="number" id="id_quantity" maxlength="10" name="quantity" value="{{quantity}}" class="form-control" required/> 
+							<label>Amount to Pay</label>
+							<input type="text" id="id_amount" maxlength="32" name="payable" class="form-control" readonly/>
+						</div>
+
+						<div class="form-group">
+							<label>Payment Status</label>
+							<select class="form-control input-lg" id="id_pay_status" name="pay_status" required>
+								<option value="" class="hide">Select Payment Status</option>
+								<option value="Pending">Pending</option>
+								<option value="Paid">Paid</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label>Shipment Status</label>
+							<select class="form-control input-lg" id="id_ship_status" name="ship_status" required>
+								<option value="" class="hide">Select Shipment Status</option>
+								<option value="Pending">Pending</option>
+								<option value="Shipped">Shipped</option>
+							</select>
 						</div>
 
 						<div class="modal-footer">
-							<input type="submit" name="edit" id="edit_item" class='btn pull-right' value="Update"/>
+							<input type="submit" name="edit" id="edit_item" class='button pull-right' value="Update"/>
 						</div>
 						
 				</form><br>

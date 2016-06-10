@@ -52,6 +52,20 @@
 			cursor: pointer;
 	}
 </style>
+
+<style type="text/css">
+	.place {
+		height:45px;
+		width:5cm;
+		border: 1px groove;
+		border-radius: 4px;
+	}
+
+	.place[placeholder] {
+		font-size:14px;
+		color:black;
+	}
+</style>
 </head>
 
 <!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
@@ -70,23 +84,26 @@
 				<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 					<div class="container">
 						<div class="navbar-header page-scroll">
-							<a class="navbar-brand page-scroll" href="index.html">
+							<a class="navbar-brand page-scroll" href="/doreenselly/homepage/">
 							</a>
 						</div>
 
 						<a href="login.html" class="btn green" style="display:none;">Register/Login</a>
 
-						<a href="login.html" class="btn red">Checkout</a>
+						<a href="/doreenselly/logout/" class="btn red">Logout</a>
 
 						<ul>
+							<li>
+								<a href="/doreenselly/order">My Order</a>
+							</li>
+							<li>
+								<a href="/doreenselly/cart">My Cart</a>
+							</li>
 							<li>
 								<a href="#">Products</a>
 							</li>
 							<li>
 								<a href="#">About</a>
-							</li>
-							<li>
-								<a href="#">Blog</a>
 							</li>
 							<li>
 								<a href="#">Contact</a>
@@ -126,12 +143,12 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-										<h1> {{each_item.description}}</h1>
+										<h4 style="margin-top: 3cm;"> <strong>{{each_item.description}}</strong></h4>
 										<p><input type="hidden" name="description" value="{{each_item.description}}"></p>
-										<h2 class="mobile_show">${{each_item.price}}/piece</h2>
-										<p>Detail: {{each_item.details}}</p>
+										<h2 class="mobile_show"><strong>${{each_item.price}}/piece</strong></h2>
+										<p><strong>Detail:</strong> {{each_item.details}}</p>
 										<p><input type="hidden" name="price" value ="{{each_item.price}}"></p>
-										<p>Quantity is : <input type="number" default="0" name="quantity" required> piece ( {{each_item.item_remaining}} pieces available )</p>
+										<p><strong>Quantity is :</strong> <input type="number" default="0" name="quantity" class="place" required> piece </p>
 									</div>
 								</div>
 								<div class="row">
@@ -154,19 +171,21 @@
 											<p><input type="hidden" name="docfile" value="{{each_item.docfile.url}}"></p>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<h1>Description <br/> {{each_item.description}}</h1>
-										<p><input type="hidden" name="description" value="{{each_item.description}}"></p>
-										<h2 class="mobile_show">${{each_item.price}}/piece</h2>
-										<p>{{each_item.details}}</p>
-										<p><input type="hidden" name="price" value ="{{each_item.price}}"></p>
-										<p>Quantity is : <input type="number" default="0" name="quantity" required> piece ( {{each_item.item_remaining}} pieces available )</p>
+									<div class="col-md-9">
+										<div class="col-md-8">
+											<h4 style="margin-top: 3cm;"> <strong>{{each_item.description}}</strong></h4>
+											<p><input type="hidden" name="description" value="{{each_item.description}}"></p>
+											<h2 class="mobile_show"><strong>K{{each_item.price}}/piece</strong></h2>
+											<p><strong>Detail:</strong> {{each_item.details}}</p>
+											<p><input type="hidden" name="price" value ="{{each_item.price}}"></p>
+											<p><strong>Quantity is :</strong> <input type="number" default="0" name="quantity" class="place" required> piece </p>
+										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-6">
 										<button class="button">Add To Cart</button>
-										<a href="#" class="btn red">Checkout</a>
+										<!-- <a href="#" class="btn red">Checkout</a> -->
 									</div>
 								</div>
 							</div>

@@ -1,196 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<!-- Latest compiled JavaScript -->
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- ico -->
+		<link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+		<title>Doreenselly.com - Product Page</title>
+		{% load staticfiles %}
+		<!-- Bootstrap Core CSS -->
+		<link href="{% static 'doreenselly/css/bootstrap.min.css' %}" rel="stylesheet">
+
+		<!-- Slider Script -->
+		<link href="{% static 'doreenselly/css/jquery.bxslider.css' %}" rel="stylesheet">
+
+		<!-- Custom CSS -->
+		<link href="{% static 'doreenselly/css/homepage.css' %}" rel="stylesheet">
+
+		<!-- Special Font for Icons -->
+		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.css' %}">
+
+		<!-- Font -->
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+				<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+				<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+<style type="text/css">
+	.place {
+		height:50px;
+		width:10.6cm;
+		border: 1px groove;
+		border-radius: 4px;
+	}
+
+	.place[placeholder] {
+		font-size:14px;
+		color:black;
+	}
+</style>
+
 </head>
 
+<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
 
-<div>
-	{% if user.is_authenticated %}
-		<p align="right">Welcome {{user.username}} you have Logged in &nbsp;&nbsp; &nbsp; View <a href="/doreenselly/cart/">Cart</a>&nbsp;&nbsp; &nbsp;<a href="/doreenselly/logout">Logout</a></p>
-	{% endif %}
-</div>
+<body id="page-top">
 
-<form action="/doreenselly/summary/" method="POST" enctype="multipart/form-data">
-	{% csrf_token %}
+		<!-- Pusher -->
+		<div class="st-container">
 
-	<div class="col-md-12">
-		<h1>Your Address</h1>
-	</div>
+				<!-- Page Content  -->
+				<div class="st-content" data-spy="scroll" data-target=".navbar-fixed-top">
 
- <!--prepopulated--> 
-	<div class="form-group ">
-		<div class="input-group">
-			<input type="text" class='form-control' name='street' value = "{{ user.signup.street }}" readonly/>
+						<!-- Nav Links -->
+						<div class="navlinks">
+								<!-- Navigation -->
+								<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+										<div class="container">
+												<div class="navbar-header page-scroll">
+													<a class="navbar-brand page-scroll" href="/doreenselly/homepage/">
+														</a>
+												</div>
+
+												<a href="login.html" class="btn green" style="display:none;">Register/Login</a>
+
+												<a href="/doreenselly/logout/" class="btn red">Logout</a>
+
+												<ul>
+														<li>
+																<a href="#">Products</a>
+														</li>
+														<li>
+																<a href="#">About</a>
+														</li>
+														<li>
+																<a href="#">Blog</a>
+														</li>
+														<li>
+																<a href="#">Contact</a>
+														</li>
+												</ul>
+
+												<!-- /.navbar-collapse -->
+										</div>
+										<!-- /.container -->
+								</nav>
+						</div>
+						<!-- Nav Links -->
+
+						<form action="/doreenselly/summary1/" method="POST" enctype="multipart/form-data" style="margin-top: 4cm;">
+							{% csrf_token %}
+
+							<div class="col-md-12">
+								<h1>Your Address</h1>
+							</div>
+
+						 <!--prepopulated--> 
+							<div class="form-group ">
+								<div class="input-group">
+									<input type="text" class='form-control' name='street' value = "{{ user.signup.street }}" readonly/>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<input type="text" class='form-control' name = 'zipcode' value = "{{ user.signup.zipcode }}" readonly/>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<input type="text" class='form-control' name='country' value=" {{ user.signup.country }}" readonly>
+								</div>
+							</div>
+
+							<!-- Pay Info -->
+
+							<div class="col-md-12">
+								<h1>Payment Method</h1>
+							</div>
+
+							<div class="row-fluid payinfo" id="bank_deposit">
+								<div class="col-md-10">
+									<div class="col-sm-3">
+										<select id="bankName" name="account_bank_name" class='form-control' style="margin-top:20px;">
+											<option value="hide">Bank</option>
+											<option value="Bank of Africa">Bank of Africa</option>
+											<option value="Bank of Baroda">Bank of Baroda</option>
+											<option value="Bank of India">Bank of India</option>
+											<option value="Barclays Bank of Kenya">Barclays Bank of Kenya</option>
+											<option value="CfC Stanbic Holdings">CfC Stanbic Holdings</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-10">
+									<div class="col-sm-6">
+											<input type="number" placeholder="         Amount Paid" name="amount_paid" id="amtPaid" class='place' style="margin-top:20px;" required/>
+									</div>
+								</div>
+								<div class="col-md-10">
+									<div class="col-sm-3">
+										<input type="number" placeholder="         Deposit Slip Number" name="deposit_slip_number" id="slipNumber" class='place' style="margin-top:20px;" required/>
+									</div>
+								</div>
+							</div>
+							<!-- Pay Info / CC -->
+
+							<!-- Pay Info -->
+
+							<div class="col-md-12 terms">
+								<div class="col-md-10">
+									<input type="checkbox" id="id_terms_and_conditions" name="terms_and_conditions" style="margin-top:20px;"required/>  Accept our <a href="#">Terms of Conditions</a>
+								</div>
+							</div>
+
+							<div class="col-md-12 terms">
+								<p>
+									<input type="hidden" name="payable" value="{{payable}}" required/>
+								</p>
+							</div>
+							
+							<div class="col-md-12">
+								<input type="submit" class='btn btn-primary' value="Submit"/>
+							</div>
+
+						</form>
+
+						<section id="newsletter" style="margin-top:11cm;">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="inner col-md-12">
+											<div class="col-md-6">
+												<h1>Subscribe to our newsletter</h1>
+												<p> Curabitur hendrerit at nisl ac imperdiet. Aliquam erat volutpat. Nam arcu eros, rhoncus ut justo vitae, venenatis pretium. </p>
+											</div>
+											<div class="col-md-6">
+												<input type="text" placeholder="Email Address" />
+												<button class="btn red">Subscribe</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+						<!-- Footer -->
+						<footer>
+								<div class="container info">
+										<div class="col-md-3 links">
+												<h1>Products</h1>
+												<a href="#">Product Category 1</a>
+												<a href="#">Product Category 2</a>
+												<a href="#">Product Category 3</a>
+												<a href="#">Product Category 4</a>
+												<a href="#">Product Category 5</a>
+										</div>
+										<div class="col-md-3 links">
+												<h1>Services</h1>
+												<a href="#">Quick Estimate</a>
+												<a href="#">FAQ</a>
+												<a href="#">Blog</a>
+												<a href="#">Support</a>
+										</div>
+										<div class="col-md-6">
+												<h1>Our Office</h1>
+												<p>13 Hughes Avenue Alagomeji, Yaba, Lagos, Nigeria</p>
+												<p>Phone: <strong>+2348099208888</strong></p>
+												<p>Email: <a href="#">info@zaposta.com</a></p>
+										</div>
+								</div>
+								<!-- Footer Bottom -->
+								<div class="footer-bottom">
+										<div class="container">
+												<p>© Circuit Atlantic 2016. All rights Reserved</p>
+												<div class="social">
+														<a href="#">
+																<i class="fa fa-facebook-square"></i>
+														</a>
+														<a href="#">
+																<i class="fa fa-twitter-square"></i>
+														</a>
+														<a href="#">
+																<i class="fa fa-google-plus-square"></i>
+														</a>
+														<a href="#">
+																<i class="fa fa-linkedin-square"></i>
+														</a>
+												</div>
+										</div>
+								</div>
+								<!-- Footer Bottom -->
+						</footer>
+						<!-- Footer -->
+
+				</div>
+				<!-- Page Content  -->
+
 		</div>
-	</div>
-	<div class="form-group">
-		<div class="input-group">
-			<input type="text" class='form-control' name = 'city' value = "{{ user.signup.city }}" readonly/>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="input-group">
-			<input type="text" class='form-control' name='state' value = "{{ user.signup.state }}" readonly/>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="input-group">
-			<input type="text" class='form-control' name = 'zipcode' value = "{{ user.signup.zipcode }}" readonly/>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="input-group">
-			<input type="text" class='form-control' name='country' value=" {{ user.signup.country }}" readonly>
-		</div>
-	</div>
+		<!-- Pusher -->
 
-	<!-- Pay Info -->
+		<!-- jQuery -->
+		<script src="{% static 'doreenselly/js/jquery.js' %}"></script>
 
-	<div class="col-md-12">
-		<h1>Payment Method</h1>
-	</div>
+		<!-- Bootstrap Core JavaScript -->
+		<script src="{% static 'doreenselly/js/bootstrap.min.js' %}"></script>
 
-	<div class="row-fluid payinfo" id="bank_deposit">
-		<div class="col-md-10">
-			<div class="col-sm-3">
-				<select id="bankName" name="account_bank_name" class='form-control' style="margin-top:20px;">
-					<option value="hidden">Bank</option>
-					<option value="Bank of Africa">Bank of Africa</option>
-					<option value="Bank of Baroda">Bank of Baroda</option>
-					<option value="Bank of India">Bank of India</option>
-					<option value="Barclays Bank of Kenya">Barclays Bank of Kenya</option>
-					<option value="CfC Stanbic Holdings">CfC Stanbic Holdings</option>
-				</select>
-			</div>
-		</div>
-		<div class="col-md-10">
-			<div class="col-sm-3">
-				<input type="number" placeholder="Amount Paid" name="amount_paid" id="amtPaid" class='form-control' style="margin-top:20px;" required/>
-			</div>
-		</div>
-		<div class="col-md-10">
-			<div class="col-sm-3">
-				<input type="number" placeholder="Deposit Slip Number" name="deposit_slip_number" id="slipNumber" class='form-control' style="margin-top:20px;" required/>
-			</div>
-		</div>
-	</div>
-	<!-- Pay Info / CC -->
+		<!-- Scrolling Nav JavaScript -->
+		<script src="{% static 'doreenselly/js/jquery.easing.min.js' %}"></script>
+		<script src="{% static 'doreenselly/js/scrolling-nav.js' %}"></script>
 
-	<!-- Pay Info -->
+		<!-- Slider Script -->
+		<script src="{% static 'doreenselly/js/jquery.bxslider.min.js' %}"></script>
 
-	<div class="col-md-12 terms">
-		<p>
-			<input type="checkbox" id="id_terms_and_conditions" name="terms_and_conditions" style="margin-top:20px;"required/>Accept our <a href="#">Terms of Conditions</a>
-		</p>
-	</div>
+		<!-- Custom Script for Page  -->
+		<script src="{% static 'doreenselly/js/script.js' %}"></script>
 
-	<div class="col-md-12 terms">
-		<p>
-			<input type="hidden" name="payable" value="{{payable}}" required/>
-		</p>
-	</div>
-	
-	<div class="col-md-12">
-		<input type="submit" class='btn btn-primary' value="Submit"/>
-	</div>
-
-</form>
-
-
-
-
-<script>
-		 $(document).ready(function(){
-
-				// $("#paypal").click(function(){
-				// 		$("#pay_type").val("PayPal");
-				// });
-				$("#credit_card").click(function(){
-						$("#pay_type").val("Card Payment").show();
+		<!-- Slider Script -->
+		<script>
+			$(document).ready(function () {
+				$('.bxslider').bxSlider({
+					mode: 'fade',
+					auto: true,
+					infiniteLoop: true,
+					touchEnabled: true
 				});
-				$("#bank_transfer").click(function(){
-						$("#pay_type").val("Bank Deposit").show();
-				});
-		});
-
-</script>
+			});
+		</script>
 
 
+</body>
 
-
-
-
-
-
-
-<script>
-
-		function validateForm(){
-			 var pay_method = document.getElementById("pay_type").value;
-			 var cardName = document.getElementById("b_cardName").value;
-			 var cardNumber = document.getElementById("b_cardNumber").value;
-			 var cardExpiryMonth = document.getElementById("b_cardExpiryMonth").value;
-			 var cardExpiryYear = document.getElementById("b_cardExpiryYear").value;
-			 var cardCVVCode = document.getElementById("b_cardCVVCode").value;
-			 var bankName = document.getElementById("b_bankName").value;
-			 var accName = document.getElementById("b_accName").value;
-			 var accNumber = document.getElementById("b_accNumber").value;
-
-			 if(document.myForm.b_shipping_method.value == "-1"){
-				alert("Please Select an appropriate Shipping Method");
-				return false;
-			 } 
-
-			 if (pay_method == null || pay_method == ""){
-				alert("Please Select an appropriate Payment Method");
-				return false;
-			 }
-
-			 else if ((pay_method == "Credit Card") && (cardName == null || cardName == "")){
-				alert("Please Enter the name of the credit card holder ");
-				return false;
-			 } 
-
-			 else if ((pay_method == "Credit Card") && (cardNumber == null || cardNumber == "")){
-				alert("Please Enter the card Number");
-				return false;
-			 }
-
-			 else if ((pay_method == "Credit Card") && (cardExpiryMonth == "-1")){
-				alert("Please select the appropriate expiry month of your card");
-				return false;
-			 } 
-
-			 else if ((pay_method == "Credit Card") && (cardExpiryYear == "-1")){
-				alert("Please select the appropriate expiry year of your card");
-				return false;
-			 } 
-
-				else if ((pay_method == "Credit Card") && (cardCVVCode == null || cardCVVCode == "" || cardCVVCode.length > 3 || isNaN(cardCVVCode))){
-				alert("Please Enter your 3 digit CVV Code");
-				return false;
-			 } 
-
-			 else if ((pay_method == "Bank Transfer") && (bankName == "-1")){
-				alert("Please Enter the Name of the bank");
-				return false;
-			 } 
-
-			 else if ((pay_method == "Bank Transfer") && (accName == null || accName == "")){
-				alert("Please Enter the Name of the bank account holder");
-				return false;
-			 }
-
-				else if ((pay_method == "Bank Transfer") && (accNumber == null || accNumber == "")){
-				alert("Please Enter your Account Number");
-				return false;
-			 }
-
-			 return (true);
-
-		};
-
-</script>
+</html>

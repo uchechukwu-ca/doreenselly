@@ -3,43 +3,43 @@
 
 <head>
 
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-		<!-- ico -->
-		<link rel="icon" href="http://getbootstrap.com/favicon.ico">
+	<!-- ico -->
+	<link rel="icon" href="http://getbootstrap.com/favicon.ico">
 
-		<title>Doreenselly.com - Inventory Manager Page</title>
-		{% load staticfiles %}
+	<title>Doreenselly.com - Inventory Manager Page</title>
+	{% load staticfiles %}
 
-		<!-- Bootstrap Core CSS -->
-		<link href="{% static 'doreenselly/css/bootstrap.min.css' %}" rel="stylesheet">
+	<!-- Bootstrap Core CSS -->
+	<link href="{% static 'doreenselly/css/bootstrap.min.css' %}" rel="stylesheet">
 
-		<!-- Slider Script -->
-		<link href="{% static 'doreenselly/css/jquery.bxslider.css' %}" rel="stylesheet">
+	<!-- Slider Script -->
+	<!-- <link href="{% static 'doreenselly/css/jquery.bxslider.css' %}" rel="stylesheet"> -->
 
-		<!-- Custom CSS -->
-		<link href="{% static 'doreenselly/css/homepage.css' %}" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link href="{% static 'doreenselly/css/homepage.css' %}" rel="stylesheet">
 
-		<!-- Special Font for Icons -->
-		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.min.css' %}">
-		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.css' %}">
+	<!-- Special Font for Icons -->
+	<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.css' %}">
 
-		<!-- Font -->
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+	<!-- Font -->
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
 
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-				<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-				<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!-- 	// <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	// <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
 	
 <style>
 	.button {
@@ -78,7 +78,7 @@
 												<nav class="navbar navbar-default" role="navigation">
 														<div class="container">
 																<div class="navbar-header page-scroll">
-																		<a class="navbar-brand page-scroll" href="index.html">
+																		<a class="navbar-brand page-scroll" href="/doreenselly/add_inventory/">
 																		</a>
 																</div>
 
@@ -157,15 +157,15 @@
 																			<td>{{product.quantity}}</td>
 																			<td>{{product.sold}}</td>
 																			<td>{{product.total_payments}}</td>
-																			<td>
-																				<div class="hlinks">
-																						<a href="#{{product.pk}}" item_id="{{product.pk}}" title="Edit this item" class="manipulate icon_space">
+																			<td class="hlinks">
+																				<!-- <div class="hlinks"> -->
+																						<a href="#{{product.pk}}" item_id="{{product.pk}}" title="Edit this item" class="manipulate">
 																								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 																						</a>
-																						<a href='/admin_delete_item/{{product.id}}'  item_id="{{product.pk}}" title="Delete this item" onclick="return confirm('Are you sure you want to delete?')">
+																						<a href='/admin_delete_item/{{product.id}}' item_id="{{product.pk}}" title="Delete this item" onclick="return confirm('Are you sure you want to delete?')">
 																								<i class="fa fa-times" aria-hidden="true"></i>
 																						</a>
-																				</div>
+																				<!-- </div> -->
 																			</td>
 																		</tr>
 																		{% endfor %}
@@ -189,69 +189,27 @@
 																			<td>{{product.quantity}}</td>
 																			<td>{{product.sold}}</td>
 																			<td>{{product.total_payments}}</td>
-																			<td>
-																				<div class="hlinks">
-																						<a href="#{{product.pk}}" item_id="{{product.pk}}" title="Edit this item" class="manipulate icon_space">
+																			<td class="hlinks">
+																				<!-- <div class="hlinks"> -->
+																						<a href="#{{product.pk}}" item_id="{{product.pk}}" title="Edit this item" class="manipulate">
 																								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 																						</a>
-																						<a href='/admin_delete_item/{{product.id}}'  item_id="{{product.pk}}" onclick="return confirm('Are you sure you want to delete?')">
+																						<a href='/admin_delete_item/{{product.id}}' item_id="{{product.pk}}" onclick="return confirm('Are you sure you want to delete?')">
 																								<i class="fa fa-times" aria-hidden="true"></i>
 																						</a>
-																				</div>
+																				<!-- </div> -->
 																			</td>
 																		</tr>
 																		{% endfor %}
 																</table>
 															{% else %}
-																<p>No <strong>item</strong> is available</p>
+																<p>No <strong>item(s)</strong> is available</p>
 															{% endif %}
 														</div>
 												</div>
 										</div>
 
-										<!-- Modal -->
-										<div class="modal fade" id="edititemModal{{product.pk}}" role="dialog" style="height: auto;">
-											<div class="modal-dialog">
-											<!-- Modal content-->
-												<div class="modal-content" align="left" >
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal">&times;</button>
-															<h4 class="modal-title">Edit or Update Item </h4>
-													</div>
-													<div class="modal-body">
-														<div class="alert hidden" id="alert1" role="alert">
-														</div>
-														<p id="item_make"></p>
-														<form action="/doreenselly/edit_item/" method="post" class="special" enctype="multipart/form-data" item_id="{{product.pk}}" >
-															{% csrf_token %}
-																<div class="form-group">
-																	<input type="number" id="id_item" maxlength="32" name = "item_id" value="{{id}}" class="form-control" required/>
-																</div>
-
-																<div class="form-group">
-																	<label>Description</label>
-																	<input type="text" id="id_description" maxlength="32" name = "description" value="{{item_val}}" class="form-control" required/>
-																</div>
-
-																<div class="form-group">
-																	<label>Price</label>
-																	<input type="number" id="id_price" maxlength="32" name="price" value="{{price}}" class="form-control" required/>
-																</div>
-
-																<div class="form-group">
-																	<label>Quantity</label>
-																	<input type="number" id="id_quantity" maxlength="10" name="quantity" value="{{quantity}}" class="form-control" required/> 
-																</div>
-
-																<div class="modal-footer">
-																	<input type="submit" name="edit" id="edit_item" class='btn pull-right' value="Update"/>
-																</div>
-																
-														</form><br>
-													</div>
-												</div>
-											</div>
-										</div>
+									
 
 										<!-- Footer -->
 										<footer>
@@ -287,60 +245,25 @@
 				<!-- Page Content  -->
 
 		</div>
+
 		<!-- Pusher -->
+	<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-		<!-- jQuery -->
-		<script src="{% static 'doreenselly/js/jquery.js' %}"></script>
-
-		<!-- Bootstrap Core JavaScript -->
-		<script src="{% static 'doreenselly/js/bootstrap.min.js' %}"></script>
-
-		<!-- Scrolling Nav JavaScript -->
-		<script src="{% static 'doreenselly/js/jquery.easing.min.js' %}"></script>
-		<script src="{% static 'doreenselly/js/scrolling-nav.js' %}"></script>
-
-		<!-- Slider Script -->
-		<script src="{% static 'doreenselly/js/jquery.bxslider.min.js' %}"></script>
-
-		<!-- Custom Script for Page  -->
-		<script src="js/script.js"></script>
-		<!--  -->
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
-
-		<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-		<!--<script src="http://code.jquery.com/jquery-1.10.2.js"></script>-->
-		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
-
-		<!-- Slider Script -->
-		<script>
-				$(document).ready(function () {
-						$('.bxslider').bxSlider({
-								mode: 'fade',
-								auto: true,
-								infiniteLoop: true,
-								touchEnabled: true
-						});
-				});
-		</script>
-
+	<!-- Modal -->
+	{% include 'permission_snippet/add_inv_modal.html' %}
 
 <script>
 $(document).ready(function(){
 	$(".manipulate").click(function(){
-		$('#id_description').val();
-		var item_keys = ['#id_location','#id_description', '#id_price', '#id_quantity']
-		for(var i=1; i<9; i++){
+		// $('#id_description').val();
+		// var product_key = $("id_item").val()
+		var item_keys = ['#location', '#description', '#price', '#quantity']
+		for(var i=1; i<5; i++){
 			var item_val = $(this).parent().parent().find('td:nth-child('+i+')')[0].innerText;
 			console.log("InnerText is :"+ item_val);
-			// alert(item_val);
 			$(item_keys[i-1]).val(item_val);
-			// alert($(item_keys[i-1]).val(item_val));
-			// var ans = $(item_keys[i-1]).val(item_val);
-			// alert(ans);
-			// console.log(ans);
 		}
 		$('#id_item').val($(this).attr('item_id'));
 		$('#edititemModal').modal('show');

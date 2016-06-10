@@ -37,6 +37,20 @@
 				<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 				<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
+<style>
+	.button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+	}
+</style>
 
 </head>
 
@@ -158,7 +172,7 @@
 														</div>
 												</div>
 										</div>
-										{% include 'permission_snippet/add_inv_modal.html' %}
+										
 										<!-- Footer -->
 										<footer>
 												<!-- Footer Bottom -->
@@ -195,33 +209,28 @@
 		</div>
 		<!-- Pusher -->
 
-		<!-- jQuery -->
-		<script src="{% static 'doreenselly/js/jquery.js' %}"></script>
+	<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-		<!-- Bootstrap Core JavaScript -->
-		<script src="{% static 'doreenselly/js/bootstrap.min.js' %}"></script>
+	{% include 'permission_snippet/admin_order_view_modal.html' %}
 
-		<!-- Scrolling Nav JavaScript -->
-		<script src="{% static 'doreenselly/js/jquery.easing.min.js' %}"></script>
-		<script src="{% static 'doreenselly/js/scrolling-nav.js' %}"></script>
+<script>
+$(document).ready(function(){
+	$(".manipulate").click(function(){
 
-		<!-- Slider Script -->
-		<script src="{% static 'doreenselly/js/jquery.bxslider.min.js' %}"></script>
+		var item_keys = ['#id_item', '#id_client', '#id_order_number', '#id_amount', '#id_pay_status', '#id_ship_status']
+		for(var i=1; i<6; i++){
+			var item_val = $(this).parent().parent().find('td:nth-child('+i+')')[0].innerText;
+			console.log("InnerText is :"+ item_val);
 
-		<!-- Custom Script for Page  -->
-		<script src="{% static 'doreenselly/js/script.js' %}"></script>
-
-		<!-- Slider Script -->
-		<script>
-				$(document).ready(function () {
-						$('.bxslider').bxSlider({
-								mode: 'fade',
-								auto: true,
-								infiniteLoop: true,
-								touchEnabled: true
-						});
-				});
-		</script>
+			$(item_keys[i-1]).val(item_val);
+		}
+		$('#id_item').val($(this).attr('item_id'));
+		$('#edititemModal').modal('show');
+	});
+});
+</script>
 
 
 </body>
