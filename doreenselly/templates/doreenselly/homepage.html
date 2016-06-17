@@ -108,25 +108,8 @@
 										<!-- Products Row -->
 										<div class="col-md-12">
 												<!-- Product Item -->
-												{% if request.user.signup.country == "USA" %}
-													{% for product in items_from_usa %}
-													<div class="col-md-4">
-															<div class="panel">
-																	<div class="img">
-																			<!-- <img src="{% static 'doreenselly/img/product1.jpg' %}" /> -->
-																			<img src="{{product.docfile.url}}">
-																	</div>
-																	<div class="content">
-																			<h2>{{product.description}}</h2>
-																			<p> DetailCurabitur hendrerit at nisl ac imperdiet. Nam arcu eros, rhoncus ut justo vitae, venenatis pretium </p>
-																	</div>
-																	<div class="bot">
-																			<h3>${{product.price}}/piece</h3>
-																			<a href="/doreenselly/item/{{product.id}}/" class="btn green">View</a></div>
-															</div>
-													</div>
-													{% endfor %}
-												{% elif request.user.signup.country == "KENYA" %}
+												
+												{% if request.user.signup.country == "KENYA" %}
 													{% for product in items_from_kenya %}
 													<div class="col-md-4">
 															<div class="panel">

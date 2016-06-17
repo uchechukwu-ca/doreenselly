@@ -56,6 +56,22 @@ def signup(request):
 	return render(request, "doreenselly/signup.html", context)
 
 
+# def password_reset_form(request):
+# 	return render(request, "registration/password_reset_form.html",{})
+
+
+# def password_reset_done(request):
+# 	return render(request, "registration/password_reset_done.html",{})
+
+
+# def password_reset_confirm(request):
+# 	return render(request, "registration/password_reset_confirm.html",{})
+
+
+# def password_reset_complete(request):
+# 	return render(request, "registration/password_reset_complete.html",{})
+
+
 def success(request):
 	return render(request, "doreenselly/success.html", {})
 
@@ -73,7 +89,12 @@ def signin(request):
 				return HttpResponseRedirect('/doreenselly/add_inventory/')
 			if user.is_active:
 				login(request, user)
-				return HttpResponseRedirect('/doreenselly/homepage/')
+				if request.user.signup.country == "KENYA":
+					print "Country ", request.user.signup
+					return HttpResponseRedirect('/doreenselly/homepage/')
+				elif request.user.signup.country =="USA":
+					print "Country", request.user.signup
+					return HttpResponseRedirect('https://www.beachbody.com/')
 			else:
 				return HttpResponse("Your account is disabled.")
 		else:
@@ -104,8 +125,8 @@ def homepage(request):    # Client View
 	# if request.user.signup is "KENYA":
 	items_from_kenya = AddInventory.objects.filter(country__country="KENYA")
 	# else:
-	items_from_usa = AddInventory.objects.filter(country__country="USA")
-	return render(request, "doreenselly/homepage.html", {'items_from_kenya': items_from_kenya, 'items_from_usa': items_from_usa})
+	# items_from_usa = AddInventory.objects.filter(country__country="USA")
+	return render(request, "doreenselly/homepage.html", {'items_from_kenya': items_from_kenya})
 
 
 @login_required()
@@ -379,8 +400,8 @@ def admin_order_view(request):
 	
 	kenya_order = Order.objects.filter(location="KENYA")
 	# else:
-	usa_order = Order.objects.filter(location="USA")
-	return render(request, "doreenselly/admin_order_view.html",{'kenya_order': kenya_order, 'usa_order': usa_order})
+	# usa_order = Order.objects.filter(location="USA")
+	return render(request, "doreenselly/admin_order_view.html",{'kenya_order': kenya_order})
 
 
 def admin_profile(request):
@@ -392,6 +413,6 @@ def admin_user_list_view(request):
 	item = User.objects.filter(signup__country="KENYA")
 	print "KENYA", item
 	# else:
-	items = User.objects.filter(signup__country="USA")
-	print "USA", items
-	return render(request, "doreenselly/admin_user_list_view.html",{'items': items, 'item': item})
+	# items = User.objects.filter(signup__country="USA")
+	# print "USA", items
+	return render(request, "doreenselly/admin_user_list_view.html",{'item': item})
