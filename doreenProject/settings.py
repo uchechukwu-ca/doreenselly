@@ -135,10 +135,11 @@ STATICFILES_DIRS = (
 )
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.mail.yahoo.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = ''	#Senders Email
-EMAIL_HOST_PASSWORD = ''	#Senders Password
+EMAIL_HOST_USER = 'kriptondegreat@yahoo.com'	#Senders Email
+EMAIL_HOST_PASSWORD = 'lastborn'	#Senders Password
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
