@@ -54,6 +54,11 @@
 			margin: 4px 2px;
 			cursor: pointer;
 	}
+
+	th, td {
+    overflow: hidden;
+    width: 100px;
+}
 </style>
 
 </head>
@@ -130,6 +135,7 @@
 																						{{ add_inventory_form.shipping_weight }}
 																						{{ add_inventory_form.quantity }}
 																						{{ add_inventory_form.details }}
+																						{{ add_inventory_form.category }}
 																						<button class="button">Add To List</button>
 																				</div>
 																		</div>
@@ -179,16 +185,19 @@
 																			<th>Quantity</th>
 																			<th>Sold</th>
 																			<th>Total Payments ($)</th>
+																			<th>Category</th>
 																			<th></th>
 																		</tr>
 																		{% for product in items_from_kenya %}
 																		<tr>
-																			<td>{{product.docfile}}</td>
+																			<td><div style="width: 350px" >{{product.docfile}}</div></td>
+																			<td style="display:none">{{product.pk}}</td>
 																			<td>{{product.description}}</td>
 																			<td>{{product.price}}</td>
 																			<td>{{product.quantity}}</td>
 																			<td>{{product.sold}}</td>
 																			<td>{{product.total_payments}}</td>
+																			<td>{{product.category}}</td>
 																			<td class="hlinks">
 																				<!-- <div class="hlinks"> -->
 																						<a href="#{{product.pk}}" item_id="{{product.pk}}" title="Edit this item" class="manipulate">
@@ -208,9 +217,6 @@
 														</div>
 												</div>
 										</div>
-
-									
-
 										<!-- Footer -->
 										<footer>
 												<!-- Footer Bottom -->
@@ -252,6 +258,7 @@
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 	<!-- Modal -->
+
 	{% include 'permission_snippet/add_inv_modal.html' %}
 
 <script>
@@ -259,8 +266,8 @@ $(document).ready(function(){
 	$(".manipulate").click(function(){
 		// $('#id_description').val();
 		// var product_key = $("id_item").val()
-		var item_keys = ['#location', '#description', '#price', '#quantity']
-		for(var i=1; i<5; i++){
+		var item_keys = ['#item_id', '#location','#description', '#price', '#quantity']
+		for(var i=1; i<6; i++){
 			var item_val = $(this).parent().parent().find('td:nth-child('+i+')')[0].innerText;
 			console.log("InnerText is :"+ item_val);
 			$(item_keys[i-1]).val(item_val);

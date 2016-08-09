@@ -29,6 +29,7 @@ urlpatterns = [
 	url(r'^admin_order_edit/$', views.admin_order_edit, name='admin_order_edit'),
 	url(r'^admin_profile/$', views.admin_profile, name='admin_profile'),
 	url(r'^admin_user_list_view/$', views.admin_user_list_view, name='admin_user_list_view'),
+	url(r'^item_search/$', views.item_search, name='item_search'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

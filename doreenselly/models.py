@@ -23,6 +23,13 @@ PAYMENT_STATUS = (
 	('Paid', 'Paid'),
 	)
 
+ITEM_CATEGORIES = (
+	('Food', 'Food'),
+	('Clothing_Products', 'Clothing Products'),
+	('Leather_Goods', 'Leather Goods'),
+	('Art_and_Craft', 'Art and Craft'),
+	)
+
 
 class Signup(models.Model):
 	user = models.OneToOneField(User)
@@ -47,6 +54,7 @@ class AddInventory(models.Model):
 	quantity = models.PositiveIntegerField()
 	sold = models.PositiveIntegerField(default=0)
 	details = models.CharField(max_length = 100)
+	category = models.CharField(max_length = 50, null=True, blank=True, choices = ITEM_CATEGORIES)
 	country = models.ForeignKey(Signup, null = True)
 
 	def __str__(self):

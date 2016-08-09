@@ -114,7 +114,20 @@
 										<img src="{% static 'doreenselly/img/product.png' %}" />
 								</div>
 								<div class="container product_txt">
-										
+										<!-- <div class="row">
+												<div class="col-md-6">
+														<h1>Product Title <br/> goes here</h1>
+														<h2 class="mobile_hide">$29</h2>
+														<p>Suspendisse malesuada urna justo, sagittis hendrerit neque egestas non. Integer fermentum tellus vel lectus lacinia imperdiet. Nulla volutpat risus purus, non tempor odio ultricies quis. Suspendisse non facilisis orci. Nunc sollicitudin dolor vitae erat tempor rhoncus.</p>
+														<h2 class="mobile_show">$29</h2>
+												</div>
+										</div>
+										<div class="row">
+												<div class="col-md-6">
+														<a href="#" class="btn green">Add to Cart</a>
+														<a href="product.html" class="btn dark">Read More</a>
+												</div>
+										</div> -->
 								</div>
 						</section>
 
@@ -150,23 +163,23 @@
 									<form method="POST" action="/doreenselly/cart/" enctype="multipart/form-data">
 										{% csrf_token %}
 										<!-- Products Row -->
-										{% for product in items_from_kenya %}
-													<div class="col-md-3">
-															<div class="panel">
-																	<div class="img">
-																			<!-- <img src="{% static 'doreenselly/img/product1.jpg' %}" /> -->
-																			<img src="{{product.docfile.url}}">
-																	</div>
-																	<div class="content">
-																			<h2>{{product.description}}</h2>
-																			<p> Curabitur hendrerit at nisl ac imperdiet. Nam arcu eros, rhoncus ut justo vitae, venenatis pretium </p>
-																	</div>
-																	<div class="bot">
-																			<h3>K{{product.price}}/piece</h3>
-																			<a href="/doreenselly/item/{{product.id}}/" class="btn green">View</a></div>
+										{% for product in items %}
+											<div class="col-md-3">
+													<div class="panel">
+															<div class="img">
+																	<!-- <img src="{% static 'doreenselly/img/product1.jpg' %}" /> -->
+																	<img src="{{product.docfile.url}}">
 															</div>
+															<div class="content">
+																	<h2>{{product.description}}</h2>
+																	<p> Curabitur hendrerit at nisl ac imperdiet. Nam arcu eros, rhoncus ut justo vitae, venenatis pretium </p>
+															</div>
+															<div class="bot">
+																	<h3>K{{product.price}}/piece</h3>
+																	<a href="/doreenselly/item/{{product.id}}/" class="btn green">View</a></div>
 													</div>
-													{% endfor %}
+											</div>
+										{% endfor %}
 										<!-- Products Row -->
 									</form>
 								</div>

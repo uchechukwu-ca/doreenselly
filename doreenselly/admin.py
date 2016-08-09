@@ -9,7 +9,7 @@ class SignupAdmin(admin.ModelAdmin):
 admin.site.register(Signup, SignupAdmin)
 
 class AddInventoryAdmin(admin.ModelAdmin):
-	list_display = ('client','docfile', 'description', 'price', 'shipping_weight', 'quantity', 'sold', 'item_remaining', 'total_payments', 'details', 'country')
+	list_display = ('client','docfile', 'description', 'price', 'shipping_weight', 'quantity', 'sold', 'item_remaining', 'total_payments', 'details', 'category','country')
 
 admin.site.register(AddInventory, AddInventoryAdmin)
 

@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
-from doreenselly.models import CATEGORIES, Signup, AddInventory
+from doreenselly.models import CATEGORIES, Signup, AddInventory, ITEM_CATEGORIES
 
 
 class UserForm(forms.ModelForm):
@@ -35,7 +35,8 @@ class AddInventoryForm(forms.ModelForm):
 	shipping_weight = forms.DecimalField(help_text="Shipping Weight", decimal_places=2, widget=forms.TextInput(attrs={'type':'number', 'class':'form-control', 'placeholder':'Shipping Weight','required':'required'}))
 	quantity = forms.IntegerField(help_text = "Quantity",widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Quantity', 'required':'required'}))
 	details = forms.CharField(help_text = "Details",widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Details', 'required':'required'}))
+	category = forms.ChoiceField(choices=ITEM_CATEGORIES, widget=forms.Select(attrs={'class':'form-control', 'required':'required'}), required = True)
 
 	class Meta:
 		model = AddInventory
-		fields = ('docfile', 'description', 'price', 'shipping_weight', 'quantity', 'details')
+		fields = ('docfile', 'description', 'price', 'shipping_weight', 'quantity', 'details', 'category')

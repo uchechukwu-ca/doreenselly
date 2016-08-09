@@ -21,7 +21,10 @@ from django.utils import timezone
 # Create your views here.
 
 def index(request):
-	return render(request, "doreenselly/index.html",{})
+	items_from_kenya = AddInventory.objects.filter(country__country="KENYA")
+	# category_list=AddInventory.objects.filter(category)
+	# print "Categories: ", category
+	return render(request, "doreenselly/index.html", {'items_from_kenya': items_from_kenya})
 
 
 # def country_signup(request):
@@ -101,6 +104,7 @@ def signin(request):
 			# return HttpResponseRedirect('/doreenselly/home/')
 			print "Invalid login details: {0}, {1}".format(username, password)
 			return HttpResponse("Invalid login details supplied.")
+			# return HttpResponseRedirect('/doreenselly/homepage/')
 	else:
 		return render(request, 'doreenselly/signin.html', {})
 
@@ -124,12 +128,14 @@ def homepage(request):    # Client View
 	print "YOUR  NAME IS : ", request.user
 	# if request.user.signup is "KENYA":
 	items_from_kenya = AddInventory.objects.filter(country__country="KENYA")
-	# else:
-	# items_from_usa = AddInventory.objects.filter(country__country="USA")
 	return render(request, "doreenselly/homepage.html", {'items_from_kenya': items_from_kenya})
+	# else:
+		# return render(request, 'doreenselly/signin.html', {})
+	# items_from_usa = AddInventory.objects.filter(country__country="USA")
+	# return render(request, "doreenselly/homepage.html", {'items_from_kenya': items_from_kenya})
 
 
-@login_required()
+@login_required(login_url='/doreenselly/signin/')
 def item(request, item_id):    # Client View
 	context = {}
 	each_item = get_object_or_404(AddInventory, pk=item_id)  # Get item whose item_id matches the primary key in the database
@@ -305,6 +311,7 @@ def add_inventory(request):     #Admin View
 			add_inventory.shipping_weight = request.POST['shipping_weight']
 			add_inventory.quantity = request.POST['quantity']
 			add_inventory.details = request.POST['details']
+			add_inventory.category = request.POST['category']
 			add_inventory.client = request.user
 			add_inventory.country = request.user.signup
 			ans = add_inventory.country
@@ -327,14 +334,14 @@ def add_inventory(request):     #Admin View
 	# Load items for the add_inventory page
 	all_items = AddInventory.objects.all()
 
-	items_from_usa = AddInventory.objects.filter(country__country="USA")
+	# items_from_usa = AddInventory.objects.filter(country__country="USA")
 	# print "USA", items_from_usa
 
 	items_from_kenya = AddInventory.objects.filter(country__country="KENYA")
 	# print "KENYA", items_from_kenya
 	# print "all_items", all_items
 
-	return render(request,'doreenselly/add_inventory.html', {'add_inventory_form': add_inventory_form, 'all_items': all_items, 'items_from_usa': items_from_usa, 'items_from_kenya': items_from_kenya})
+	return render(request,'doreenselly/add_inventory.html', {'add_inventory_form': add_inventory_form, 'all_items': all_items, 'items_from_kenya': items_from_kenya})
 
 
 def admin_edit_item(request):	      #Admin View
@@ -350,12 +357,15 @@ def admin_edit_item(request):	      #Admin View
 		print "Price is : ", price
 		quantity = rp.get('quantity')
 		print "Quantity is : ", quantity
+		category = rp.get('category')
+		print "Category is : ", category
 
 		itemToEdit = get_object_or_404(AddInventory, pk=product_id)
 		# print"PK", itemToEdit
 		itemToEdit.description = description
 		itemToEdit.price = price
 		itemToEdit.quantity = quantity
+		itemToEdit.category = category
 
 		itemToEdit.save()
 
@@ -416,3 +426,42 @@ def admin_user_list_view(request):
 	# items = User.objects.filter(signup__country="USA")
 	# print "USA", items
 	return render(request, "doreenselly/admin_user_list_view.html",{'item': item})
+
+
+def item_search(request):
+
+	if request.method == 'POST':
+		print"Got here"
+		user_search = request.POST['record']
+		print "What is searched for is : ", user_search
+
+		category = request.POST['category']
+		print "The category is : ", category
+
+		if user_search != '' and category =='hide':
+			items = AddInventory.objects.filter(Q(description__icontains=user_search)
+				)
+			# print "items ", items
+			return render(request, 'doreenselly/search_result.html', {'items':items, 'user_search_query':user_search})
+
+		if user_search != '' and category != '' :
+			items = AddInventory.objects.filter(Q(description__icontains=user_search) , Q(category__icontains=category)
+				)
+			# print "items", items
+			return render(request, 'doreenselly/search_result.html', {'items':items, 'user_search_query':user_search, "category": category})
+
+		if category != '' and user_search =='':
+			items = AddInventory.objects.filter(Q(category__icontains=category)
+				)
+			# print "items ", items
+			return render(request, 'doreenselly/search_result.html', {'items':items, 'category':category})
+
+		
+
+		else:
+			return render(request, 'doreenselly/search_result.html', {'error':True})
+
+	else:
+		return render(request, 'doreenselly/search_result.html', {'error':True})
+
+	return render(request, 'doreenselly/search_result.html', {'items':items, 'user_search_query':user_search, "category": category})

@@ -89,7 +89,7 @@
 						<!-- Nav Links -->
 
 						{% if request.user.signup.country == "USA" %}
-						<table width="80%" border="0" id="preview_items" align="center" class="table table-striped" style="margin-top: 3cm;">
+						<table width="80%" border="0" id="preview_items" style="text-align:center;" class="table table-striped" style="margin-top: 3cm;">
 							{% if items %}
 								<tr >
 									<th>Image</th>
@@ -138,14 +138,14 @@
 							{% endif %}
 						</table>
 						{% elif request.user.signup.country == "KENYA" %}
-						<table width="80%" border="0" id="preview_items" align="center" class="table table-striped" style="margin-top: 3cm;">
+						<table width="80%" border="0" id="preview_items"class="table table-striped" style="margin-top: 3cm; text-align:center;">
 							{% if items %}
-								<tr >
-									<th>Image</th>
-									<th>Description</th>
-									<th>Price (K)</th>
-									<th>Quantity</th>
-									<th>Total (K)</th>
+								<tr>
+									<th style="text-align: center;">Image</th>
+									<th style="text-align: center;">Description</th>
+									<th style="text-align: center;">Price (K)</th>
+									<th style="text-align: center;">Quantity</th>
+									<th style="text-align: center;">Total (K)</th>
 								</tr> 
 								<form method="POST" action="/doreenselly/payment/" enctype="multipart/form-data">
 								{% for product in items %}
