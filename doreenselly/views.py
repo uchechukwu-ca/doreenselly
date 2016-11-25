@@ -23,7 +23,7 @@ from django.utils import timezone
 def index(request):
 	items_from_kenya = AddInventory.objects.filter(country__country="KENYA")
 	posts = Blog.objects.all().order_by('-created_on')[0:2]
-	print ("POST : ", posts)
+	# print ("POST : ", posts)
 	return render(request, "doreenselly/index.html", {'items_from_kenya': items_from_kenya, 'posts': posts })
 
 
@@ -77,10 +77,10 @@ def signin(request):
 			if user.is_active:
 				login(request, user)
 				if request.user.signup.country == "KENYA":
-					print ("Country ", request.user.signup)
+					# print ("Country ", request.user.signup)
 					return HttpResponseRedirect('/doreenselly/homepage/')
 				elif request.user.signup.country =="USA":
-					print ("Country", request.user.signup)
+					# print ("Country", request.user.signup)
 					return HttpResponseRedirect('https://www.beachbody.com/')
 			else:
 				return HttpResponse("Your account is disabled.")
@@ -108,8 +108,8 @@ def dashboard(request):     #Admin View
 def homepage(request):    # Client View
 	context = {}
 	# items = AddInventory.objects.all()  # Get all items in the database
-	print ("YOUR COUNTRY SESSION IS : ", request.user.signup)
-	print ("YOUR  NAME IS : ", request.user)
+	# print ("YOUR COUNTRY SESSION IS : ", request.user.signup)
+	# print ("YOUR  NAME IS : ", request.user)
 	# if request.user.signup is "KENYA":
 	items_from_kenya = AddInventory.objects.filter(country__country="KENYA")
 	return render(request, "doreenselly/homepage.html", {'items_from_kenya': items_from_kenya})
@@ -136,17 +136,17 @@ def cart(request):    # Client View
 
 
 	if request.method == "POST":
-		print ("rp ", request.POST)
+		# print ("rp ", request.POST)
 		docfile = request.POST['docfile']
-		print ("Docfile", docfile)
+		# print ("Docfile", docfile)
 		description = request.POST['description']
-		print ("Description is ", description)
+		# print ("Description is ", description)
 		price = request.POST['price']
-		print ("Price is ", price)
+		# print ("Price is ", price)
 		quantity = request.POST['quantity']
-		print ("Quantity is ", quantity)
+		# print ("Quantity is ", quantity)
 		client = request.user
-		print ("Client is ", client)
+		# print ("Client is ", client)
 
 		item, created = Cart.objects.get_or_create(client=client, description=description, price=price, quantity=quantity, docfile=docfile)
 		item.save()
@@ -156,7 +156,7 @@ def cart(request):    # Client View
 	item=Cart.objects.filter(client=request_user, ordered=False)
 	for i in item:
 		payable += i.total()
-	print ("ANS", payable)
+	# print ("ANS", payable)
 
 	return render(request, 'doreenselly/cart.html', {'items': items, 'payable': payable})
 
@@ -214,25 +214,25 @@ def summary1(request, **kwargs):    # Client View
 	
 	request_user = request.user
 	all_items = Cart.objects.filter(client=request_user, ordered=False)
-	print ("ALL ITEM", all_items)
+	# print ("ALL ITEM", all_items)
 
 	client = request.user
 	# print "Client is ", client
 	location=request.user.signup.country
-	print ("LOCATION ", location)
+	# print ("LOCATION ", location)
 
 	if request.method == "POST":
 		order_number = create_id()
-		print ("ORDER NUMBER", order_number)
+		# print ("ORDER NUMBER", order_number)
 		# print "rp ", request.POST
 		account_bank_name = request.POST['account_bank_name']
-		print ("account_bank_name ", account_bank_name)
+		# print ("account_bank_name ", account_bank_name)
 		amount_paid = request.POST['amount_paid']
-		print ("amount_paid " , amount_paid)
+		# print ("amount_paid " , amount_paid)
 		deposit_slip_number = request.POST['deposit_slip_number']
-		print ("deposit_slip_number ", deposit_slip_number)
+		# print ("deposit_slip_number ", deposit_slip_number)
 		payable = request.POST['payable']
-		print ("payable ", payable)
+		# print ("payable ", payable)
 
 		item, created = Order.objects.get_or_create(order_number=order_number, client=client, location=location, account_bank_name=account_bank_name, amount_paid=amount_paid, deposit_slip_number=deposit_slip_number, payable=payable)
 		item.save()
@@ -517,7 +517,7 @@ def contact_us(request):
 
 	context = {}
 	if request.POST:
-		print ("REQEST", request.POST)
+		# print ("REQEST", request.POST)
 		add_contact_form = ContactUsForm(request.POST, request.FILES)
 
 		if add_contact_form.is_valid():
@@ -533,7 +533,7 @@ def contact_us(request):
 			# return HttpResponse('Success')
 			return HttpResponseRedirect(reverse('doreenselly.views.contact_us'))
 		else:
-			print (add_contact_form.errors)
+			# print (add_contact_form.errors)
 
 	else:
 		#An empty, unbound form
