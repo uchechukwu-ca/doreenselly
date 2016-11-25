@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from doreenselly.models import Signup, AddInventory, Cart, Order
+from doreenselly.models import Signup, AddInventory, Cart, Order, Blog, ContactUs
 # Register your models here.
 
 class SignupAdmin(admin.ModelAdmin):
@@ -22,3 +22,13 @@ class OrderAdmin(admin.ModelAdmin):
 	list_display = ('client', 'order_number', 'payable', 'location', 'payment_status', 'shipment_status', 'account_bank_name', 'amount_paid', 'deposit_slip_number', 'created_on')
 
 admin.site.register(Order, OrderAdmin)
+
+class BlogAdmin(admin.ModelAdmin):
+	list_display = ('title', 'body', 'logo', 'created_on')
+
+admin.site.register(Blog, BlogAdmin)
+
+class ContactUsAdmin(admin.ModelAdmin):
+	list_display = ('contact_name', 'contact_email', 'content')
+
+admin.site.register(ContactUs, ContactUsAdmin)

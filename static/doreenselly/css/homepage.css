@@ -756,8 +756,8 @@ of those sections to manage the look and feel of the site. */
     
     .navlinks ul li a {
         line-height: 100px;
-        padding: 0 20px;
-        margin: 0 15px;
+        padding: 0 8px;
+        margin: 0 10px;
         color: #000;
         font-weight: 600;
     }
@@ -1097,7 +1097,7 @@ of those sections to manage the look and feel of the site. */
     }
     
     #marketplace_page .hero input {
-        width: 109%;
+        width: 100%;
         border-color: #000;
     }
     

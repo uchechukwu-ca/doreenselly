@@ -1,75 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- ico -->
+		<link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+		<title>Doreenselly.com - User List</title>
+		{% load staticfiles %}
+
+		<!-- Bootstrap Core CSS -->
+		<link href="{% static 'doreenselly/css/bootstrap.min.css' %}" rel="stylesheet">
+
+		<!-- Custom CSS -->
+		<link href="{% static 'doreenselly/css/homepage.css' %}" rel="stylesheet">
+
+		<!-- Special Font for Icons -->
+		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.css' %} ">
+
+		<!-- Slider Script -->
+		<link href="{% static 'doreenselly/css/jquery.bxslider.css' %}" rel="stylesheet">
+	
+		<!-- Font -->
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+
+		<script src="http://code.jquery.com/jquery-1.5.min.js"></script>
+		<script src="http://cdn.wideskyhosting.com/js/jquery.cycle.js"></script>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+				<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+				<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+<style>
+	.button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+	}
+</style>
+
+
 </head>
-{% load staticfiles %}
-	<div>
-		{% if user.is_authenticated %}
-			<p align="right">Welcome {{user.username}} you have Logged in &nbsp;&nbsp; &nbsp; View <a href="/doreenselly/cart/">Cart</a>&nbsp;&nbsp; &nbsp;<a href="/doreenselly/logout">Logout</a></p>
-		{% endif %}
-	</div>
 
-{% if request.user.signup.country == "USA" %}
-	<table width="80%" border="0" id="preview_items" align="center" class="table table-striped">
-		<tr >
-			<th>S/No</th>
-			<th>User Name</th>
-			<th>E-Mail Address</th>
-			<th>Phone Number</th>
-			<th>Zip Code</th>
-			<th>Street</th>
-			<th>City</th>
-			<th>State</th>
-			<th>Country</th>
+<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
 
-		</tr> 
-		{% for product in items %}
-			<tr>
-				<td>{{forloop.counter}}</td>
-				<td>{{product.username}}</td>
-				<td>{{product.email}}</td>
-				<td>{{product.signup.phone_number}}</td>
-				<td>{{product.signup.zipcode}}</td>
-				<td>{{product.signup.street}}</td>
-				<td>{{product.signup.city}}</td>
-				<td>{{product.signup.state}}</td>
-				<td>{{product.signup.country}}</td>
-			</tr>
-		{% endfor %}
-{% elif request.user.signup.country == "KENYA" %}
-	<table width="80%" border="0" id="preview_items" align="center" class="table table-striped">
-		<tr >
-			<th>S/No</th>
-			<th>User Name</th>
-			<th>E-Mail Address</th>
-			<th>Phone Number</th>
-			<th>Zip Code</th>
-			<th>Street</th>
-			<th>City</th>
-			<th>State</th>
-			<th>Country</th>
+<body id="page-top" class="orders_page">
 
-		</tr> 
-		{% for product in item %}
-			<tr>
-				<td>{{forloop.counter}}</td>
-				<td>{{product.username}}</td>
-				<td>{{product.email}}</td>
-				<td>{{product.signup.phone_number}}</td>
-				<td>{{product.signup.zipcode}}</td>
-				<td>{{product.signup.street}}</td>
-				<td>{{product.signup.city}}</td>
-				<td>{{product.signup.state}}</td>
-				<td>{{product.signup.country}}</td>
-			</tr>
-		{% endfor %}
-{% else %}
-	<p>You have <strong>no Order</strong> currently
-	</p>
-</table>
-{% endif %}
+		<!-- Pusher -->
+		<div class="st-container">
 
-<p>Wish to add item(s) to your Cart click <a href="/doreenselly/dashboard/">Home</a></p>
+				<!-- Page Content  -->
+				<div class="st-content" data-spy="scroll" data-target=".navbar-fixed-top">
+
+						<!-- Checkout Section -->
+						<section class="checkout two">
+								<!-- Page Inner  -->
+								<div class="container pagein" style="width:auto;">
+										<!-- Nav Links -->
+										<div class="navlinks">
+												<!-- Navigation -->
+												<nav class="navbar navbar-default" role="navigation">
+														<div class="container">
+																<div class="navbar-header page-scroll">
+																		<a class="navbar-brand page-scroll" href="index.html">
+																		</a>
+																</div>
+
+																<a href="login.html" class="btn green" style="display:none;">Register/Login</a>
+
+																<a href="/doreenselly/logout" class="btn red">Logout</a>
+
+																<ul style="float: left;">
+																		<li class="active">
+																				<a href="/doreenselly/add_inventory">Inventory Manager</a>
+																		</li>
+																		<li>
+																				<a href="/doreenselly/admin_order_view">Order Manager</a>
+																		</li>
+																		<li>
+																				<a href="/doreenselly/admin_profile">My Profile</a>
+																		</li>
+																		<li>
+																				<a href="/doreenselly/admin_user_list_view">Users List</a>
+																		</li>
+																		<li>
+																				<a href="/doreenselly/admin_blog">Blog</a>
+																		</li>
+																		<li>
+																				<a href="/doreenselly/admin_messages">Messages</a>
+																		</li>
+																</ul>
+
+																<!-- /.navbar-collapse -->
+														</div>
+														<!-- /.container -->
+												</nav>
+										</div>
+										<!-- Nav Links -->
+										<div class="pagein_content">
+												<div class="container">
+														<div class="col-md-12">
+																<h1>User <br/> Manager</h1>
+														</div>
+														<div class="col-md-8">
+																<p> </p>
+														</div>
+														<div class="col-md-4">
+																<a href="/doreenselly/add_inventory" class="btn green" style="float:right; margin:0;">Add Inventory Item</a>
+														</div>
+														<div class="col-md-12" style="padding-top:20px;">
+															{% if request.user.signup.country == "KENYA" %}
+															<table width="100%" border="0" class="fixed">
+																	<tr >
+																		<th>S/No</th>
+																		<th>User Name</th>
+																		<th>E-Mail Address</th>
+																		<th>Phone Number</th>
+																		<th>Zip Code</th>
+																		<th>Street</th>
+																		<th>City</th>
+																		<th>State</th>
+																		<th>Country</th>
+																	</tr> 
+																	{% for list in userlist %}
+																		<tr>
+																			<td>{{forloop.counter}}</td>
+																			<td>{{list.username}}</td>
+																			<td>{{list.email}}</td>
+																			<td>{{list.signup.phone_number}}</td>
+																			<td>{{list.signup.zipcode}}</td>
+																			<td>{{list.signup.street}}</td>
+																			<td>{{list.signup.city}}</td>
+																			<td>{{list.signup.state}}</td>
+																			<td>{{list.signup.country}}</td>
+																		</tr>
+																	{% endfor %}
+															</table>
+														{% else %}
+															<p>No <strong>User</strong> is registered!</p>
+														{% endif %}
+														</div>
+												</div>
+										</div>
+										<hr>
+										<!-- Footer -->
+										<footer>
+												<!-- Footer Bottom -->
+												<div class="footer-bottom">
+														<div class="container">
+																<div class="social">
+																		<a href="#">
+																				<i class="fa fa-facebook-square"></i>
+																		</a>
+																		<a href="#">
+																				<i class="fa fa-twitter-square"></i>
+																		</a>
+																		<a href="#">
+																				<i class="fa fa-google-plus-square"></i>
+																		</a>
+																		<a href="#">
+																				<i class="fa fa-linkedin-square"></i>
+																		</a>
+																</div>
+														</div>
+												</div>
+												<!-- Footer Bottom -->
+
+										</footer>
+										<!-- Footer -->
+								</div>
+								<!-- Page Inner  -->
+						</section>
+						<!-- Checkout Section -->
+
+				</div>
+				<!-- Page Content  -->
+
+		</div>
+		<!-- Pusher -->
+
+		<!-- jQuery -->
+		<script src="{% static 'doreenselly/js/jquery.js' %}"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="{% static 'doreenselly/js/bootstrap.min.js' %}"></script>
+
+		<!-- Scrolling Nav JavaScript -->
+		<script src="{% static 'doreenselly/js/jquery.easing.min.js' %}"></script>
+		<script src="{% static 'doreenselly/js/scrolling-nav.js' %}"></script>
+
+		<!-- Slider Script -->
+		<script src="{% static 'doreenselly/js/jquery.bxslider.min.js' %}"></script>
+
+		<!-- Custom Script for Page  -->
+		<script src="js/script.js"></script>
+
+		<!-- Slider Script -->
+		<script>
+				$(document).ready(function () {
+						$('.bxslider').bxSlider({
+								mode: 'fade',
+								auto: true,
+								infiniteLoop: true,
+								touchEnabled: true
+						});
+				});
+		</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- ico -->
+		<link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+		<title>Doreenselly.com - Subtitle goes here</title>
+		{% load staticfiles %}
+
+		<!-- Bootstrap Core CSS -->
+		<link href="{% static 'doreenselly/css/bootstrap.min.css' %}" rel="stylesheet">
+
+		<!-- Custom CSS -->
+		<link href="{% static 'doreenselly/css/homepage.css' %}" rel="stylesheet">
+
+		<!-- Special Font for Icons -->
+		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.css' %} ">
+
+		<!-- Slider Script -->
+		<link href="{% static 'doreenselly/css/jquery.bxslider.css' %}" rel="stylesheet">
+	
+		<!-- Font -->
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+
+		<script src="http://code.jquery.com/jquery-1.5.min.js"></script>
+		<script src="http://cdn.wideskyhosting.com/js/jquery.cycle.js"></script>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+				<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+				<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+<style>
+	.button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+	}
+</style>
+
+
+</head>
+
+<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+
+<body id="page-top">
+
+		<!-- Pusher -->
+		<div class="st-container">
+
+				<!-- Page Content  -->
+				<div class="st-content" data-spy="scroll" data-target=".navbar-fixed-top">
+
+						<!-- Nav Links -->
+						<div class="navlinks">
+								<!-- Navigation -->
+								<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+										<div class="topbar"></div>
+										<div class="container" style="width: auto;">
+												<div class="navbar-header page-scroll">
+														<a class="navbar-brand page-scroll" href="/">
+														</a>
+												</div>
+
+												<a href="/doreenselly/signin/" class="btn green">Register/Login</a>
+
+												<ul>
+														<li>
+																<a class="page-scroll" href="#marketplace_page">Products</a>
+														</li>
+														<li>
+																<a class="page-scroll" href="#about">About Us</a>
+														</li>
+														<li>
+																<a class="page-scroll" href="#challenge">Take The Challenge</a>
+														</li>
+														<li>
+																<a class="page-scroll" href="#success_stories">Success Stories</a>
+														</li>
+														<li>
+																<a class="page-scroll" href="#nutrition">Nutrition</a>
+														</li>
+														<li>
+																<a class="page-scroll" href="/doreenselly/blog">Blog</a>
+														</li>
+														<li>
+																<a class="page-scroll" href="/doreenselly/contact_us">Contact Us</a>
+														</li>
+												</ul>
+
+												<!-- /.navbar-collapse -->
+										</div>
+										<!-- /.container -->
+								</nav>
+						</div>
+						<div class="pagein_content">
+							<div class="container">
+								<div class="col-md-4">
+									<form method ="POST" action="/doreenselly/contact_us/" enctype="multipart/form-data" class="form-horizontal" style="margin-top: 120px;">
+									{% csrf_token %}
+										<p>Contact Name: {{add_contact_form.contact_name}}</p>
+
+										<p>Email:
+										{{add_contact_form.contact_email}}</p>
+
+										<p>Content
+										{{add_contact_form.content}}</p>
+										<br>
+										<button type="submit" class="button">Submit</button>
+									</form>
+								</div>
+							</div>
+						</div>
+
+						<!-- Footer -->
+						<footer>
+								<div class="container info">
+										<div class="col-md-3 links">
+												<h1>Products</h1>
+												<a href="#">Food</a>
+												<a href="#">Clothing Product</a>
+												<a href="#">Leather Goods</a>
+												<a href="#">Art and Craft</a>
+										</div>
+										<div class="col-md-3 links">
+												<h1>Services</h1>
+												<a href="#">FAQ</a>
+												<a href="#">Blog</a>
+												<a href="#">Support</a>
+										</div>
+										<div class="col-md-6">
+												<h1>Our Office</h1>
+												<p>Address: <strong></strong></p>
+												<p>Phone: <strong></strong></p>
+												<p>Email: <a href="#"></a></p>
+										</div>
+								</div>
+								<!-- Footer Bottom -->
+								<div class="footer-bottom">
+										<div class="container">
+												<p></p>
+												<div class="social">
+														<a href="#">
+																<i class="fa fa-facebook-square"></i>
+														</a>
+														<a href="#">
+																<i class="fa fa-twitter-square"></i>
+														</a>
+														<a href="#">
+																<i class="fa fa-google-plus-square"></i>
+														</a>
+														<a href="#">
+																<i class="fa fa-linkedin-square"></i>
+														</a>
+												</div>
+										</div>
+								</div>
+								<!-- Footer Bottom -->
+						</footer>
+						<!-- Footer -->
+
+				</div>
+				<!-- Page Content  -->
+
+		</div>
+		<!-- Pusher -->
+
+
+
+		<!-- jQuery -->
+		<script src="{% static 'doreenselly/js/jquery.js' %}"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="{% static 'doreenselly/js/bootstrap.min.js' %}"></script>
+
+		<!-- Scrolling Nav JavaScript -->
+		<script src="{% static 'doreenselly/js/jquery.easing.min.js' %}"></script>
+		<script src="{% static 'doreenselly/js/scrolling-nav.js' %}"></script>
+
+		<!-- Custom Script for Page  -->
+		<script src="{% static 'doreenselly/js/script.js' %}"></script>
+
+		<!-- Slider Script -->
+		<script src="{% static 'doreenselly/js/jquery.bxslider.min.js' %}"></script>
+<script>
+				$(document).ready(function () {
+						$('.bxslider').bxSlider({
+								mode: 'fade',
+								auto: true,
+								infiniteLoop: true,
+								touchEnabled: true
+						});
+				});
+		</script>
+
+</body>
+
+</html>

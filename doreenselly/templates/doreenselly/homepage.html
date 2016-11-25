@@ -80,6 +80,7 @@
 																<a href="#">Contact</a>
 														</li>
 												</ul>
+												
 
 												<!-- /.navbar-collapse -->
 										</div>
@@ -88,30 +89,30 @@
 						</div>
 						<!-- Nav Links -->
 
-						<section class="product">
+						<!-- <section class="product"> -->
 
 								<!-- Slider -->
-								<div class="slider">
+								<!-- <div class="slider">
 										<ul class="bxslider">
 												<li><img src="{% static 'doreenselly/img/product.png' %}" /></li>
 												<li><img src="{% static 'doreenselly/img/product1.png' %}" /></li>
 										</ul>
-								</div>
+								</div> -->
 								<!-- Slider -->
 
-						</section>
+						<!-- </section> -->
 
-						<section class="two" id="marketplace_page">
+						<section class="two" id="marketplace_page" style="margin-top:100px;">
 
 								<div class="container two">
-										<h2 class="sm">Similar Products:</h2>
+										<!-- <h2 class="sm">Similar Products:</h2> -->
 										<!-- Products Row -->
 										<div class="col-md-12">
 												<!-- Product Item -->
 												
 												{% if request.user.signup.country == "KENYA" %}
 													{% for product in items_from_kenya %}
-													<div class="col-md-4">
+													<div class="col-md-3">
 															<div class="panel">
 																	<div class="img">
 																			<!-- <img src="{% static 'doreenselly/img/product1.jpg' %}" /> -->
@@ -119,7 +120,7 @@
 																	</div>
 																	<div class="content">
 																			<h2>{{product.description}}</h2>
-																			<p> Curabitur hendrerit at nisl ac imperdiet. Nam arcu eros, rhoncus ut justo vitae, venenatis pretium </p>
+																			<p> {{product.details}} </p>
 																	</div>
 																	<div class="bot">
 																			<h3>K{{product.price}}/piece</h3>
@@ -144,7 +145,6 @@
 														<div class="inner col-md-12">
 																<div class="col-md-6">
 																		<h1>Subscribe to our newsletter</h1>
-																		<p> Curabitur hendrerit at nisl ac imperdiet. Aliquam erat volutpat. Nam arcu eros, rhoncus ut justo vitae, venenatis pretium. </p>
 																</div>
 																<div class="col-md-6">
 																		<input type="text" placeholder="Email Address" />
@@ -161,30 +161,28 @@
 								<div class="container info">
 										<div class="col-md-3 links">
 												<h1>Products</h1>
-												<a href="#">Product Category 1</a>
-												<a href="#">Product Category 2</a>
-												<a href="#">Product Category 3</a>
-												<a href="#">Product Category 4</a>
-												<a href="#">Product Category 5</a>
+												<a href="#">Food</a>
+												<a href="#">Clothing Product</a>
+												<a href="#">Leather Goods</a>
+												<a href="#">Art and Craft</a>
 										</div>
 										<div class="col-md-3 links">
 												<h1>Services</h1>
-												<a href="#">Quick Estimate</a>
 												<a href="#">FAQ</a>
 												<a href="#">Blog</a>
 												<a href="#">Support</a>
 										</div>
 										<div class="col-md-6">
 												<h1>Our Office</h1>
-												<p>13 Hughes Avenue Alagomeji, Yaba, Lagos, Nigeria</p>
-												<p>Phone: <strong>+2348099208888</strong></p>
-												<p>Email: <a href="#">info@zaposta.com</a></p>
+												<p>Address: <strong></strong></p>
+												<p>Phone: <strong></strong></p>
+												<p>Email: <a href="#"></a></p>
 										</div>
 								</div>
 								<!-- Footer Bottom -->
 								<div class="footer-bottom">
 										<div class="container">
-												<p>© Circuit Atlantic 2016. All rights Reserved</p>
+												<p></p>
 												<div class="social">
 														<a href="#">
 																<i class="fa fa-facebook-square"></i>

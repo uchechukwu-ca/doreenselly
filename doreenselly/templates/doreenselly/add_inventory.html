@@ -76,7 +76,7 @@
 						<!-- Checkout Section -->
 						<section class="checkout two">
 								<!-- Page Inner  -->
-								<div class="container pagein">
+								<div class="container pagein" style="width:auto;">
 										<!-- Nav Links -->
 										<div class="navlinks">
 												<!-- Navigation -->
@@ -91,7 +91,7 @@
 
 																<a href="/doreenselly/logout" class="btn red">Logout</a>
 
-																<ul>
+																<ul style="float: left;">
 																		<li class="active">
 																				<a href="/doreenselly/add_inventory">Inventory Manager</a>
 																		</li>
@@ -100,6 +100,15 @@
 																		</li>
 																		<li>
 																				<a href="/doreenselly/admin_profile">My Profile</a>
+																		</li>
+																		<li>
+																				<a href="/doreenselly/admin_user_list_view">Users List</a>
+																		</li>
+																		<li>
+																				<a href="/doreenselly/admin_blog">Blog</a>
+																		</li>
+																		<li>
+																				<a href="/doreenselly/admin_messages">Messages</a>
 																		</li>
 																</ul>
 
@@ -115,7 +124,6 @@
 																<h1>Inventory <br/> Manager</h1>
 														</div>
 														<div class="col-md-8">
-																<p> Cras efficitur diam consectetur tincidunt mollis. Mauris vitae lorem elit. Etiam elementum augue vitae odio imperdiet, non accumsan tellus suscipit. Fusce pellentesque imperdiet diam, et rhoncus urna. Cras a turpis felis.</p>
 														</div>
 														<div class="col-md-4">
 																<a href="/doreenselly/add_inventory" class="btn green" style="float:right; margin:0;">Add Inventory Item</a>
@@ -129,7 +137,7 @@
 																						<h2>Add Inventory Item</h2>
 																				</div>
 																				<div class="col-md-12">
-																						<p>Cras efficitur diam consectetur tincidunt mollis. Mauris vitae lorem elit. Etiam elementum augue vitae odio imperdiet, non accumsan tellus suscipit. </p><br/>
+																						<p>Add items to your Inventory list. </p><br/>
 																						{{ add_inventory_form.description }}
 																						{{ add_inventory_form.price }}
 																						{{ add_inventory_form.shipping_weight }}

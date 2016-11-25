@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- ico -->
+		<link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+		<title>Doreenselly.com - Subtitle goes here</title>
+		{% load staticfiles %}
+
+		<!-- Bootstrap Core CSS -->
+		<link href="{% static 'doreenselly/css/bootstrap.min.css' %}" rel="stylesheet">
+
+		<!-- Custom CSS -->
+		<link href="{% static 'doreenselly/css/homepage.css' %}" rel="stylesheet">
+
+		<!-- Special Font for Icons -->
+		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.css' %} ">
+
+		<!-- Font -->
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+				<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+				<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+<style>
+	.button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+	}
+</style>
+
+<style type="text/css">
+	.place {
+		height:45px;
+		width:5cm;
+		border: 1px groove;
+		border-radius: 4px;
+	}
+
+	.place[placeholder] {
+		font-size:14px;
+		color:black;
+	}
+</style>
+</head>
+
+<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+
+<body id="page-top">
+
+		<!-- Pusher -->
+		<div class="st-container">
+
+				<!-- Page Content  -->
+				<div class="st-content" data-spy="scroll" data-target=".navbar-fixed-top">
+
+						<!-- Nav Links -->
+						<div class="navlinks">
+								<!-- Navigation -->
+								<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+										<div class="topbar"></div>
+										<div class="container">
+												<div class="navbar-header page-scroll">
+														<a class="navbar-brand page-scroll" href="/">
+														</a>
+												</div>
+
+												<a href="/doreenselly/signin/" class="btn green">Register/Login</a>
+
+												<ul>
+														<li>
+																<a class="page-scroll" href="#marketplace_page">Products</a>
+														</li>
+														<li>
+																<a class="page-scroll" href="#about">About</a>
+														</li>
+														<li>
+																<a class="page-scroll" href="/doreenselly/blog">Blog</a>
+														</li>
+														<li>
+																<a href="#">Contact</a>
+														</li>
+												</ul>
+
+												<!-- /.navbar-collapse -->
+										</div>
+										<!-- /.container -->
+								</nav>
+						</div>
+						<!-- Nav Links -->
+
+						
+
+						
+										<!-- Products Row -->
+										<section id="blog">
+												<div class="container">
+														<div class="row">
+															{% for product in all_items %}
+																<div class="col-md-12">
+																		<div class="col-md-12 panel">
+																				<div class="img"><img src="{{product.logo.url}}"></div>
+																				<h2>{{product.title}}</h2>
+																				<p>{{product.body}}</p>
+																		</div>
+																</div>
+															{% endfor %}
+														</div>
+												</div>
+										</section>
+										<!-- Products Row -->
+
+						<section id="about">
+								<div class="container">
+										<div class="row">
+												<div class="col-md-12">
+														<h1>About</h1>
+														<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut ligula libero. Nulla auctor ut est vitae fermentum. Proin gravida diam ut dui volutpat sodales. Sed ut aliquet urna. Fusce sed porta tellus, a varius arcu. Duis lobortis diam et enim rutrum laoreet. Aliquam fermentum ullamcorper odio, et condimentum arcu. Quisque porta malesuada ante non pellentesque. Suspendisse et auctor augue. In vitae felis congue, malesuada elit vel, iaculis nisi. Duis ligula erat, commodo eget tortor ut, interdum sagittis arcu. In luctus congue iaculis. Cras pellentesque eget ex non elementum. In ac leo augue. Fusce iaculis mi in sem consectetur, volutpat tincidunt mauris bibendum. Vestibulum sit amet volutpat nulla. Sed in suscipit libero. Sed eget mi malesuada, scelerisque lorem vitae, pulvinar ipsum.</p>
+												</div>
+										</div>
+								</div>
+						</section>
+
+						
+
+						<section id="newsletter">
+								<div class="container">
+										<div class="row">
+												<div class="col-md-12">
+														<div class="inner col-md-12">
+																<div class="col-md-6">
+																		<h1>Subscribe to our newsletter</h1>
+																</div>
+																<div class="col-md-6">
+																		<input type="text" placeholder="Email Address" />
+																		<button class="btn red">Subscribe</button>
+																</div>
+
+														</div>
+												</div>
+										</div>
+								</div>
+						</section>
+						<!-- Footer -->
+						<footer>
+								<div class="container info">
+										<div class="col-md-3 links">
+												<h1>Products</h1>
+												<a href="#">Food</a>
+												<a href="#">Clothing Product</a>
+												<a href="#">Leather Goods</a>
+												<a href="#">Art and Craft</a>
+										</div>
+										<div class="col-md-3 links">
+												<h1>Services</h1>
+												<a href="#">FAQ</a>
+												<a href="#">Blog</a>
+												<a href="#">Support</a>
+										</div>
+										<div class="col-md-6">
+												<h1>Our Office</h1>
+												<p>Address: <strong></strong></p>
+												<p>Phone: <strong></strong></p>
+												<p>Email: <a href="#"></a></p>
+										</div>
+								</div>
+								<!-- Footer Bottom -->
+								<div class="footer-bottom">
+										<div class="container">
+												<p></p>
+												<div class="social">
+														<a href="#">
+																<i class="fa fa-facebook-square"></i>
+														</a>
+														<a href="#">
+																<i class="fa fa-twitter-square"></i>
+														</a>
+														<a href="#">
+																<i class="fa fa-google-plus-square"></i>
+														</a>
+														<a href="#">
+																<i class="fa fa-linkedin-square"></i>
+														</a>
+												</div>
+										</div>
+								</div>
+								<!-- Footer Bottom -->
+						</footer>
+						<!-- Footer -->
+
+				</div>
+				<!-- Page Content  -->
+
+		</div>
+		<!-- Pusher -->
+
+		<!-- jQuery -->
+		<script src="{% static 'doreenselly/js/jquery.js' %}"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="{% static 'doreenselly/js/bootstrap.min.js' %}"></script>
+
+		<!-- Scrolling Nav JavaScript -->
+		<script src="{% static 'doreenselly/js/jquery.easing.min.js' %}"></script>
+		<script src="{% static 'doreenselly/js/scrolling-nav.js' %}"></script>
+
+		<!-- Custom Script for Page  -->
+		<script src="{% static 'doreenselly/js/script.js' %}"></script>
+
+
+</body>
+
+</html>

@@ -67,14 +67,14 @@
 						<!-- Checkout Section -->
 						<section class="checkout two">
 								<!-- Page Inner  -->
-								<div class="container pagein">
+								<div class="container pagein" style="width:auto;">
 										<!-- Nav Links -->
 										<div class="navlinks">
 												<!-- Navigation -->
 												<nav class="navbar navbar-default" role="navigation">
 														<div class="container">
 																<div class="navbar-header page-scroll">
-																		<a class="navbar-brand page-scroll" href="index.html">
+																		<a class="navbar-brand page-scroll" href="/doreenselly/add_inventory/">
 																		</a>
 																</div>
 
@@ -82,7 +82,7 @@
 
 																<a href="/doreenselly/logout" class="btn red">Logout</a>
 
-																<ul>
+																<ul style="float: left;">
 																		<li class="active">
 																				<a href="/doreenselly/add_inventory">Inventory Manager</a>
 																		</li>
@@ -91,6 +91,15 @@
 																		</li>
 																		<li>
 																				<a href="/doreenselly/admin_profile">My Profile</a>
+																		</li>
+																		<li>
+																				<a href="/doreenselly/admin_user_list_view">Users List</a>
+																		</li>
+																		<li>
+																				<a href="/doreenselly/admin_blog">Blog</a>
+																		</li>
+																		<li>
+																				<a href="/doreenselly/admin_messages">Messages</a>
 																		</li>
 																</ul>
 
@@ -106,40 +115,12 @@
 																<h1>Order <br/> Manager</h1>
 														</div>
 														<div class="col-md-8">
-																<p> Cras efficitur diam consectetur tincidunt mollis. Mauris vitae lorem elit. Etiam elementum augue vitae odio imperdiet, non accumsan tellus suscipit. Fusce pellentesque imperdiet diam, et rhoncus urna. Cras a turpis felis.</p>
 														</div>
 														<div class="col-md-4">
 																<a href="/doreenselly/add_inventory" class="btn green" style="float:right; margin:0;">Add Inventory Item</a>
 														</div>
 														<div class="col-md-12" style="padding-top:20px;">
-															{% if request.user.signup.country == "USA" %}
-																<table width="100%" border="0" class="fixed">
-																		<tr>
-																			<th>S/No</th>
-																			<th>Customer</th>
-																			<th>Order Number</th>
-																			<th>Amount to Pay</th>
-																			<th>Location</th>
-																			<th>Payment Status</th>
-																			<th>Shipment Status</th>
-																			<th></th>
-																		</tr>
-																		{% for product in usa_order %}
-																		<tr>
-																			<td>{{forloop.counter}}</td>
-																			<td>{{product.client}}</td>
-																			<td>{{product.order_number}} </td>
-																			<td>{{product.payable}}</td>
-																			<td>{{product.location}}</td>
-																			<td>{{product.payment_status}}</td>
-																			<td>{{product.shipment_status}}</td>
-																			<td>
-																				<a href="#{{product.pk}}" class="manipulate btn btn-info btn-md" item_id="{{product.pk}}">Update</a>
-																			</td>
-																		</tr>
-																		{% endfor %}
-																</table>
-															{% elif request.user.signup.country == "KENYA" %}
+															{% if request.user.signup.country == "KENYA" %}
 																<table width="100%" border="0" class="fixed">
 																		<tr>
 																			<th>S/No</th>
@@ -172,7 +153,7 @@
 														</div>
 												</div>
 										</div>
-										
+										<hr>
 										<!-- Footer -->
 										<footer>
 												<!-- Footer Bottom -->
@@ -207,6 +188,7 @@
 				<!-- Page Content  -->
 
 		</div>
+
 		<!-- Pusher -->
 
 	<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->

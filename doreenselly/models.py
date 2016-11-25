@@ -98,3 +98,18 @@ class Order(models.Model):
 
 	def __str__(self):
 		return self.order_number
+
+
+class Blog(models.Model):
+	title = models.CharField(max_length = 200, verbose_name="Blog Title")
+	body = models.TextField(max_length = 500, verbose_name = "Enter the details of the blog")
+	logo = models.ImageField(verbose_name = "Please add the Image or Logo of the blog", upload_to = "blogsImage")
+	created_on = models.DateTimeField(auto_now_add = True)
+
+
+class ContactUs(models.Model):
+	contact_name = models.CharField(max_length = 200)
+	contact_email = models.CharField(max_length = 200)
+	content = models.TextField(max_length = 500)
+	created_on = models.DateTimeField(auto_now_add = True)
+	

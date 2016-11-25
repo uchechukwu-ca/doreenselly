@@ -25,8 +25,14 @@
 		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.min.css' %}">
 		<link rel="stylesheet" href="{% static 'doreenselly/css/font-awesome.css' %} ">
 
+		<!-- Slider Script -->
+		<link href="{% static 'doreenselly/css/jquery.bxslider.css' %}" rel="stylesheet">
+	
 		<!-- Font -->
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+
+		<script src="http://code.jquery.com/jquery-1.5.min.js"></script>
+		<script src="http://cdn.wideskyhosting.com/js/jquery.cycle.js"></script>
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -49,19 +55,14 @@
 	}
 </style>
 
-<style type="text/css">
-	.place {
-		height:45px;
-		width:5cm;
-		border: 1px groove;
-		border-radius: 4px;
-	}
+<script type="text/javascript">
+	$(function(){
+		$('.slideshow img:gt(0)').hide();
+		setInterval(function(){$('.slideshow :first-child').fadeOut(0000).next('img').fadeIn(4000).end().appendTo('.slideshow');}, 4000);
+	});
+</script>
 
-	.place[placeholder] {
-		font-size:14px;
-		color:black;
-	}
-</style>
+
 </head>
 
 <!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
@@ -79,7 +80,7 @@
 								<!-- Navigation -->
 								<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 										<div class="topbar"></div>
-										<div class="container">
+										<div class="container" style="width: auto;">
 												<div class="navbar-header page-scroll">
 														<a class="navbar-brand page-scroll" href="/">
 														</a>
@@ -92,13 +93,22 @@
 																<a class="page-scroll" href="#marketplace_page">Products</a>
 														</li>
 														<li>
-																<a class="page-scroll" href="#about">About</a>
+																<a class="page-scroll" href="#about">About Us</a>
 														</li>
 														<li>
-																<a class="page-scroll" href="#blog">Blog</a>
+																<a class="page-scroll" href="#challenge">Take The Challenge</a>
 														</li>
 														<li>
-																<a href="#">Contact</a>
+																<a class="page-scroll" href="#success_stories">Success Stories</a>
+														</li>
+														<li>
+																<a class="page-scroll" href="#nutrition">Nutrition</a>
+														</li>
+														<li>
+																<a class="page-scroll" href="/doreenselly/blog">Blog</a>
+														</li>
+														<li>
+																<a class="page-scroll" href="/doreenselly/contact_us">Contact Us</a>
 														</li>
 												</ul>
 
@@ -108,15 +118,21 @@
 								</nav>
 						</div>
 						<!-- Nav Links -->
+					<section id="mainhero">
+						<div class="slider">
+							<ul class="bxslider">
+								<li><img src="{% static 'doreenselly/img/1.jpg' %}"></li>
+								<li><img src="{% static 'doreenselly/img/2.jpg' %}"></li>
+								<li><img src="{% static 'doreenselly/img/3.jpg' %}"></li>
+								<li><img src="{% static 'doreenselly/img/4.jpg' %}"></li>
+								<li><img src="{% static 'doreenselly/img/5.jpg' %}"></li>
+								<li><img src="{% static 'doreenselly/img/6.jpg' %}"></li>
+								<li><img src="{% static 'doreenselly/img/7.jpg' %}"></li>
+							</ul>
+						</div>
+					</section>
 
-						<section id="mainhero">
-								<div class="product_img">
-										<img src="{% static 'doreenselly/img/product.png' %}" />
-								</div>
-								<div class="container product_txt">
-										
-								</div>
-						</section>
+					</div>
 
 						<section id="marketplace_page">
 							<form method="POST" action="/doreenselly/item_search/">
@@ -159,7 +175,7 @@
 																	</div>
 																	<div class="content">
 																			<h2>{{product.description}}</h2>
-																			<p> Curabitur hendrerit at nisl ac imperdiet. Nam arcu eros, rhoncus ut justo vitae, venenatis pretium </p>
+																			<p> {{product.details}} </p>
 																	</div>
 																	<div class="bot">
 																			<h3>K{{product.price}}/piece</h3>
@@ -189,20 +205,17 @@
 												<div class="col-md-12">
 														<h1>Blog</h1>
 												</div>
+												
 												<div class="col-md-12">
-														<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut ligula libero. Nulla auctor ut est vitae fermentum. Proin gravida diam ut dui volutpat sodales. Sed ut aliquet urna. Fusce sed porta tellus, a varius arcu. Duis lobortis diam et enim rutrum laoreet. Aliquam fermentum ullamcorper odio, et condimentum arcu.</p>
-												</div>
-												<div class="col-md-12">
-														<a href="#" class="col-md-12 panel">
-																<div class="img"></div>
-																<h2>Blog post title goes here</h2>
-																<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum lorem sit amet sapien vehicula congue. Nam auctor vehicula justo a consectetur. Sed mi leo, eleifend eu dui quis, commodo vestibulum sem. Mauris tempor sem ex, vitae consectetur purus placerat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. </p>
-														</a>
-														<a href="#" class="col-md-12 panel">
-																<div class="img"></div>
-																<h2>Blog post title goes here</h2>
-																<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum lorem sit amet sapien vehicula congue. Nam auctor vehicula justo a consectetur. Sed mi leo, eleifend eu dui quis, commodo vestibulum sem. Mauris tempor sem ex, vitae consectetur purus placerat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. </p>
-														</a>
+														{% for product in posts %}
+																<div class="col-md-12">
+																		<a href="/doreenselly/blog/" class="col-md-12 panel">
+																				<div class="img"><img src="{{product.logo.url}}"></div>
+																				<h2>{{product.title}}</h2>
+																				<p>{{product.body}}</p>
+																		</a>
+																</div>
+															{% endfor %}
 												</div>
 										</div>
 								</div>
@@ -215,7 +228,6 @@
 														<div class="inner col-md-12">
 																<div class="col-md-6">
 																		<h1>Subscribe to our newsletter</h1>
-																		<p> Curabitur hendrerit at nisl ac imperdiet. Aliquam erat volutpat. Nam arcu eros, rhoncus ut justo vitae, venenatis pretium. </p>
 																</div>
 																<div class="col-md-6">
 																		<input type="text" placeholder="Email Address" />
@@ -232,30 +244,28 @@
 								<div class="container info">
 										<div class="col-md-3 links">
 												<h1>Products</h1>
-												<a href="#">Product Category 1</a>
-												<a href="#">Product Category 2</a>
-												<a href="#">Product Category 3</a>
-												<a href="#">Product Category 4</a>
-												<a href="#">Product Category 5</a>
+												<a href="#">Food</a>
+												<a href="#">Clothing Product</a>
+												<a href="#">Leather Goods</a>
+												<a href="#">Art and Craft</a>
 										</div>
 										<div class="col-md-3 links">
 												<h1>Services</h1>
-												<a href="#">Quick Estimate</a>
 												<a href="#">FAQ</a>
 												<a href="#">Blog</a>
 												<a href="#">Support</a>
 										</div>
 										<div class="col-md-6">
 												<h1>Our Office</h1>
-												<p>13 Hughes Avenue Alagomeji, Yaba, Lagos, Nigeria</p>
-												<p>Phone: <strong>+2348099208888</strong></p>
-												<p>Email: <a href="#">info@zaposta.com</a></p>
+												<p>Address: <strong></strong></p>
+												<p>Phone: <strong></strong></p>
+												<p>Email: <a href="#"></a></p>
 										</div>
 								</div>
 								<!-- Footer Bottom -->
 								<div class="footer-bottom">
 										<div class="container">
-												<p>© Circuit Atlantic 2016. All rights Reserved</p>
+												<p></p>
 												<div class="social">
 														<a href="#">
 																<i class="fa fa-facebook-square"></i>
@@ -282,6 +292,8 @@
 		</div>
 		<!-- Pusher -->
 
+
+
 		<!-- jQuery -->
 		<script src="{% static 'doreenselly/js/jquery.js' %}"></script>
 
@@ -295,6 +307,18 @@
 		<!-- Custom Script for Page  -->
 		<script src="{% static 'doreenselly/js/script.js' %}"></script>
 
+		<!-- Slider Script -->
+		<script src="{% static 'doreenselly/js/jquery.bxslider.min.js' %}"></script>
+<script>
+				$(document).ready(function () {
+						$('.bxslider').bxSlider({
+								mode: 'fade',
+								auto: true,
+								infiniteLoop: true,
+								touchEnabled: true
+						});
+				});
+		</script>
 
 </body>
 

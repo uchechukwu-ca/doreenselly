@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
-from doreenselly.models import CATEGORIES, Signup, AddInventory, ITEM_CATEGORIES
+from doreenselly.models import CATEGORIES, Signup, AddInventory, ITEM_CATEGORIES, Blog, ContactUs
 
 
 class UserForm(forms.ModelForm):
@@ -28,6 +28,7 @@ class SignupForm(forms.ModelForm):
 		model = Signup
 		fields = ('country',)
 
+
 class AddInventoryForm(forms.ModelForm):
 	docfile = forms.FileField( help_text='max. 42 megabytes', required = True)
 	description = forms.CharField( help_text = "Description", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Description', 'required':'required'}))
@@ -40,3 +41,23 @@ class AddInventoryForm(forms.ModelForm):
 	class Meta:
 		model = AddInventory
 		fields = ('docfile', 'description', 'price', 'shipping_weight', 'quantity', 'details', 'category')
+
+
+class BlogForm(forms.ModelForm):
+	logo = forms.ImageField( help_text='max. 42 megabytes', required = True)
+	title = forms.CharField( help_text = "Title", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Title', 'required':'required'}))
+	body = forms.CharField(help_text="Body", widget=forms.Textarea(attrs={'class':'form-control', 'placeholder':'Body','required':'required'}))
+
+	class Meta:
+		model = Blog
+		fields = ('logo', 'title', 'body')
+
+
+class ContactUsForm(forms.ModelForm):
+	contact_name = forms.CharField(help_text = "Contact Name", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'John Martins', 'required':'required'}))
+	contact_email = forms.EmailField(help_text = "Contact Email Address", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'j_martins@example.com', 'required':'required'}))
+	content = forms.CharField(help_text = "Content", widget=forms.Textarea(attrs={'class':'form-control', 'placeholder':'What do you want to say?','required':'required'}))
+
+	class Meta:
+		model = ContactUs
+		fields = ('contact_name', 'contact_email', 'content')

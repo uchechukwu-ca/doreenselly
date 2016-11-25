@@ -27,6 +27,8 @@ urlpatterns = [
 	url(r'^doreenselly/', include('doreenselly.urls')),
 	url(r'^delete_item/(?P<item_id>[-\w]+)/$', views.delete_item, name='delete_item'),
 	url(r'^admin_delete_item/(?P<item_id>[-\w]+)/$', views.admin_delete_item, name='admin_delete_item'),
+	url(r'^admin_delete_message/(?P<item_id>[-\w]+)/$', views.admin_delete_message, name='admin_delete_message'),
+	url(r'^admin_delete_blog/(?P<item_id>[-\w]+)/$', views.admin_delete_blog, name='admin_delete_blog'),
 
 	# Password reset urls
 	url(r'^reset/form/$', TemplateView.as_view(template_name = 'registration/password_reset_email.html')),

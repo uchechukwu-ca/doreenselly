@@ -30,6 +30,11 @@ urlpatterns = [
 	url(r'^admin_profile/$', views.admin_profile, name='admin_profile'),
 	url(r'^admin_user_list_view/$', views.admin_user_list_view, name='admin_user_list_view'),
 	url(r'^item_search/$', views.item_search, name='item_search'),
+	url(r'^admin_blog/$', views.admin_blog, name='admin_blog'),
+	url(r'^admin_edit_blog/$', views.admin_edit_blog, name='admin_edit_blog'),
+	url(r'^blog/$', views.blog, name='blog'),
+	url(r'^contact_us/$', views.contact_us, name='contact_us'),
+	url(r'^admin_messages/$', views.admin_messages, name='admin_messages'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
